@@ -54,6 +54,8 @@ int core0_main(void)
     clock_init(); // 获取时钟频率<务必保留>
     debug_init(); // 初始化默认调试串口
     // 此处编写用户代码 例如外设初始化代码等
+
+    // 硬件初始化
     mt9v03x_init();
     ips200_init(IPS200_TYPE_PARALLEL8);
 
@@ -93,12 +95,12 @@ int core0_main(void)
                 break;
             case '2':
                 duty += 10;
-                //wireless_uart_send_number(duty);
+                wireless_uart_send_number(duty);
                 wireless_uart_send_string("\r\n");
                 break;
             case '3':
                 duty -= 10;
-                //wireless_uart_send_number(duty);
+                wireless_uart_send_number(duty);
                 wireless_uart_send_string("\r\n");
                 break;
 
