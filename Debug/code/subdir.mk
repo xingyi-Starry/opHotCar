@@ -6,6 +6,7 @@
 C_SRCS += \
 ../code/opHot_basic_function.c \
 ../code/opHot_image_processing.c \
+../code/opHot_image_show.c \
 ../code/opHot_motor.c \
 ../code/opHot_pid.c \
 ../code/opHot_steer.c 
@@ -13,6 +14,7 @@ C_SRCS += \
 COMPILED_SRCS += \
 ./code/opHot_basic_function.src \
 ./code/opHot_image_processing.src \
+./code/opHot_image_show.src \
 ./code/opHot_motor.src \
 ./code/opHot_pid.src \
 ./code/opHot_steer.src 
@@ -20,6 +22,7 @@ COMPILED_SRCS += \
 C_DEPS += \
 ./code/opHot_basic_function.d \
 ./code/opHot_image_processing.d \
+./code/opHot_image_show.d \
 ./code/opHot_motor.d \
 ./code/opHot_pid.d \
 ./code/opHot_steer.d 
@@ -27,6 +30,7 @@ C_DEPS += \
 OBJS += \
 ./code/opHot_basic_function.o \
 ./code/opHot_image_processing.o \
+./code/opHot_image_show.o \
 ./code/opHot_motor.o \
 ./code/opHot_pid.o \
 ./code/opHot_steer.o 
@@ -52,7 +56,7 @@ code/%.o: ./code/%.src code/subdir.mk
 clean: clean-code
 
 clean-code:
-	-$(RM) ./code/opHot_basic_function.d ./code/opHot_basic_function.o ./code/opHot_basic_function.src ./code/opHot_image_processing.d ./code/opHot_image_processing.o ./code/opHot_image_processing.src ./code/opHot_motor.d ./code/opHot_motor.o ./code/opHot_motor.src ./code/opHot_pid.d ./code/opHot_pid.o ./code/opHot_pid.src ./code/opHot_steer.d ./code/opHot_steer.o ./code/opHot_steer.src
+	-$(RM) ./code/opHot_basic_function.d ./code/opHot_basic_function.o ./code/opHot_basic_function.src ./code/opHot_image_processing.d ./code/opHot_image_processing.o ./code/opHot_image_processing.src ./code/opHot_image_show.d ./code/opHot_image_show.o ./code/opHot_image_show.src ./code/opHot_motor.d ./code/opHot_motor.o ./code/opHot_motor.src ./code/opHot_pid.d ./code/opHot_pid.o ./code/opHot_pid.src ./code/opHot_steer.d ./code/opHot_steer.o ./code/opHot_steer.src
 
 .PHONY: clean-code
 

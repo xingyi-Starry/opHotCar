@@ -88,6 +88,9 @@ uint8 Image_rptsLeftsNum;                          // 等距采样后的左边线长度
 uint8 Image_rptsRightsNum;                         // 等距采样后的右边线长度
 uint8 Image_rptsLeftsNum_Bak;                      // 等距采样后的左边线长度    - 备份
 uint8 Image_rptsRightsNum_Bak;                     // 等距采样后的右边线长度    - 备份
+
+uint8 Lboundary_trans[2][IMAGE_LINE_MAX_NUM];       //图传左边线
+uint8 Rboundary_trans[2][IMAGE_LINE_MAX_NUM];       //图传右边线
 //------------------------------
 // 边线局部角度变化率相关
 const float Image_angleDist = 0.1;          // 计算边线转角时,三个计算点的距离
@@ -777,8 +780,8 @@ void Image_Process(uint8* image) {
     //Image_rptsRightNum = Image_iptsRightNum;
     //没有变换表，先不变换了，兼容一下
     for (uint8 i = 0; i < Image_iptsLeftNum; ++i) {
-        Image_rptsLeft[i][0] = Image_iptsLeft[i][0];
-        Image_rptsLeft[i][1] = Image_iptsLeft[i][1];
+        Lboundary_trans[0][i] = Image_rptsLeft[i][0] = Image_iptsLeft[i][0];
+        Rboundary_trans[1][i] = Image_rptsLeft[i][1] = Image_iptsLeft[i][1];
     }
     Image_rptsLeftNum = Image_iptsLeftNum;
 

@@ -46,6 +46,7 @@ uint16 x = 9;
 uint16 y = 9;
 uint32 duty = 750;
 
+uint8 ImageInit_flag = 0;
 uint8 image_bak[MT9V03X_H][MT9V03X_W];
 uint8 data_buffer[32];
 uint8 data_len;
@@ -72,17 +73,30 @@ int core0_main(void)
     // 软件初始化
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak[0], MT9V03X_W, MT9V03X_H);
+    
 
     ips200_set_dir(IPS200_CROSSWISE);
     ips200_set_font(IPS200_8X16_FONT);
     ips200_set_color(RGB565_BLACK, RGB565_GREEN);
     ips200_full(RGB565_GREEN);
-
     // 此处编写用户代码 例如外设初始化代码等
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
 
     while (TRUE)
     {
+        while (!ImageInit_flag)
+        {
+            data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
+            if (data_len != 0)
+            {
+                if (data_buffer[0] == 's')
+                {
+                    ImageInit_flag = 1;
+                    Image_Init();
+                    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 40, Lboundary_trans[0], Rboundary_trans[0], NULL, Lboundary_trans[1], Rboundary_trans[1], NULL);
+                }
+            }
+        }
         // 此处编写需要循环执行的代码
         // ips200_show_gray_image(30, 29, mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
@@ -122,16 +136,15 @@ int core0_main(void)
         ips200_show_int(20, 20, encoder_get_count(TIM6_ENCODER), 10);
 
 
-        if(mt9v03x_finish_flag)
-        {
-            mt9v03x_finish_flag = 0;
-
-            // 在发送前将图像备份再进行发送，这样可以避免图像出现撕裂的问题
-            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
-
-            // 发送图像
-            seekfree_assistant_camera_send();
-        }
+//        if(mt9v03x_finish_flag)
+//        {
+//            mt9v03x_finish_flag = 0;
+//
+//            // 在发送前将图像备份再进行发送，这样可以避免图像出现撕裂的问题
+//            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+//            // 发送图像
+//            seekfree_assistant_camera_send();
+//        }
         // 此处编写需要循环执行的代码
     }
 }
