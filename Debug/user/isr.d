@@ -316,3 +316,25 @@ user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assi
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
+d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_motor.h
+d:/opHotCar_Learning/opHotCar/code/opHot_motor.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_pid.h
+d:/opHotCar_Learning/opHotCar/code/opHot_pid.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_steer.h
+d:/opHotCar_Learning/opHotCar/code/opHot_steer.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h
+d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h
+d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :

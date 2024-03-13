@@ -11,6 +11,7 @@
 #include "opHot_motor.h"
 #include "opHot_pid.h"
 #include "opHot_steer.h"
+#include "opHot_image_processing.h"
 
 #define KEY1                    (P20_6)
 #define KEY2                    (P20_7)

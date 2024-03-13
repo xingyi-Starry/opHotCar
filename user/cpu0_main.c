@@ -65,6 +65,10 @@ int core0_main(void)
     encoder_dir_init(TIM6_ENCODER, TIM6_ENCODER_CH1_P20_3, TIM6_ENCODER_CH2_P20_0);
     Steer_Init();
 
+    // 定时中断初始化
+    // cc61(cpu1) 图像处理
+    pit_ms_init(CCU61_CH0, 10);
+
     // 软件初始化
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak[0], MT9V03X_W, MT9V03X_H);
@@ -112,7 +116,9 @@ int core0_main(void)
         }
         
         Steer_SetDuty(duty);
-        ips200_show_uint(20, 80, duty, 10);
+        memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+        ips200_show_gray_image(50, 50, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
+        ips200_show_uint(20, 80, duty, 3);
         ips200_show_int(20, 20, encoder_get_count(TIM6_ENCODER), 10);
 
 

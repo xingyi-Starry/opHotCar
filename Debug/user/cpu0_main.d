@@ -328,3 +328,11 @@ user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_steer.h
 d:/opHotCar_Learning/opHotCar/code/opHot_steer.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h
+d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h
+d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
