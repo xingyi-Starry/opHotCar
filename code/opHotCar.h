@@ -12,6 +12,10 @@
 #include "opHot_pid.h"
 #include "opHot_steer.h"
 #include "opHot_image_processing.h"
+#include "opHot_image_show.h"
+
+#define LED1                    (P20_9)
+#define LED2                    (P20_8)
 
 #define KEY1                    (P20_6)
 #define KEY2                    (P20_7)

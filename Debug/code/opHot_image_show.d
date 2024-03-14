@@ -338,5 +338,5 @@ code/opHot_image_show.o :	../code/opHot_basic_function.h
 ../code/opHot_basic_function.h :
 code/opHot_image_show.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
-code/opHot_image_show.o :	../code/opHotCar.h
-../code/opHotCar.h :
+code/opHot_image_show.o :	../code/opHot_image_show.h
+../code/opHot_image_show.h :

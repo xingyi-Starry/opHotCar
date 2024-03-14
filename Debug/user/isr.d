@@ -338,3 +338,9 @@ user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h
 d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h
+d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
+d:/opHotCar_Learning/opHotCar/code/opHotCar.h :

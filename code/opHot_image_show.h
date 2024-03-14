@@ -4,4 +4,6 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
+void Image_ShowLine(uint8 x, uint8 y);
+
 #endif
