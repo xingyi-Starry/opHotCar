@@ -160,6 +160,8 @@ void    seekfree_assistant_camera_boundary_config               (seekfree_assist
 void    seekfree_assistant_camera_send                          (void);
 void    seekfree_assistant_data_analysis                        (void);
 
+void sf_ass_OnlyLine(void);
+
 
 
 #endif

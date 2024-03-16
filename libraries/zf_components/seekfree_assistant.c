@@ -383,6 +383,15 @@ void seekfree_assistant_camera_send (void)
     }
 }
 
+/**
+ * @brief 只发送边界
+ * 
+ */
+void sf_ass_OnlyLine(void)
+{
+    seekfree_assistant_camera_dot_send(&seekfree_assistant_camera_buffer);
+}
+
 
 //-------------------------------------------------------------------------------------------------------------------
 // 函数简介     逐飞助手解析接收到的数据

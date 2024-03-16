@@ -69,7 +69,7 @@ int core0_main(void)
 
     // 软件初始化
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
-    seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak[0], MT9V03X_W, MT9V03X_H);
+    //seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak[0], MT9V03X_W, MT9V03X_H);
 
     ips200_set_dir(IPS200_CROSSWISE);
     ips200_set_font(IPS200_8X16_FONT);
@@ -78,9 +78,9 @@ int core0_main(void)
     // 此处编写用户代码 例如外设初始化代码等
     // 定时中断初始化
     // cc61(cpu1) 图像处理
-    gpio_init(LED1, GPO, GPIO_LOW,  GPO_PUSH_PULL);                             // 初始化 LED1 输出 默认低电平 推挽输出模式
-    gpio_init(LED2, GPO, GPIO_HIGH, GPO_PUSH_PULL);                             // 初始化 LED2 输出 默认高电平 推挽输出模式
-    pit_ms_init(CCU60_CH0, 500);
+    gpio_init(LED1, GPO, GPIO_LOW, GPO_PUSH_PULL);  // 初始化 LED1 输出 默认低电平 推挽输出模式
+    gpio_init(LED2, GPO, GPIO_HIGH, GPO_PUSH_PULL); // 初始化 LED2 输出 默认高电平 推挽输出模式
+    // pit_ms_init(CCU60_CH0, 500);
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
 
     while (TRUE)
@@ -94,17 +94,17 @@ int core0_main(void)
                 {
                     ImageInit_flag = 1;
                     Image_Init();
-                    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 40, Lboundary_trans[0], Rboundary_trans[0], NULL, Lboundary_trans[1], Rboundary_trans[1], NULL);
+                    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 40, LeftLine_show[0], RightLine_show[0], NULL, LeftLine_show[1], RightLine_show[1], NULL);
                     // pit_ms_init(CCU61_CH0, 10);
                 }
             }
         }
         // 此处编写需要循环执行的代码
-        if(pit_state)
+        if (pit_state)
         {
             gpio_toggle_level(LED1);
             gpio_toggle_level(LED2);
-            pit_state = 0;                                                      // 清空周期中断触发标志位
+            pit_state = 0; // 清空周期中断触发标志位
         }
         // ips200_show_gray_image(30, 29, mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
@@ -137,19 +137,25 @@ int core0_main(void)
             memset(data_buffer, 0, 32);
         }
 
-//        if (mt9v03x_finish_flag == 1)
-//        {
-//            Image_Process(mt9v03x_image[0]);
-//        }
+        //        if (mt9v03x_finish_flag == 1)
+        //        {
+        //            Image_Process(mt9v03x_image[0]);
+        //        }
         Steer_SetDuty(duty);
         memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
         ips200_show_gray_image(50, 50, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
+        if (mt9v03x_finish_flag == 1)
+        {
+            Image_Process(mt9v03x_image[0]);
+        }
         Image_ShowLine(50, 50);
         ips200_show_uint(5, 5, Image_threSum, 3);
         ips200_show_uint(5, 21, Image_iptsLeftNum, 3);
         ips200_show_uint(5, 37, Image_iptsRightNum, 3);
         ips200_show_uint(5, 53, Image_rptsLeftsNum, 3);
         ips200_show_uint(5, 69, Image_rptsRightsNum, 3);
+
+        sf_ass_OnlyLine();
         //        if(mt9v03x_finish_flag)
         //        {
         //            mt9v03x_finish_flag = 0;

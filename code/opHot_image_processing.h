@@ -55,8 +55,10 @@ extern uint8 Image_rptsRights[90][2];          //等距采样后的右边线坐标存储
 extern uint8 Image_rptsLeftsNum;               //等距采样后的左边线长度
 extern uint8 Image_rptsRightsNum;              //等距采样后的右边线长度
 
-extern uint8 Lboundary_trans[2][IMAGE_LINE_MAX_NUM];       //图传左边线
-extern uint8 Rboundary_trans[2][IMAGE_LINE_MAX_NUM];       //图传右边线
+extern uint8 LeftLine_raw_show[2][IMAGE_LINE_MAX_NUM];         //图传原始左边线
+extern uint8 RightLine_raw_show[2][IMAGE_LINE_MAX_NUM];        //图传原始右边线
+extern uint8 LeftLine_show[2][IMAGE_LINE_MAX_NUM];             //图传左边线
+extern uint8 RightLine_show[2][IMAGE_LINE_MAX_NUM];            //图传右边线
 //------------------------------
 //边线局部角度变化率相关
 extern const float Image_angleDist;             //计算边线转角时,三个计算点的距离
