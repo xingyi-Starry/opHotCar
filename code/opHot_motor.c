@@ -6,6 +6,9 @@
  */
 #include "opHot_motor.h"
 
+PID Motor1_PID;
+PID Motor2_PID;
+
 /**
  * @brief   电机引脚初始化
  *
@@ -60,4 +63,92 @@ void Motor_SetSpeed(MOTOR_PWM_enum motor, int16 speed)
             pwm_set_duty(MOTOR_2_PWM, speed);
         }
     }
+}
+
+void Motor_PID_Init(void)
+{
+    PID_Init(&Motor1_PID);
+    PID_Init(&Motor2_PID);
+}
+
+void Motor1_PID_Set(float K_p_set, float K_i_set, float K_d_set, float pLimit, float coLimit, float boost)
+{
+    PID_SetParameter(&Motor1_PID, K_p_set, K_i_set, K_d_set, pLimit, coLimit, boost);
+}
+void Motor2_PID_Set(float K_p_set, float K_i_set, float K_d_set, float pLimit, float coLimit, float boost)
+{
+    PID_SetParameter(&Motor2_PID, K_p_set, K_i_set, K_d_set, pLimit, coLimit, boost);
+}
+
+void Motor1_SetPIDP(float setP)
+{
+    Motor1_PID.kP = setP;
+}
+
+void Motor1_SetPIDI(float setI)
+{
+    Motor1_PID.kI = setI;
+}
+
+void Motor1_SetPIDD(float setD)
+{
+
+    Motor1_PID.kD = setD;
+}
+
+// 设置积分限制
+void Motor1_SetPIDLimit(float pLimit)
+{
+    Motor1_PID.sumLimit = pLimit;
+}
+
+// 设置修正限幅
+void Motor1_SetPIDCoLimit(float coLimt)
+{
+    Motor1_PID.utLimit = coLimt;
+}
+
+void Motor2_SetPIDP(float setP)
+{
+
+    Motor2_PID.kP = setP;
+}
+
+void Motor2_SetPIDI(float setI)
+{
+    Motor2_PID.kI = setI;
+}
+
+void Motor2_SetPIDD(float setD)
+{
+    Motor2_PID.kD = setD;
+}
+void Motor_pidClear()
+{
+    Motor1_PID.ut = 0.0;
+    Motor2_PID.ut = 0.0;
+}
+
+// 设置积分限制
+void Motor2_SetPIDLimit(float pLimit)
+{
+    Motor2_PID.sumLimit = pLimit;
+}
+
+// 设置修正限幅
+void Motor2_SetPIDCoLimit(float coLimt)
+{
+    Motor2_PID.utLimit = coLimt;
+}
+
+void Motor1_PIDwork(float target)
+{
+    PID_PostionalPID(&Motor1_PID, target, Encoder_1Data);
+    Motor_SetSpeed(MOTOR_1, (int16)Motor1_PID.ut);
+}
+
+void Motor2_PIDwork(float target)
+{
+    PID_PostionalPID(&Motor2_PID, target, Encoder_2Data);
+    Motor_SetSpeed(MOTOR_2, (int16)Motor2_PID.ut);
 }

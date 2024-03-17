@@ -194,15 +194,11 @@ libraries/zf_device/zf_device_scc8660.o :	d:/opHotCar_Learning/opHotCar/librarie
 d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Service/CpuGeneric/StdIf/IfxStdIf_DPipe.h :
 libraries/zf_device/zf_device_scc8660.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Service/CpuGeneric/StdIf/IfxStdIf.h
 d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Service/CpuGeneric/StdIf/IfxStdIf.h :
-libraries/zf_device/zf_device_scc8660.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_soft_iic.h
-d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_soft_iic.h :
 libraries/zf_device/zf_device_scc8660.o :	../libraries/zf_device/zf_device_camera.h
 ../libraries/zf_device/zf_device_camera.h :
 libraries/zf_device/zf_device_scc8660.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_uart.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_uart.h :
 libraries/zf_device/zf_device_scc8660.o :	../libraries/zf_device/zf_device_type.h
 ../libraries/zf_device/zf_device_type.h :
-libraries/zf_device/zf_device_scc8660.o :	../libraries/zf_device/zf_device_config.h
-../libraries/zf_device/zf_device_config.h :
 libraries/zf_device/zf_device_scc8660.o :	../libraries/zf_device/zf_device_scc8660.h
 ../libraries/zf_device/zf_device_scc8660.h :

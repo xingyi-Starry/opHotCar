@@ -24,7 +24,7 @@
 * 文件名称          zf_device_camera
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -115,7 +115,7 @@ void camera_fifo_init (void)
 // @return      void
 // Sample usage:                camera_init();
 //-------------------------------------------------------------------------------------------------------------------
-uint8 camera_init (uint8 *source_addr, uint8 *destination_addr, uint32 image_size)
+uint8 camera_init (uint8 *source_addr, uint8 *destination_addr, uint16 image_size)
 {
     uint8 num;
     uint8 link_list_num;

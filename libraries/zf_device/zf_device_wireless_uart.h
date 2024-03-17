@@ -24,7 +24,7 @@
 * 文件名称          zf_device_wireless_uart
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -61,11 +61,11 @@
 // 注意事项2：开启自动波特率务必连接RTS引脚 否则会开启失败。
 // 注意事项3：模块自动波特率失败的话 可以尝试断电重启
 
-// 开启自动波特率务必阅读上面三条 注意事项
-// 开启自动波特率务必阅读上面三条 注意事项
-// 开启自动波特率务必阅读上面三条 注意事项
+// 开启自动波特率务必阅读上面两条 注意事项
+// 开启自动波特率务必阅读上面两条 注意事项
+// 开启自动波特率务必阅读上面两条 注意事项
 
-// 0：关闭自动波特率
+// 0：关闭自动波特率  
 // 1：开启自动波特率 自动波特率的作用是修改 WIRELESS_UART_BAUD 之后不需要对模块进行配置 模块会自动设置为对应的波特率
 
 #define WIRELESS_UART_AUTO_BAUD_RATE    ( 1 )
@@ -89,7 +89,6 @@ typedef enum
 uint32      wireless_uart_send_byte         (const uint8 data);
 uint32      wireless_uart_send_buffer      (const uint8 *buff, uint32 len);
 uint32      wireless_uart_send_string       (const char *str);
-void        wireless_uart_send_number       (uint32 num);
 void        wireless_uart_send_image        (const uint8 *image_addr, uint32 image_size);
 
 uint32      wireless_uart_read_buffer       (uint8 *buff, uint32 len);

@@ -24,7 +24,7 @@
 * 文件名称          zf_driver_uart
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -125,7 +125,6 @@ uint8   uart_query_byte                     (uart_index_enum uartn, uint8 *dat);
 void    uart_tx_interrupt                   (uart_index_enum uartn, uint32 status);
 void    uart_rx_interrupt                   (uart_index_enum uartn, uint32 status);
 
-void    uart_sbus_init                      (uart_index_enum uartn, uint32 baud, uart_tx_pin_enum tx_pin, uart_rx_pin_enum rx_pin);
 void    uart_init                           (uart_index_enum uartn, uint32 baud, uart_tx_pin_enum tx_pin, uart_rx_pin_enum rx_pin);
 //====================================================串口 基础函数====================================================
 

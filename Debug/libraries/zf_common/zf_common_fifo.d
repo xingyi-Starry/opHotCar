@@ -1,7 +1,7 @@
 libraries/zf_common/zf_common_fifo.o :	../libraries/zf_common/zf_common_fifo.c
 ../libraries/zf_common/zf_common_fifo.c :
-libraries/zf_common/zf_common_fifo.o :	../libraries/zf_common/zf_common_debug.h
-../libraries/zf_common/zf_common_debug.h :
+libraries/zf_common/zf_common_fifo.o :	../libraries/zf_common/zf_common_fifo.h
+../libraries/zf_common/zf_common_fifo.h :
 libraries/zf_common/zf_common_fifo.o :	../libraries/zf_common/zf_common_typedef.h
 ../libraries/zf_common/zf_common_typedef.h :
 libraries/zf_common/zf_common_fifo.o :	c:/Infineon/AURIX-Studio-1.9.12/tools/Compilers/Tasking_1.1r8/ctc/include/math.h
@@ -34,7 +34,3 @@ libraries/zf_common/zf_common_fifo.o :	d:/opHotCar_Learning/opHotCar/libraries/i
 d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_TypesTasking.h :
 libraries/zf_common/zf_common_fifo.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/PLATFORM_TYPES.H
 d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/PLATFORM_TYPES.H :
-libraries/zf_common/zf_common_fifo.o :	../libraries/zf_common/zf_common_interrupt.h
-../libraries/zf_common/zf_common_interrupt.h :
-libraries/zf_common/zf_common_fifo.o :	../libraries/zf_common/zf_common_fifo.h
-../libraries/zf_common/zf_common_fifo.h :

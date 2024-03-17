@@ -262,8 +262,8 @@ user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_a
 d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_absolute_encoder.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_bluetooth_ch9141.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_bluetooth_ch9141.h :
-user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_gnss.h
-d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_gnss.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_gps_tau1201.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_gps_tau1201.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_camera.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_camera.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_uart.h
@@ -300,8 +300,6 @@ user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_t
 d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_tft180.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_tsl1401.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_tsl1401.h :
-user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_uart_receiver.h
-d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_uart_receiver.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_virtual_oscilloscope.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_virtual_oscilloscope.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_device/zf_device_wifi_uart.h
@@ -316,14 +314,22 @@ user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfre
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
 d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h
+d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_encoder.h
+d:/opHotCar_Learning/opHotCar/code/opHot_encoder.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_motor.h
 d:/opHotCar_Learning/opHotCar/code/opHot_motor.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
+d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_pid.h
 d:/opHotCar_Learning/opHotCar/code/opHot_pid.h :
-user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
-d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_steer.h
 d:/opHotCar_Learning/opHotCar/code/opHot_steer.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
@@ -340,5 +346,3 @@ user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h
 d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
-user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
-d:/opHotCar_Learning/opHotCar/code/opHotCar.h :

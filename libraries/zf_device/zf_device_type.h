@@ -24,7 +24,7 @@
 * 文件名称          zf_device_type
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -56,7 +56,7 @@ typedef enum
     WIRELESS_UART,                                                              // 无线串口
     BLUETOOTH_CH9141,                                                           // 蓝牙 CH9141
     WIFI_UART,                                                                  // 串口 WiFi
-    RECEIVER_UART,                                                              // 枪式遥控器
+    WIFI_SPI                                                                    // SPI WiFi
 }wireless_type_enum;
 
 typedef enum

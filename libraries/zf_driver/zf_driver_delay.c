@@ -24,7 +24,7 @@
 * 文件名称          zf_driver_delay
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -54,12 +54,13 @@ IFX_INTERRUPT(stm0_isr, 0, IFX_INTPRIO_STM0_SR0)
     stm0_isr_flag = 0;
 }
 
-IFX_INTERRUPT(stm1_isr, 1, IFX_INTPRIO_STM1_SR0)
+IFX_INTERRUPT(stm1_isr, 0, IFX_INTPRIO_STM1_SR0)
 {
     interrupt_global_enable(0);                     // 开启中断嵌套
-    IfxStm_clearCompareFlag(&MODULE_STM1, IfxStm_Comparator_0);
+    IfxStm_clearCompareFlag(&MODULE_STM1, IfxStm_Comparator_1);
     stm1_isr_flag = 0;
 }
+
 //-------------------------------------------------------------------------------------------------------------------
 //  函数简介      system延时函数
 //  参数说明      time            延时一轮的时间（单位为纳秒，可设置范围0-20000000）
@@ -68,8 +69,6 @@ IFX_INTERRUPT(stm1_isr, 1, IFX_INTPRIO_STM1_SR0)
 //-------------------------------------------------------------------------------------------------------------------
 void system_delay_10ns (uint32 time)
 {
-    uint32 interrupt_global_state;
-
     IfxStm_Index stm_index;
 
     stm_index = (IfxStm_Index)IfxCpu_getCoreId();
@@ -80,27 +79,19 @@ void system_delay_10ns (uint32 time)
     }
     else
     {
-        switch(stm_index)
+        if(stm_index == IfxStm_Index_0)
         {
-            case IfxStm_Index_0:
-            {
-                Ifx_STM *stm_sfr = &MODULE_STM0;
-                stm0_isr_flag = 1;
-                interrupt_global_state = interrupt_global_disable();     // 关闭全局中断
-                stm_sfr->CMP[0].U = stm_sfr->TIM0.U + time;
-                interrupt_global_enable(interrupt_global_state);         // 打开全局中断
-                while(stm0_isr_flag);
-            }break;
-            case IfxStm_Index_1:
-            {
-                Ifx_STM *stm_sfr = &MODULE_STM1;
-                stm1_isr_flag = 1;
-                interrupt_global_state = interrupt_global_disable();     // 关闭全局中断
-                stm_sfr->CMP[0].U = stm_sfr->TIM0.U + time;
-                interrupt_global_enable(interrupt_global_state);         // 打开全局中断
-                while(stm1_isr_flag);
-            }break;
-            case IfxStm_Index_none: break;
+            Ifx_STM *stm_sfr = &MODULE_STM0;
+            stm_sfr->CMP[0].U = stm_sfr->TIM0.U + time;
+            stm0_isr_flag = 1;
+            while(stm0_isr_flag);
+        }
+        else if(stm_index == IfxStm_Index_1)
+        {
+            Ifx_STM *stm_sfr = &MODULE_STM1;
+            stm_sfr->CMP[1].U = stm_sfr->TIM0.U + time;
+            stm1_isr_flag = 1;
+            while(stm1_isr_flag);
         }
     }
 }
@@ -137,6 +128,7 @@ void system_delay_us (uint32 time)
 //-------------------------------------------------------------------------------------------------------------------
 void system_delay_ms (uint32 time)
 {
+
     if(time > 40000)
     {
         while(time > 40000)
@@ -173,10 +165,10 @@ void system_delay_init(void)
     IfxStm_initCompare(&MODULE_STM0, &stmConfig);
     IfxStm_clearCompareFlag(&MODULE_STM0, IfxStm_Comparator_0);
 
-    stmConfig.comparator          = IfxStm_Comparator_0;
+    stmConfig.comparator          = IfxStm_Comparator_1;
     stmConfig.compareOffset       = IfxStm_ComparatorOffset_0;
     stmConfig.compareSize         = IfxStm_ComparatorSize_32Bits;
-    stmConfig.comparatorInterrupt = IfxStm_ComparatorInterrupt_ir0;
+    stmConfig.comparatorInterrupt = IfxStm_ComparatorInterrupt_ir1;
     stmConfig.ticks               = 1;
     stmConfig.triggerPriority     = IFX_INTPRIO_STM1_SR0;
     stmConfig.typeOfService       = IfxSrc_Tos_cpu1;
@@ -186,4 +178,3 @@ void system_delay_init(void)
 
     restoreInterrupts(interrupt_state);
 }
-

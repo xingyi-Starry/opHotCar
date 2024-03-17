@@ -24,7 +24,7 @@
 * 文件名称          zf_device_ov7725
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -501,11 +501,11 @@ uint8 ov7725_init (void)
         // 获取所有参数
         if(ov7725_get_config(ov7725_get_confing_buffer))
         {
-            uart_rx_interrupt(OV7725_COF_UART, 0);
-            system_delay_ms(200);
-            set_camera_type(CAMERA_BIN_IIC, ov7725_vsync_handler, ov7725_dma_handler, NULL);                                        // 设置连接摄像头类型
-            if(ov7725_iic_init())
-            {
+                uart_rx_interrupt(OV7725_COF_UART, 0);
+                system_delay_ms(200);
+                set_camera_type(CAMERA_BIN_IIC, ov7725_vsync_handler, ov7725_dma_handler, ov7725_uart_handler);                                        // 设置连接摄像头类型
+                if(ov7725_iic_init())
+                {
                 zf_log(0, "OV7725 IIC error.");
                 set_camera_type(NO_CAMERE, NULL, NULL, NULL);
                 return_state = 1;

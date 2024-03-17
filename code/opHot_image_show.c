@@ -2,9 +2,12 @@
 
 void Image_ShowLine(uint8 x, uint8 y)
 {
-    for (uint8 i = 0; i < Image_rptsLeftsNum; i++)
+    for (uint8 i = 0; i < Image_iptsLeftNum; i++)
     {
-        ips200_draw_point(x + Image_rptsLefts[i][0], y + Image_rptsLefts[i][1], RGB565_GREEN);
-        ips200_draw_point(x + Image_rptsRights[i][0], y + Image_rptsRights[i][1], RGB565_RED);
+        ips200_draw_point(x + Image_iptsLeft[i][0], y + Image_iptsLeft[i][1], RGB565_GREEN);
+    }
+    for (uint8 i = 0; i < Image_iptsRightNum; i++)
+    {
+        ips200_draw_point(x + Image_iptsRight[i][0], y + Image_iptsRight[i][1], RGB565_RED);
     }
 }

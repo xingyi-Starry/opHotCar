@@ -40,7 +40,7 @@ uint8 Image_isUsefulData_Status = 0;
 //------------------------------变量------------------------------
 //------------------------------
 // 基本变量
-const float Image_pixelPreMeter = 100;     // 每米95.56个像素点(45cm ~ 43pixel)
+const float Image_pixelPreMeter = 95.56;     // 每米95.56个像素点(45cm ~ 43pixel)
 const float Image_roadWidth = 0.45;        // 赛道的宽度 - (单位为m)
 const float Image_PI = 3.14159265358;      // PI(手打的)
 uint8 Image_disPictureCnt = 0;             // 丢弃图片的数量计数
@@ -79,7 +79,7 @@ uint8 Image_rptsLeftbNum;                      // 三角滤波后的左边线长度
 uint8 Image_rptsRightbNum;                     // 三角滤波后的右边线长度
 //------------------------------
 // 等距采样相关
-const float Image_sampleDist = 0.01;               // 等距采用采样的距离
+const float Image_sampleDist = 0.025;               // 等距采用采样的距离
 uint8 Image_rptsLefts[IMAGE_LINE_MAX_NUM][2];      // 等距采样后的左边线坐标存储
 uint8 Image_rptsRights[IMAGE_LINE_MAX_NUM][2];     // 等距采样后的右边线坐标存储
 uint8 Image_rptsLefts_Bak[IMAGE_LINE_MAX_NUM][2];  // 等距采样后的左边线坐标存储 - 备份
@@ -88,7 +88,8 @@ uint8 Image_rptsLeftsNum;                          // 等距采样后的左边线长度
 uint8 Image_rptsRightsNum;                         // 等距采样后的右边线长度
 uint8 Image_rptsLeftsNum_Bak;                      // 等距采样后的左边线长度    - 备份
 uint8 Image_rptsRightsNum_Bak;                     // 等距采样后的右边线长度    - 备份
-
+//------------------------------
+// 图传相关
 uint8 LeftLine_raw_show[2][IMAGE_LINE_MAX_NUM];         //图传原始左边线
 uint8 RightLine_raw_show[2][IMAGE_LINE_MAX_NUM];        //图传原始右边线
 uint8 LeftLine_show[2][IMAGE_LINE_MAX_NUM];             //图传左边线
@@ -1007,7 +1008,7 @@ void Image_Process(uint8* image) {
     //Image_rptsRightNum = Image_iptsRightNum;
 
 //-------------------------------------
-    //去除(0,0)点
+    //去除(0,0)点（出于逆透视变换等原因变成(0, 0)的异常的点）
     for (uint8 i = 0; i < Image_rptsLeftNum; ++i) {
         uint8 j = 0;                                         
         if (Image_rptsLeft[i][0] != 0 || Image_rptsLeft[i][1] != 0) {

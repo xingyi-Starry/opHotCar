@@ -24,7 +24,7 @@
 * 文件名称          zf_common_headfile
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -82,7 +82,7 @@
 //===================================================外接设备驱动层===================================================
 #include "zf_device_absolute_encoder.h"
 #include "zf_device_bluetooth_ch9141.h"
-#include "zf_device_gnss.h"
+#include "zf_device_gps_tau1201.h"
 #include "zf_device_camera.h"
 #include "zf_device_dl1a.h"
 #include "zf_device_dl1b.h"
@@ -100,18 +100,15 @@
 #include "zf_device_tft180.h"
 #include "zf_device_tsl1401.h"
 #include "zf_device_type.h"
-#include "zf_device_uart_receiver.h"
 #include "zf_device_virtual_oscilloscope.h"
 #include "zf_device_wifi_uart.h"
 #include "zf_device_wifi_spi.h"
 #include "zf_device_wireless_uart.h"
 //===================================================外接设备驱动层===================================================
-
 //====================================================应用组件层====================================================
 #include "seekfree_assistant.h"
 #include "seekfree_assistant_interface.h"
 //====================================================应用组件层====================================================
-
 //=====================================================用户层======================================================
 
 //=====================================================用户层======================================================

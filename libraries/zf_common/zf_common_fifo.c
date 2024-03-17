@@ -24,17 +24,15 @@
 * 文件名称          zf_common_fifo
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
 * 修改记录
 * 日期              作者                备注
-* 2022-08-10        Teternal            first version
-* 2023-12-06        Teternal            更新操作逻辑 修复无数据读取时异常的操作
+* 2022-09-15       pudding            first version
 ********************************************************************************************************************/
 
-#include "zf_common_debug.h"
 #include "zf_common_fifo.h"
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -82,26 +80,32 @@ static void fifo_end_offset (fifo_struct *fifo, uint32 offset)
 //-------------------------------------------------------------------------------------------------------------------
 fifo_state_enum fifo_clear (fifo_struct *fifo)
 {
-    zf_assert(NULL != fifo);
-    fifo_state_enum return_state = FIFO_SUCCESS;                                // 操作结果初值
+    fifo_state_enum return_state = FIFO_SUCCESS;
     do
     {
-//        if(FIFO_IDLE != fifo->execution)                                        // 判断是否当前 FIFO 是否空闲
-//        {
-//            return_state = FIFO_RESET_UNDO;                                     // 重置操作未完成
-//            break;
-//        }
-        fifo->execution |= FIFO_RESET;                                          // 重置操作置位
-        fifo->head      = 0;                                                    // 重置 FIFO 所有数值复位
-        fifo->end       = 0;                                                    // 重置 FIFO 所有数值复位
-        fifo->size      = fifo->max;                                            // 重置 FIFO 所有数值复位
+        if(FIFO_CLEAR & fifo->execution)
+        {
+            return_state = FIFO_CLEAR_UNDO;
+            break;
+        }
+        fifo->execution |= FIFO_CLEAR;
+        fifo->head      = 0;
+        fifo->end       = 0;
+        fifo->size      = fifo->max;
+
         switch(fifo->type)
         {
-            case FIFO_DATA_8BIT:    memset(fifo->buffer, 0, fifo->max);     break;
-            case FIFO_DATA_16BIT:   memset(fifo->buffer, 0, fifo->max * 2); break;
-            case FIFO_DATA_32BIT:   memset(fifo->buffer, 0, fifo->max * 4); break;
+            case FIFO_DATA_8BIT:
+                memset(fifo->buffer, 0, fifo->max);
+                break;
+            case FIFO_DATA_16BIT:
+                memset(fifo->buffer, 0, fifo->max * 2);
+                break;
+            case FIFO_DATA_32BIT:
+                memset(fifo->buffer, 0, fifo->max * 4);
+                break;
         }
-        fifo->execution = FIFO_IDLE;                                            // 操作状态复位
+        fifo->execution &= ~FIFO_CLEAR;
     }while(0);
     return return_state;
 }
@@ -115,8 +119,7 @@ fifo_state_enum fifo_clear (fifo_struct *fifo)
 //-------------------------------------------------------------------------------------------------------------------
 uint32 fifo_used (fifo_struct *fifo)
 {
-    zf_assert(fifo != NULL);
-    return (fifo->max - fifo->size);                                            // 返回当前 FIFO 缓冲区中数据个数
+    return (fifo->max - fifo->size);
 }
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -129,34 +132,39 @@ uint32 fifo_used (fifo_struct *fifo)
 //-------------------------------------------------------------------------------------------------------------------
 fifo_state_enum fifo_write_element (fifo_struct *fifo, uint32 dat)
 {
-    zf_assert(NULL != fifo);
-    fifo_state_enum return_state = FIFO_SUCCESS;                                // 操作结果初值
+    fifo_state_enum return_state = FIFO_SUCCESS;
 
     do
     {
-        if((FIFO_RESET | FIFO_WRITE) & fifo->execution)                         // 不在写入与重置状态 避免写入竞争与指向错误
+        if(FIFO_WRITE & fifo->execution)
         {
-            return_state = FIFO_WRITE_UNDO;                                     // 写入操作未完成
+            return_state = FIFO_WRITE_UNDO;
             break;
         }
-        fifo->execution |= FIFO_WRITE;                                          // 写入操作置位
+        fifo->execution |= FIFO_WRITE;
 
         if(1 <= fifo->size)                                                     // 剩余空间足够装下本次数据
         {
             switch(fifo->type)
             {
-                case FIFO_DATA_8BIT:    ((uint8 *)fifo->buffer)[fifo->head]  = (uint8)dat;  break;
-                case FIFO_DATA_16BIT:   ((uint16 *)fifo->buffer)[fifo->head] = (uint16)dat; break;
-                case FIFO_DATA_32BIT:   ((uint32 *)fifo->buffer)[fifo->head] = dat; break;
+                case FIFO_DATA_8BIT:
+                    ((uint8 *)fifo->buffer)[fifo->head] = dat & 0xFF;
+                    break;
+                case FIFO_DATA_16BIT:
+                    ((uint16 *)fifo->buffer)[fifo->head] = dat & 0xFFFF;
+                    break;
+                case FIFO_DATA_32BIT:
+                    ((uint32 *)fifo->buffer)[fifo->head] = dat;
+                    break;
             }
             fifo_head_offset(fifo, 1);                                          // 头指针偏移
             fifo->size -= 1;                                                    // 缓冲区剩余长度减小
         }
         else
         {
-            return_state = FIFO_SPACE_NO_ENOUGH;                                // 当前 FIFO 缓冲区满 不能再写入数据 返回空间不足
+            return_state = FIFO_SPACE_NO_ENOUGH;
         }
-        fifo->execution &= ~FIFO_WRITE;                                         // 写入操作复位
+        fifo->execution &= ~FIFO_WRITE;
     }while(0);
 
     return return_state;
@@ -173,25 +181,24 @@ fifo_state_enum fifo_write_element (fifo_struct *fifo, uint32 dat)
 //-------------------------------------------------------------------------------------------------------------------
 fifo_state_enum fifo_write_buffer (fifo_struct *fifo, void *dat, uint32 length)
 {
-    zf_assert(NULL != fifo);
-    fifo_state_enum return_state = FIFO_SUCCESS;                                // 操作结果初值
+    fifo_state_enum return_state = FIFO_SUCCESS;
     uint32 temp_length = 0;
     
     do
     {
         if(NULL == dat)
         {
-            return_state = FIFO_BUFFER_NULL;                                    // 用户缓冲区异常
+            return_state = FIFO_BUFFER_NULL;
             break;
         }
-        if((FIFO_RESET | FIFO_WRITE) & fifo->execution)                         // 不在写入与重置状态 避免写入竞争与指向错误
+        if(FIFO_WRITE & fifo->execution)
         {
-            return_state = FIFO_WRITE_UNDO;                                     // 写入操作未完成
+            return_state = FIFO_WRITE_UNDO;
             break;
         }
-        fifo->execution |= FIFO_WRITE;                                          // 写入操作置位
+        fifo->execution |= FIFO_WRITE;
 
-        if(length <= fifo->size)                                                // 剩余空间足够装下本次数据
+        if(length <= fifo->size)                                                 // 剩余空间足够装下本次数据
         {
             temp_length = fifo->max - fifo->head;                               // 计算头指针距离缓冲区尾还有多少空间
 
@@ -200,7 +207,6 @@ fifo_state_enum fifo_write_buffer (fifo_struct *fifo, void *dat, uint32 length)
                 switch(fifo->type)
                 {
                     case FIFO_DATA_8BIT:
-                    {
                         memcpy(
                             &(((uint8 *)fifo->buffer)[fifo->head]),
                             dat, temp_length);                                  // 拷贝第一段数据
@@ -210,9 +216,8 @@ fifo_state_enum fifo_write_buffer (fifo_struct *fifo, void *dat, uint32 length)
                             &(((uint8 *)dat)[temp_length]),
                             length - temp_length);                              // 拷贝第二段数据
                         fifo_head_offset(fifo, length - temp_length);           // 头指针偏移
-                    }break;
+                        break;
                     case FIFO_DATA_16BIT:
-                    {
                         memcpy(
                             &(((uint16 *)fifo->buffer)[fifo->head]),
                             dat, temp_length * 2);                              // 拷贝第一段数据
@@ -222,9 +227,8 @@ fifo_state_enum fifo_write_buffer (fifo_struct *fifo, void *dat, uint32 length)
                             &(((uint16 *)dat)[temp_length]),
                             (length - temp_length) * 2);                        // 拷贝第二段数据
                         fifo_head_offset(fifo, length - temp_length);           // 头指针偏移
-                    }break;
+                        break;
                     case FIFO_DATA_32BIT:
-                    {
                         memcpy(
                             &(((uint32 *)fifo->buffer)[fifo->head]),
                             dat, temp_length * 4);                              // 拷贝第一段数据
@@ -234,7 +238,7 @@ fifo_state_enum fifo_write_buffer (fifo_struct *fifo, void *dat, uint32 length)
                             &(((uint32 *)dat)[temp_length]),
                             (length - temp_length) * 4);                        // 拷贝第二段数据
                         fifo_head_offset(fifo, length - temp_length);           // 头指针偏移
-                    }break;
+                        break;
                 }
             }
             else
@@ -242,36 +246,35 @@ fifo_state_enum fifo_write_buffer (fifo_struct *fifo, void *dat, uint32 length)
                 switch(fifo->type)
                 {
                     case FIFO_DATA_8BIT:
-                    {
                         memcpy(
                             &(((uint8 *)fifo->buffer)[fifo->head]),
                             dat, length);                                       // 一次完整写入
                         fifo_head_offset(fifo, length);                         // 头指针偏移
-                    }break;
+                        break;
                     case FIFO_DATA_16BIT:
-                    {
                         memcpy(
                             &(((uint16 *)fifo->buffer)[fifo->head]),
                             dat, length * 2);                                   // 一次完整写入
                         fifo_head_offset(fifo, length);                         // 头指针偏移
-                    }break;
+                        break;
                     case FIFO_DATA_32BIT:
-                    {
                         memcpy(
                             &(((uint32 *)fifo->buffer)[fifo->head]),
                             dat, length * 4);                                   // 一次完整写入
                         fifo_head_offset(fifo, length);                         // 头指针偏移
-                    }break;
+                        break;
                 }
+//                memcpy(&fifo->buffer[fifo->head], dat, length);                 // 一次完整写入
+//                fifo_head_offset(fifo, length);                                 // 头指针偏移
             }
 
             fifo->size -= length;                                               // 缓冲区剩余长度减小
         }
         else
         {
-            return_state = FIFO_SPACE_NO_ENOUGH;                                // 当前 FIFO 缓冲区满 不能再写入数据 返回空间不足
+            return_state = FIFO_SPACE_NO_ENOUGH;
         }
-        fifo->execution &= ~FIFO_WRITE;                                         // 写入操作复位
+        fifo->execution &= ~FIFO_WRITE;
     }while(0);
 
     return return_state;
@@ -288,52 +291,49 @@ fifo_state_enum fifo_write_buffer (fifo_struct *fifo, void *dat, uint32 length)
 //-------------------------------------------------------------------------------------------------------------------
 fifo_state_enum fifo_read_element (fifo_struct *fifo, void *dat, fifo_operation_enum flag)
 {
-    zf_assert(NULL != fifo);
-    fifo_state_enum return_state = FIFO_SUCCESS;                                // 操作结果初值
+    fifo_state_enum return_state = FIFO_SUCCESS;
 
     do
     {
         if(NULL == dat)
         {
-            return_state = FIFO_BUFFER_NULL;                                    // 用户缓冲区异常
+            return_state = FIFO_BUFFER_NULL;
+            break;
         }
-        else
+        fifo->execution |= FIFO_READ;
+
+        if(1 > fifo_used(fifo))
         {
-            if((FIFO_RESET | FIFO_CLEAR) & fifo->execution)                     // 判断是否当前 FIFO 是否在执行清空或重置操作
-            {
-                return_state = FIFO_READ_UNDO;                                  // 读取操作未完成
-                break;
-            }
-
-            if(1 > fifo_used(fifo))
-            {
-                return_state = FIFO_DATA_NO_ENOUGH;                             // 缓冲区没有数据 返回数据长度不足
-                break;                                                          // 直接退出操作
-            }
-
-            fifo->execution |= FIFO_READ;                                       // 读操作置位
-            switch(fifo->type)
-            {
-                case FIFO_DATA_8BIT:    *((uint8 *)dat) = ((uint8 *)fifo->buffer)[fifo->end];   break;
-                case FIFO_DATA_16BIT:   *((uint16 *)dat) = ((uint16 *)fifo->buffer)[fifo->end]; break;
-                case FIFO_DATA_32BIT:   *((uint32 *)dat) = ((uint32 *)fifo->buffer)[fifo->end]; break;
-            }
-            fifo->execution &= ~FIFO_READ;                                      // 读操作复位
+            return_state = FIFO_DATA_NO_ENOUGH;                                 // 标志数据不够
         }
 
-        if(FIFO_READ_AND_CLEAN == flag)                                         // 如果选择读取并更改 FIFO 状态
+        switch(fifo->type)
         {
-            if((FIFO_RESET | FIFO_CLEAR | FIFO_READ) == fifo->execution)        // 不在 重置 清空 读取 状态 避免异常
+            case FIFO_DATA_8BIT:
+                *((uint8 *)dat) = ((uint8 *)fifo->buffer)[fifo->end];
+                break;
+            case FIFO_DATA_16BIT:
+                *((uint16 *)dat) = ((uint16 *)fifo->buffer)[fifo->end];
+                break;
+            case FIFO_DATA_32BIT:
+                *((uint32 *)dat) = ((uint32 *)fifo->buffer)[fifo->end];
+                break;
+        }
+
+        if(flag == FIFO_READ_AND_CLEAN)                                         // 如果选择读取并更改 FIFO 状态
+        {
+            if(FIFO_CLEAR & fifo->execution)
             {
-                return_state = FIFO_CLEAR_UNDO;                                 // 清空操作未完成
+                return_state = FIFO_CLEAR_UNDO;
                 break;
             }
-            fifo->execution |= FIFO_CLEAR;                                      // 清空作置位
+            fifo->execution |= FIFO_CLEAR;
             fifo_end_offset(fifo, 1);                                           // 移动 FIFO 头指针
-            fifo->size += 1;                                                    // 释放对应长度空间
-            fifo->execution &= ~FIFO_CLEAR;                                     // 清空作复位
+            fifo->size += 1;
+            fifo->execution &= ~FIFO_CLEAR;
         }
     }while(0);
+    fifo->execution &= FIFO_READ;
 
     return return_state;
 }
@@ -350,87 +350,73 @@ fifo_state_enum fifo_read_element (fifo_struct *fifo, void *dat, fifo_operation_
 //-------------------------------------------------------------------------------------------------------------------
 fifo_state_enum fifo_read_buffer (fifo_struct *fifo, void *dat, uint32 *length, fifo_operation_enum flag)
 {
-    zf_assert(NULL != fifo);
-    zf_assert(NULL != length);
-    fifo_state_enum return_state = FIFO_SUCCESS;                                // 操作结果初值
-    uint32 temp_length = 0;
-    uint32 fifo_data_length = 0;
+    fifo_state_enum return_state = FIFO_SUCCESS;
+    uint32 temp_length;
 
     do
     {
         if(NULL == dat)
         {
             return_state = FIFO_BUFFER_NULL;
+            break;
+        }
+        fifo->execution |= FIFO_READ;
+
+        if(*length > fifo_used(fifo))
+        {
+            *length = (fifo->max - fifo->size);                                 // 纠正读取的长度
+            return_state = FIFO_DATA_NO_ENOUGH;                                 // 标志数据不够
+        }
+
+        temp_length = fifo->max - fifo->end;                                    // 计算尾指针距离缓冲区尾还有多少空间
+        if(*length <= temp_length)                                              // 足够一次性读取完毕
+        {
+            switch(fifo->type)
+            {
+                case FIFO_DATA_8BIT:
+                    memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->end]), *length);
+                    break;
+                case FIFO_DATA_16BIT:
+                    memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->end]), *length * 2);
+                    break;
+                case FIFO_DATA_32BIT:
+                    memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->end]), *length * 4);
+                    break;
+            }
         }
         else
         {
-            if((FIFO_RESET | FIFO_CLEAR) & fifo->execution)                     // 判断是否当前 FIFO 是否在执行清空或重置操作
+            switch(fifo->type)
             {
-                *length = fifo_data_length;                                     // 纠正读取的长度
-                return_state = FIFO_READ_UNDO;                                  // 读取操作未完成
-                break;
-            }
-
-            fifo_data_length = fifo_used(fifo);                                 // 获取当前数据有多少
-            if(*length > fifo_data_length)                                      // 判断长度是否足够
-            {
-                *length = fifo_data_length;                                     // 纠正读取的长度
-                return_state = FIFO_DATA_NO_ENOUGH;                             // 标志数据不够
-                if(0 == fifo_data_length)                                       // 如果没有数据 就直接退出
-                {
-                    fifo->execution &= ~FIFO_READ;                              // 读操作复位
+                case FIFO_DATA_8BIT:
+                    memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->end]), temp_length);
+                    memcpy(&(((uint8 *)dat)[temp_length]), fifo->buffer, *length - temp_length);
                     break;
-                }
+                case FIFO_DATA_16BIT:
+                    memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->end]), temp_length * 2);
+                    memcpy(&(((uint16 *)dat)[temp_length]), fifo->buffer, (*length - temp_length) * 2);
+                    break;
+                case FIFO_DATA_32BIT:
+                    memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->end]), temp_length * 4);
+                    memcpy(&(((uint32 *)dat)[temp_length]), fifo->buffer, (*length - temp_length) * 4);
+                    break;
             }
-
-            fifo->execution |= FIFO_READ;                                       // 读操作置位
-            temp_length = fifo->max - fifo->end;                                // 计算尾指针距离缓冲区尾还有多少空间
-            if(*length <= temp_length)                                          // 足够一次性读取完毕
-            {
-                switch(fifo->type)
-                {
-                    case FIFO_DATA_8BIT:    memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->end]), *length);        break;
-                    case FIFO_DATA_16BIT:   memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->end]), *length * 2);   break;
-                    case FIFO_DATA_32BIT:   memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->end]), *length * 4);   break;
-                }
-            }
-            else
-            {
-                switch(fifo->type)
-                {
-                    case FIFO_DATA_8BIT:
-                    {
-                        memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->end]), temp_length);
-                        memcpy(&(((uint8 *)dat)[temp_length]), fifo->buffer, *length - temp_length);
-                    }break;
-                    case FIFO_DATA_16BIT:
-                    {
-                        memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->end]), temp_length * 2);
-                        memcpy(&(((uint16 *)dat)[temp_length]), fifo->buffer, (*length - temp_length) * 2);
-                    }break;
-                    case FIFO_DATA_32BIT:
-                    {
-                        memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->end]), temp_length * 4);
-                        memcpy(&(((uint32 *)dat)[temp_length]), fifo->buffer, (*length - temp_length) * 4);
-                    }break;
-                }
-            }
-            fifo->execution &= ~FIFO_READ;                                      // 读操作复位
         }
 
-        if(FIFO_READ_AND_CLEAN == flag)                                         // 如果选择读取并更改 FIFO 状态
+        if(flag == FIFO_READ_AND_CLEAN)                                         // 如果选择读取并更改 FIFO 状态
         {
-            if((FIFO_RESET | FIFO_CLEAR | FIFO_READ) == fifo->execution)        // 不在 重置 清空 读取 状态 避免异常
+            if(FIFO_CLEAR & fifo->execution)
             {
-                return_state = FIFO_CLEAR_UNDO;                                 // 清空操作未完成
+                return_state = FIFO_CLEAR_UNDO;
                 break;
             }
-            fifo->execution |= FIFO_CLEAR;                                      // 清空作置位
+            fifo->execution |= FIFO_CLEAR;
             fifo_end_offset(fifo, *length);                                     // 移动 FIFO 头指针
-            fifo->size += *length;                                              // 释放对应长度空间
-            fifo->execution &= ~FIFO_CLEAR;                                     // 清空作复位
+            fifo->size += *length;
+            fifo->execution &= ~FIFO_CLEAR;
         }
     }while(0);
+    fifo->execution &= FIFO_READ;
 
     return return_state;
 }
@@ -449,84 +435,73 @@ fifo_state_enum fifo_read_buffer (fifo_struct *fifo, void *dat, uint32 *length, 
 //-------------------------------------------------------------------------------------------------------------------
 fifo_state_enum fifo_read_tail_buffer (fifo_struct *fifo, void *dat, uint32 *length, fifo_operation_enum flag)
 {
-    zf_assert(NULL != fifo);
-    zf_assert(NULL != length);
-    fifo_state_enum return_state = FIFO_SUCCESS;                                // 操作结果初值
-    uint32 temp_length = 0;
-    uint32 fifo_data_length = 0;
+    fifo_state_enum return_state = FIFO_SUCCESS;
+    uint32 temp_length;
 
     do
     {
         if(NULL == dat)
         {
             return_state = FIFO_BUFFER_NULL;
+            break;
+        }
+        fifo->execution |= FIFO_READ;
+
+        if(*length > fifo_used(fifo))
+        {
+            *length = (fifo->max - fifo->size);                                 // 纠正读取的长度
+            return_state = FIFO_DATA_NO_ENOUGH;                                 // 标志数据不够
+        }
+
+        if((fifo->head > fifo->end) || (fifo->head >= *length))
+        {
+            switch(fifo->type)
+            {
+                case FIFO_DATA_8BIT:
+                    memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->head - *length]), *length);
+                    break;
+                case FIFO_DATA_16BIT:
+                    memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->head - *length]), *length * 2);
+                    break;
+                case FIFO_DATA_32BIT:
+                    memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->head - *length]), *length * 4);
+                    break;
+            }
         }
         else
         {
-            if((FIFO_RESET | FIFO_CLEAR | FIFO_WRITE) & fifo->execution)        // 判断是否当前 FIFO 是否在执行清空或重置操作
+            temp_length = *length - fifo->head;                                 // 计算尾指针距离缓冲区尾还有多少空间
+            switch(fifo->type)
             {
-                *length = fifo_data_length;                                     // 纠正读取的长度
-                return_state = FIFO_READ_UNDO;                                  // 读取操作未完成
-                break;
-            }
-
-            fifo_data_length = fifo_used(fifo);                                 // 获取当前数据有多少
-            if(*length > fifo_data_length)                                      // 判断长度是否足够
-            {
-                *length = fifo_data_length;                                     // 纠正读取的长度
-                return_state = FIFO_DATA_NO_ENOUGH;                             // 标志数据不够
-                if(0 == fifo_data_length)                                       // 如果没有数据 就直接退出
-                {
-                    fifo->execution &= ~FIFO_READ;                              // 读操作复位
+                case FIFO_DATA_8BIT:
+                    memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->max - temp_length]), temp_length);
+                    memcpy(&(((uint8 *)dat)[temp_length]), &(((uint8 *)fifo->buffer)[fifo->head - *length]), (*length - temp_length));
                     break;
-                }
+                case FIFO_DATA_16BIT:
+                    memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->max - temp_length]), temp_length * 2);
+                    memcpy(&(((uint16 *)dat)[temp_length]), &(((uint16 *)fifo->buffer)[fifo->head - *length]), (*length - temp_length) * 2);
+                    break;
+                case FIFO_DATA_32BIT:
+                    memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->max - temp_length]), temp_length * 4);
+                    memcpy(&(((uint32 *)dat)[temp_length]), &(((uint32 *)fifo->buffer)[fifo->head - *length]), (*length - temp_length) * 4);
+                    break;
             }
-
-            fifo->execution |= FIFO_READ;                                       // 读操作置位
-            if((fifo->head > fifo->end) || (fifo->head >= *length))
-            {
-                switch(fifo->type)
-                {
-                    case FIFO_DATA_8BIT:    memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->head - *length]), *length);     break;
-                    case FIFO_DATA_16BIT:   memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->head - *length]), *length * 2);break;
-                    case FIFO_DATA_32BIT:   memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->head - *length]), *length * 4);break;
-                }
-            }
-            else
-            {
-                temp_length = *length - fifo->head;                             // 计算尾指针距离缓冲区尾还有多少空间
-                switch(fifo->type)
-                {
-                    case FIFO_DATA_8BIT:
-                    {
-                        memcpy(dat, &(((uint8 *)fifo->buffer)[fifo->max - temp_length]), temp_length);
-                        memcpy(&(((uint8 *)dat)[temp_length]), &(((uint8 *)fifo->buffer)[fifo->head - *length]), (*length - temp_length));
-                    }break;
-                    case FIFO_DATA_16BIT:
-                    {
-                        memcpy(dat, &(((uint16 *)fifo->buffer)[fifo->max - temp_length]), temp_length * 2);
-                        memcpy(&(((uint16 *)dat)[temp_length]), &(((uint16 *)fifo->buffer)[fifo->head - *length]), (*length - temp_length) * 2);
-                    }break;
-                    case FIFO_DATA_32BIT:
-                    {
-                        memcpy(dat, &(((uint32 *)fifo->buffer)[fifo->max - temp_length]), temp_length * 4);
-                        memcpy(&(((uint32 *)dat)[temp_length]), &(((uint32 *)fifo->buffer)[fifo->head - *length]), (*length - temp_length) * 4);
-                    }break;
-                }
-            }
-            fifo->execution &= ~FIFO_READ;                                      // 读操作复位
         }
 
-        if(FIFO_READ_AND_CLEAN == flag)                                         // 如果选择读取并更改 FIFO 状态
+        if(flag == FIFO_READ_AND_CLEAN)                                         // 如果选择读取并更改 FIFO 状态
         {
-            if((FIFO_RESET | FIFO_CLEAR | FIFO_READ) == fifo->execution)        // 不在 重置 清空 读取 状态 避免异常
+            if(FIFO_CLEAR & fifo->execution)
             {
-                return_state = FIFO_CLEAR_UNDO;                                 // 清空操作未完成
+                return_state = FIFO_CLEAR_UNDO;
                 break;
             }
-            fifo_clear(fifo);
+            fifo->execution |= FIFO_CLEAR;
+            fifo_end_offset(fifo, (fifo->max - fifo->size));
+            fifo->size = fifo->max;
+            fifo->execution &= ~FIFO_CLEAR;
         }
     }while(0);
+    fifo->execution &= FIFO_READ;
 
     return return_state;
 }
@@ -543,17 +518,21 @@ fifo_state_enum fifo_read_tail_buffer (fifo_struct *fifo, void *dat, uint32 *len
 //-------------------------------------------------------------------------------------------------------------------
 fifo_state_enum fifo_init (fifo_struct *fifo, fifo_data_type_enum type, void *buffer_addr, uint32 size)
 {
-    zf_assert(NULL != fifo);
-    fifo_state_enum return_state = FIFO_SUCCESS;
+    fifo_state_enum return_value = FIFO_SUCCESS;
     do
     {
-        fifo->buffer    = buffer_addr;
-        fifo->execution = FIFO_IDLE;
-        fifo->type      = type;
-        fifo->head      = 0;
-        fifo->end       = 0;
-        fifo->size      = size;
-        fifo->max       = size;
+        if(NULL == buffer_addr)
+        {
+            return_value = FIFO_BUFFER_NULL;
+            break;
+        }
+        fifo->buffer            = buffer_addr;
+        fifo->execution         = FIFO_IDLE;
+        fifo->type              = type;
+        fifo->head              = 0;
+        fifo->end               = 0;
+        fifo->size              = size;
+        fifo->max               = size;
     }while(0);
-    return return_state;
+    return return_value;
 }

@@ -383,15 +383,6 @@ void seekfree_assistant_camera_send (void)
     }
 }
 
-/**
- * @brief 只发送边界
- * 
- */
-void sf_ass_OnlyLine(void)
-{
-    seekfree_assistant_camera_dot_send(&seekfree_assistant_camera_buffer);
-}
-
 
 //-------------------------------------------------------------------------------------------------------------------
 // 函数简介     逐飞助手解析接收到的数据
@@ -449,6 +440,16 @@ void seekfree_assistant_data_analysis (void)
         fifo_read_buffer(&seekfree_assistant_fifo, (uint8 *)temp_buffer, &read_length, FIFO_READ_AND_CLEAN);
     }
 }
+
+/**
+ * @brief 只发送边界
+ * 
+ */
+void sf_ass_OnlyLine(void)
+{
+    seekfree_assistant_camera_dot_send(&seekfree_assistant_camera_buffer);
+}
+
 #endif
 
 

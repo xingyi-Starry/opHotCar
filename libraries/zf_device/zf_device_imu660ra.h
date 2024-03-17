@@ -24,7 +24,7 @@
 * 文件名称          zf_device_imu660ra
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -33,7 +33,6 @@
 * 2022-09-15       pudding            first version
 * 2023-04-28       pudding            增加中文注释说明
 * 2023-09-15       pudding            转换实际值详细说明
-* 2024-01-30       pudding            更正宏转换函数 变量增加括号
 ********************************************************************************************************************/
 /*********************************************************************************************************************
 * 接线定义：
@@ -163,7 +162,7 @@ uint8 imu660ra_init                 (void);                                     
 // 使用示例     float data = imu660ra_acc_transition(imu660ra_acc_x);           // 单位为 g(m/s^2)
 // 备注信息
 //-------------------------------------------------------------------------------------------------------------------
-#define imu660ra_acc_transition(acc_value)      ((float)(acc_value) / imu660ra_transition_factor[0])
+#define imu660ra_acc_transition(acc_value)      ((float)acc_value / imu660ra_transition_factor[0])
 
 //-------------------------------------------------------------------------------------------------------------------
 // 函数简介     将 IMU660RA 陀螺仪数据转换为实际物理数据
@@ -172,7 +171,7 @@ uint8 imu660ra_init                 (void);                                     
 // 使用示例     float data = imu660ra_gyro_transition(imu660ra_gyro_x);         // 单位为 °/s
 // 备注信息
 //-------------------------------------------------------------------------------------------------------------------
-#define imu660ra_gyro_transition(gyro_value)    ((float)(gyro_value) / imu660ra_transition_factor[1])
+#define imu660ra_gyro_transition(gyro_value)    ((float)gyro_value / imu660ra_transition_factor[1])
 //================================================声明 IMU660RA 拓展函数================================================
 
 #endif

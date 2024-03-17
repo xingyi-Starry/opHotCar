@@ -64,23 +64,30 @@ int core0_main(void)
     ips200_init(IPS200_TYPE_PARALLEL8);
     wireless_uart_init();
     Motor_Init();
-    encoder_dir_init(TIM6_ENCODER, TIM6_ENCODER_CH1_P20_3, TIM6_ENCODER_CH2_P20_0);
+    Encoder_Init();
     Steer_Init();
 
-    // 软件初始化
+    // 逐飞助手初始化
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
-    //seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak[0], MT9V03X_W, MT9V03X_H);
+    seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak[0], MT9V03X_W, MT9V03X_H);
+    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 40, LeftLine_show[0], RightLine_show[0], NULL, LeftLine_show[1], RightLine_show[1], NULL);
 
+    // 屏幕初始化
     ips200_set_dir(IPS200_CROSSWISE);
     ips200_set_font(IPS200_8X16_FONT);
     ips200_set_color(RGB565_BLACK, RGB565_GREEN);
     ips200_full(RGB565_GREEN);
-    // 此处编写用户代码 例如外设初始化代码等
-    // 定时中断初始化
-    // cc61(cpu1) 图像处理
-    gpio_init(LED1, GPO, GPIO_LOW, GPO_PUSH_PULL);  // 初始化 LED1 输出 默认低电平 推挽输出模式
-    gpio_init(LED2, GPO, GPIO_HIGH, GPO_PUSH_PULL); // 初始化 LED2 输出 默认高电平 推挽输出模式
-    // pit_ms_init(CCU60_CH0, 500);
+
+    //-----------定时中断初始化---------------
+    pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集
+    pit_ms_init(CCU60_CH1, 500);
+    pit_ms_init(CCU61_CH0, 10); // ccu61_ch0(cpu1) 图像处理
+
+    // PID初始化
+    Motor_PID_Init();
+    // Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
 
     while (TRUE)
@@ -94,18 +101,12 @@ int core0_main(void)
                 {
                     ImageInit_flag = 1;
                     Image_Init();
-                    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 40, LeftLine_show[0], RightLine_show[0], NULL, LeftLine_show[1], RightLine_show[1], NULL);
-                    // pit_ms_init(CCU61_CH0, 10);
+                    Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+                    Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
                 }
             }
         }
         // 此处编写需要循环执行的代码
-        if (pit_state)
-        {
-            gpio_toggle_level(LED1);
-            gpio_toggle_level(LED2);
-            pit_state = 0; // 清空周期中断触发标志位
-        }
         // ips200_show_gray_image(30, 29, mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
         if (data_len != 0)
@@ -130,6 +131,10 @@ int core0_main(void)
                 wireless_uart_send_number(duty);
                 wireless_uart_send_string("\r\n");
                 break;
+            case '4':
+                Motor1_PIDwork(50);
+                Motor2_PIDwork(50);
+                break;
 
             default:
                 break;
@@ -137,34 +142,29 @@ int core0_main(void)
             memset(data_buffer, 0, 32);
         }
 
-        //        if (mt9v03x_finish_flag == 1)
-        //        {
-        //            Image_Process(mt9v03x_image[0]);
-        //        }
         Steer_SetDuty(duty);
         memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
         ips200_show_gray_image(50, 50, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
-        if (mt9v03x_finish_flag == 1)
-        {
-            Image_Process(mt9v03x_image[0]);
-        }
         Image_ShowLine(50, 50);
         ips200_show_uint(5, 5, Image_threSum, 3);
         ips200_show_uint(5, 21, Image_iptsLeftNum, 3);
         ips200_show_uint(5, 37, Image_iptsRightNum, 3);
         ips200_show_uint(5, 53, Image_rptsLeftsNum, 3);
         ips200_show_uint(5, 69, Image_rptsRightsNum, 3);
+        ips200_show_int(5, 85, Encoder_1Data, 7);
+        ips200_show_int(5, 101, Encoder_2Data, 7);
 
-        sf_ass_OnlyLine();
-        //        if(mt9v03x_finish_flag)
-        //        {
-        //            mt9v03x_finish_flag = 0;
-        //
-        //            // 在发送前将图像备份再进行发送，这样可以避免图像出现撕裂的问题
-        //            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
-        //            // 发送图像
-        //            seekfree_assistant_camera_send();
-        //        }
+        // sf_ass_OnlyLine();
+        if (mt9v03x_finish_flag)
+        {
+            mt9v03x_finish_flag = 0;
+
+            // 在发送前将图像备份再进行发送，这样可以避免图像出现撕裂的问题
+            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            // 发送图像
+            // seekfree_assistant_camera_send();
+            // sf_ass_OnlyLine();
+        }
         // 此处编写需要循环执行的代码
     }
 }

@@ -24,7 +24,7 @@
 * 文件名称          zf_device_wireless_uart
 * 公司名称          成都逐飞科技有限公司
 * 版本信息          查看 libraries/doc 文件夹内 version 文件 版本说明
-* 开发环境          ADS v1.9.20
+* 开发环境          ADS v1.9.4
 * 适用平台          TC264D
 * 店铺链接          https://seekfree.taobao.com/
 *
@@ -291,19 +291,4 @@ uint8 wireless_uart_init (void)
     }while(0);
 #endif
     return return_state;
-}
-
-void wireless_uart_send_number(uint32 num)
-{
-    uint32 bit = 1;
-    for (uint32 temp = num; temp >= 10; bit *= 10)
-    {
-        temp /= 10;
-    }
-
-    for (; bit > 0; bit /= 10)
-    {
-        wireless_uart_send_byte((uint8)(num / bit + '0'));
-        num %= bit;
-    }
 }

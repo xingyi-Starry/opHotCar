@@ -40,6 +40,8 @@ libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/librari
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_interrupt.h :
 libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_fifo.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_fifo.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_function.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_function.h :
 libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_delay.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_delay.h :
 libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_gpio.h
@@ -78,6 +80,46 @@ libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/librari
 d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuWdt.asm.h :
 libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h
 d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_exti.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_exti.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuEru.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuEru.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/IfxCpu.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/IfxCpu.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/_Impl/IfxCpu_cfg.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/_Impl/IfxCpu_cfg.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxCpu_reg.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxCpu_reg.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxCpu_regdef.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxCpu_regdef.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxSrc_reg.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxSrc_reg.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxSrc_regdef.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxSrc_regdef.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxStm_reg.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxStm_reg.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxStm_regdef.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxStm_regdef.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Service/CpuGeneric/_Utilities/Ifx_Assert.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Service/CpuGeneric/_Utilities/Ifx_Assert.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuWdt.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuWdt.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuCcu.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuCcu.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuWdt.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuWdt.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/IfxCpu.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/IfxCpu.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxFlash_reg.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxFlash_reg.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxFlash_regdef.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/Infra/Sfr/TC26B/_Reg/IfxFlash_regdef.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/_PinMap/IfxScu_PinMap.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/_PinMap/IfxScu_PinMap.h :
+libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Port/Std/IfxPort.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Port/Std/IfxPort.h :
 libraries/zf_device/zf_device_wifi_spi.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_spi.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_driver/zf_driver_spi.h :
 libraries/zf_device/zf_device_wifi_spi.o :	../libraries/zf_device/zf_device_type.h
