@@ -98,8 +98,8 @@ uint8 RightLine_show[2][IMAGE_LINE_MAX_NUM];            //图传右边线
 const float Image_angleDist = 0.1;          // 计算边线转角时,三个计算点的距离
 float Image_rptsLefta[IMAGE_LINE_MAX_NUM];  // 左边线对应点处的角度大小
 float Image_rptsRighta[IMAGE_LINE_MAX_NUM]; // 右边线对应点处的角度大小
-uint8 Image_rptsLeftaNum;                   // 左边线点的个数
-uint8 Image_rptsRightaNum;                  // 右边线点的个数
+uint8 Image_rptsLeftaNum;                   // 左边线点的角度的个数
+uint8 Image_rptsRightaNum;                  // 右边线点的角度的个数
 //------------------------------
 // 角度变化率非极大抑制相关
 float Image_rptsLeftan[IMAGE_LINE_MAX_NUM];  // 左边线区域最大角存储
@@ -589,7 +589,7 @@ void Image_BlurPoints(uint8 pts_in[][2], uint8 lineNum, uint8 pts_out[][2], uint
  * @param pts_in        需要处理的线
  * @param num1          待处理线的长度
  * @param pts_out       数据输出数组
- * @param num2          输出数组长度限幅
+ * @param num2          输出数组长度限幅&输出线的长度
  * @param dist          实际距离(单位为m)
  * @example
  */
@@ -629,10 +629,10 @@ void Image_ResamplePoints(uint8 pts_in[][2], uint8 num1, uint8 pts_out[][2], uin
  * @param pts_in        需要处理的线
  * @param num           线的长度
  * @param angle_out     角度输出值
- * @param dist          角度采样的距离(实际距离)
+ * @param dist          角度采样的距离(点序数距离)
  * @formula             tan(x + y) = (tan(x) - tan(y)) / (1 + tan(x) * tan())
  */
-void Image_LocalAnglePoints(uint8 pts_in[][2], uint8 num, float angle_out[], uint16 dist)
+void Image_LocalAnglePoints(uint8 pts_in[][2], uint8 num, float angle_out[], uint8 dist)
 {
     for (uint8 i = 0; i < num; ++i)
     {
@@ -1071,16 +1071,16 @@ void Image_Process(uint8* image) {
 
     //----------------------------------------
     //求解边线局部角度变化率
-    Image_LocalAnglePoints(Image_rptsLefts, Image_rptsLeftsNum, Image_rptsLefta, (uint16)round(Image_angleDist / Image_sampleDist));
+    Image_LocalAnglePoints(Image_rptsLefts, Image_rptsLeftsNum, Image_rptsLefta, (uint8)round(Image_angleDist / Image_sampleDist));
     Image_rptsLeftaNum = Image_rptsLeftsNum;
-    Image_LocalAnglePoints(Image_rptsRights, Image_rptsRightsNum, Image_rptsRighta, (uint16)round(Image_angleDist / Image_sampleDist));
+    Image_LocalAnglePoints(Image_rptsRights, Image_rptsRightsNum, Image_rptsRighta, (uint8)round(Image_angleDist / Image_sampleDist));
     Image_rptsRightaNum = Image_rptsRightsNum;
 
     //----------------------------------------
     //对角度变化率进行非极大抑制(只保留一段边线中数据最大的点)
-    Image_NmsAngle(Image_rptsLefta, Image_rptsLeftaNum, Image_rptsLeftan, (uint16)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumLeft);
+    Image_NmsAngle(Image_rptsLefta, Image_rptsLeftaNum, Image_rptsLeftan, (uint8)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumLeft);
     Image_rptsLeftanNum = Image_rptsLeftaNum;
-    Image_NmsAngle(Image_rptsRighta, Image_rptsRightaNum, Image_rptsRightan, (uint16)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumRight);
+    Image_NmsAngle(Image_rptsRighta, Image_rptsRightaNum, Image_rptsRightan, (uint8)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumRight);
     Image_rptsRightanNum = Image_rptsRightaNum;
 
     if (Image_isUsefulData_Status) {
