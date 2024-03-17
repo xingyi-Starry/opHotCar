@@ -98,14 +98,10 @@ uint8 RightLine_show[2][IMAGE_LINE_MAX_NUM];            //图传右边线
 const float Image_angleDist = 0.1;          // 计算边线转角时,三个计算点的距离
 float Image_rptsLefta[IMAGE_LINE_MAX_NUM];  // 左边线对应点处的角度大小
 float Image_rptsRighta[IMAGE_LINE_MAX_NUM]; // 右边线对应点处的角度大小
-uint8 Image_rptsLeftaNum;                   // 左边线点的角度的个数
-uint8 Image_rptsRightaNum;                  // 右边线点的角度的个数
 //------------------------------
 // 角度变化率非极大抑制相关
 float Image_rptsLeftan[IMAGE_LINE_MAX_NUM];  // 左边线区域最大角存储
 float Image_rptsRightan[IMAGE_LINE_MAX_NUM]; // 右边线区域最大角存储
-uint8 Image_rptsLeftanNum;                   // 左边线点的个数
-uint8 Image_rptsRightanNum;                  // 右边线点的个数
 //------------------------------
 // 左右变线跟踪相关
 uint8 Image_rptsLeftc[IMAGE_LINE_MAX_NUM][2];      // 左边线跟踪得到的中线数据
@@ -703,7 +699,7 @@ void Image_FindCorners(void)
     Image_isStraightRight = Image_rptsRightsNum > 0.5 / Image_sampleDist;
 
     // 左边线判断 - 初始角点不参与判断
-    for (uint8 i = 5; i < Image_rptsLeftanNum; ++i)
+    for (uint8 i = 5; i < Image_rptsLeftsNum; ++i)
     {
         if (Image_rptsLeftan[i] == 0)
             continue;
@@ -1072,16 +1068,12 @@ void Image_Process(uint8* image) {
     //----------------------------------------
     //求解边线局部角度变化率
     Image_LocalAnglePoints(Image_rptsLefts, Image_rptsLeftsNum, Image_rptsLefta, (uint8)round(Image_angleDist / Image_sampleDist));
-    Image_rptsLeftaNum = Image_rptsLeftsNum;
     Image_LocalAnglePoints(Image_rptsRights, Image_rptsRightsNum, Image_rptsRighta, (uint8)round(Image_angleDist / Image_sampleDist));
-    Image_rptsRightaNum = Image_rptsRightsNum;
 
     //----------------------------------------
     //对角度变化率进行非极大抑制(只保留一段边线中数据最大的点)
-    Image_NmsAngle(Image_rptsLefta, Image_rptsLeftaNum, Image_rptsLeftan, (uint8)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumLeft);
-    Image_rptsLeftanNum = Image_rptsLeftaNum;
-    Image_NmsAngle(Image_rptsRighta, Image_rptsRightaNum, Image_rptsRightan, (uint8)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumRight);
-    Image_rptsRightanNum = Image_rptsRightaNum;
+    Image_NmsAngle(Image_rptsLefta, Image_rptsLeftsNum, Image_rptsLeftan, (uint8)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumLeft);
+    Image_NmsAngle(Image_rptsRighta, Image_rptsRightsNum, Image_rptsRightan, (uint8)round(Image_angleDist / Image_sampleDist) * 2 + 1, &Image_cornerNumRight);
 
     if (Image_isUsefulData_Status) {
         Image_rptsLeftcNum_Bak = Image_rptsLeftcNum;
