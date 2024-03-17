@@ -123,12 +123,6 @@ uint8 Image_rptsRightcNum_Bak;                     // 右边线跟踪得到的中线的线长
 uint8 Image_cornerNumLeft = 0;  // 角点个数
 uint8 Image_cornerNumRight = 0; // 角点个数
 //------------------------------
-// Y角点
-uint8 Image_YptLeft_rptsLefts_id;   // 左边线Y角点id
-uint8 Image_YptRight_rptsRights_id; // 右边线Y角点id
-bool Image_YptLeft_Found;           // 左边线Y角点找到判定
-bool Image_YptRight_Found;          // 右边线Y角点找到判断
-//------------------------------
 // L角点
 uint8 Image_LptLeft_rptsLefts_id;   // 左边线L角点id
 uint8 Image_LptRight_rptsRights_id; // 右边线L角点id
@@ -701,8 +695,6 @@ void Image_FindCorners(void)
 {
     // 识别 Y,L拐点
     // 把角点判断置false
-    Image_YptLeft_Found = false;
-    Image_YptRight_Found = false;
     Image_LptLeft_Found = false;
     Image_LptRight_Found = false;
     // 判断是否是直道
@@ -720,12 +712,6 @@ void Image_FindCorners(void)
         uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
         float conf = fabs(Image_rptsLefta[i]) - fabs(Image_rptsLefta[im1] + Image_rptsLefta[ip1]) / 2;
 
-        // Y角点判断
-        if (Image_YptLeft_Found == false && 30 < conf && 65 > conf && i < 0.4 / Image_sampleDist)
-        {
-            Image_YptLeft_rptsLefts_id = i;
-            Image_YptLeft_Found = true;
-        }
         // L角点判断
         if (Image_LptLeft_Found == false && 80 < conf && 130 > conf && i < 0.4 / Image_sampleDist)
         {
@@ -739,7 +725,7 @@ void Image_FindCorners(void)
         }
 
         // 找到一组后,退出
-        if (Image_isStraightLeft == false && Image_LptLeft_Found == true && Image_YptLeft_Found == true)
+        if (Image_isStraightLeft == false && Image_LptLeft_Found == true)
             break;
     }
 
@@ -752,12 +738,7 @@ void Image_FindCorners(void)
         uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
         uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
         float conf = fabs(Image_rptsRighta[i]) - fabs(Image_rptsRighta[im1] + Image_rptsRighta[ip1]) / 2;
-        // Y角点判断
-        if (Image_YptRight_Found == false && 30 < conf && 65 > conf && i < 0.4 / Image_sampleDist)
-        {
-            Image_YptRight_rptsRights_id = i;
-            Image_YptRight_Found = true;
-        }
+
         // L角点判断
         if (Image_LptRight_Found == false && 80 < conf && 130 > conf && i < 0.4 / Image_sampleDist)
         {
@@ -771,18 +752,8 @@ void Image_FindCorners(void)
         }
 
         // 找到一组后,退出
-        if (Image_isStraightRight == false && Image_LptRight_Found == true && Image_YptRight_Found == true)
+        if (Image_isStraightRight == false && Image_LptRight_Found == true)
             break;
-    }
-
-    // 时间紧迫,先搁置在这
-    // Y角点二次检查,依据两角点距离及角点张开特性 (理论上不用做Y角点的 - 针对第十八届比赛赛道)
-    if (Image_YptLeft_Found && Image_YptRight_Found)
-    {
-    }
-    // L角点二次检查 - 依据L角点距离及角点张开特性 (理论上,依据电磁寻迹,这个两个L角点同时出现的情况也不用做处理)
-    if (Image_LptLeft_Found && Image_LptRight_Found)
-    {
     }
 }
 

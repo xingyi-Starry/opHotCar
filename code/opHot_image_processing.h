@@ -82,12 +82,6 @@ extern uint8 Image_rptsRightcNum;               //右边线跟踪得到的中线的线长
 
 //------------------------------角点寻找相关------------------------------
 //------------------------------
-//Y角点
-extern uint8 Image_YptLeft_rptsLefts_id;                       //左边线Y角点id
-extern uint8 Image_YptRight_rptsRights_id;                     //右边线Y角点id
-extern bool  Image_YptLeft_Found;                              //左边线Y角点找到判定
-extern bool  Image_YptRight_Found;                             //右边线Y角点找到判断
-//------------------------------
 //L角点
 extern uint8 Image_LptLeft_rptsLefts_id;                       //左边线L角点id
 extern uint8 Image_LptRight_rptsRights_id;                     //右边线L角点id
