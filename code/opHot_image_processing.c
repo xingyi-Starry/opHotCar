@@ -1010,23 +1010,30 @@ void Image_Process(uint8* image) {
     //}
     //Image_rptsRightNum = Image_iptsRightNum;
 
-
+//-------------------------------------
     //去除(0,0)点
-    for (uint8 i = 1; i < Image_rptsLeftNum - 1; ++i) {                                         //TODO:修改这里的bug
-        if (Image_rptsLeft[i + 1][0] != 0 || Image_rptsLeft[i + 1][1] != 0) {
-            Image_rptsLeft[i][0] = Image_rptsLeft[i + 1][0];
-            Image_rptsLeft[i][1] = Image_rptsLeft[i + 1][1];
+    for (uint8 i = 0; i < Image_rptsLeftNum; ++i) {
+        uint8 j = 0;                                         
+        if (Image_rptsLeft[i][0] != 0 || Image_rptsLeft[i][1] != 0) {
+            Image_rptsLeft[i - j][0] = Image_rptsLeft[i][0];
+            Image_rptsLeft[i - j][1] = Image_rptsLeft[i][1];
             ++Image_rptsLeftrNum;
         }
+        else
+            j++;
     }
     Image_rptsLeftNum = Image_rptsLeftrNum;
     Image_rptsLeftrNum = 0;
-    for (uint8 i = 1; i < Image_rptsRightNum - 1; ++i) {                                        //TODO:修改这里的bug
-        if (Image_rptsRight[i + 1][0] != 0 || Image_rptsRight[i + 1][1] != 0) {
-            Image_rptsRight[i][0] = Image_rptsRight[i + 1][0];
-            Image_rptsRight[i][1] = Image_rptsRight[i + 1][1];
+
+    for (uint8 i = 0; i < Image_rptsRightNum; ++i) {
+        uint8 j = 0;
+        if (Image_rptsRight[i][0] != 0 || Image_rptsRight[i][1] != 0) {
+            Image_rptsRight[i - j][0] = Image_rptsRight[i][0];
+            Image_rptsRight[i - j][1] = Image_rptsRight[i][1];
             ++Image_rptsRightrNum;
         }
+        else
+            j++;
     }
     Image_rptsRightNum = Image_rptsRightrNum;
     Image_rptsRightrNum = 0;
