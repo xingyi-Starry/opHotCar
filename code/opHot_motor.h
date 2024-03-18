@@ -31,6 +31,9 @@ typedef enum
     MOTOR_2 = 0x01
 } MOTOR_PWM_enum;
 
+extern float Motor1_target;
+extern float Motor2_target;
+
 void Motor_Init(void);
 void Motor_SetSpeed(MOTOR_PWM_enum motor_name, int16 speed);
 
@@ -48,8 +51,8 @@ void Motor2_SetPIDD(float setD);
 void Motor2_SetPIDLimit(float pLimit);
 void Motor2_SetPIDCoLimit(float coLimt);
 void Motor_pidClear();
-void Motor1_PIDwork(float target);
-void Motor2_PIDwork(float target);
+void Motor1_PIDwork(void);
+void Motor2_PIDwork(void);
 
 
 #endif /* CODE_OPHOT_MOTOR_H_ */

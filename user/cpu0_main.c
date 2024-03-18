@@ -69,7 +69,7 @@ int core0_main(void)
 
     // 逐飞助手初始化
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
-    seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak[0], MT9V03X_W, MT9V03X_H);
+    seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
     seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 40, LeftLine_show[0], RightLine_show[0], NULL, LeftLine_show[1], RightLine_show[1], NULL);
 
     // 屏幕初始化
@@ -132,8 +132,8 @@ int core0_main(void)
                 wireless_uart_send_string("\r\n");
                 break;
             case '4':
-                Motor1_PIDwork(50);
-                Motor2_PIDwork(50);
+                Motor1_PIDwork();
+                Motor2_PIDwork();
                 break;
 
             default:
@@ -160,10 +160,9 @@ int core0_main(void)
             mt9v03x_finish_flag = 0;
 
             // 在发送前将图像备份再进行发送，这样可以避免图像出现撕裂的问题
-            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            // memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             // 发送图像
-            // seekfree_assistant_camera_send();
-            // sf_ass_OnlyLine();
+            seekfree_assistant_camera_send();
         }
         // 此处编写需要循环执行的代码
     }

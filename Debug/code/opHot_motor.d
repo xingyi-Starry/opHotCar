@@ -332,6 +332,8 @@ code/opHot_motor.o :	../code/opHot_steer.h
 ../code/opHot_steer.h :
 code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_motor.o :	../code/opHotCar.h
+../code/opHotCar.h :
 code/opHot_motor.o :	../code/opHot_image_processing.h
 ../code/opHot_image_processing.h :
 code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
@@ -344,5 +346,3 @@ code/opHot_motor.o :	../code/opHot_image_show.h
 ../code/opHot_image_show.h :
 code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
-code/opHot_motor.o :	../code/opHotCar.h
-../code/opHotCar.h :

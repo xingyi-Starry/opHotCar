@@ -46,7 +46,11 @@ IFX_INTERRUPT(cc60_pit_ch0_isr, 0, CCU6_0_CH0_ISR_PRIORITY)
     interrupt_global_enable(0); // 开启中断嵌套
     pit_clear_flag(CCU60_CH0);
 
-    Encoder_SpeedRead();
+    Encoder_SpeedRead(); // 编码器读取速度
+
+    //----------电机PID工作----------
+    Motor1_PIDwork();
+    Motor2_PIDwork();
 }
 
 IFX_INTERRUPT(cc60_pit_ch1_isr, 0, CCU6_0_CH1_ISR_PRIORITY)
@@ -60,11 +64,11 @@ IFX_INTERRUPT(cc60_pit_ch1_isr, 0, CCU6_0_CH1_ISR_PRIORITY)
 IFX_INTERRUPT(cc61_pit_ch0_isr, 0, CCU6_1_CH0_ISR_PRIORITY)
 {
     interrupt_global_enable(0); // 开启中断嵌套
-    pit_clear_flag(CCU61_CH0);
     if (mt9v03x_finish_flag == 1)
     {
         Image_Process(mt9v03x_image[0]);
     }
+    pit_clear_flag(CCU61_CH0);
 }
 
 IFX_INTERRUPT(cc61_pit_ch1_isr, 0, CCU6_1_CH1_ISR_PRIORITY)

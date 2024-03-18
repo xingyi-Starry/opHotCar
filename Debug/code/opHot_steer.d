@@ -314,3 +314,35 @@ code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekf
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant.h :
 code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
+d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h
+d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_encoder.h
+d:/opHotCar_Learning/opHotCar/code/opHot_encoder.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_motor.h
+d:/opHotCar_Learning/opHotCar/code/opHot_motor.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
+d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_pid.h
+d:/opHotCar_Learning/opHotCar/code/opHot_pid.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_steer.h
+d:/opHotCar_Learning/opHotCar/code/opHot_steer.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h
+d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h
+d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h
+d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
