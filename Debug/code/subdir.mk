@@ -11,6 +11,7 @@ C_SRCS += \
 ../code/opHot_motor.c \
 ../code/opHot_pid.c \
 ../code/opHot_steer.c \
+../code/opHot_tracing.c \
 ../code/zf_myFunction.c 
 
 COMPILED_SRCS += \
@@ -21,6 +22,7 @@ COMPILED_SRCS += \
 ./code/opHot_motor.src \
 ./code/opHot_pid.src \
 ./code/opHot_steer.src \
+./code/opHot_tracing.src \
 ./code/zf_myFunction.src 
 
 C_DEPS += \
@@ -31,6 +33,7 @@ C_DEPS += \
 ./code/opHot_motor.d \
 ./code/opHot_pid.d \
 ./code/opHot_steer.d \
+./code/opHot_tracing.d \
 ./code/zf_myFunction.d 
 
 OBJS += \
@@ -41,6 +44,7 @@ OBJS += \
 ./code/opHot_motor.o \
 ./code/opHot_pid.o \
 ./code/opHot_steer.o \
+./code/opHot_tracing.o \
 ./code/zf_myFunction.o 
 
 
@@ -64,7 +68,7 @@ code/%.o: ./code/%.src code/subdir.mk
 clean: clean-code
 
 clean-code:
-	-$(RM) ./code/opHot_basic_function.d ./code/opHot_basic_function.o ./code/opHot_basic_function.src ./code/opHot_encoder.d ./code/opHot_encoder.o ./code/opHot_encoder.src ./code/opHot_image_processing.d ./code/opHot_image_processing.o ./code/opHot_image_processing.src ./code/opHot_image_show.d ./code/opHot_image_show.o ./code/opHot_image_show.src ./code/opHot_motor.d ./code/opHot_motor.o ./code/opHot_motor.src ./code/opHot_pid.d ./code/opHot_pid.o ./code/opHot_pid.src ./code/opHot_steer.d ./code/opHot_steer.o ./code/opHot_steer.src ./code/zf_myFunction.d ./code/zf_myFunction.o ./code/zf_myFunction.src
+	-$(RM) ./code/opHot_basic_function.d ./code/opHot_basic_function.o ./code/opHot_basic_function.src ./code/opHot_encoder.d ./code/opHot_encoder.o ./code/opHot_encoder.src ./code/opHot_image_processing.d ./code/opHot_image_processing.o ./code/opHot_image_processing.src ./code/opHot_image_show.d ./code/opHot_image_show.o ./code/opHot_image_show.src ./code/opHot_motor.d ./code/opHot_motor.o ./code/opHot_motor.src ./code/opHot_pid.d ./code/opHot_pid.o ./code/opHot_pid.src ./code/opHot_steer.d ./code/opHot_steer.o ./code/opHot_steer.src ./code/opHot_tracing.d ./code/opHot_tracing.o ./code/opHot_tracing.src ./code/zf_myFunction.d ./code/zf_myFunction.o ./code/zf_myFunction.src
 
 .PHONY: clean-code
 
