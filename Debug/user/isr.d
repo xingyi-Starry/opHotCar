@@ -316,6 +316,10 @@ user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assi
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
 d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/user/cpu0_main.h
+d:/opHotCar_Learning/opHotCar/user/cpu0_main.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h
 d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h

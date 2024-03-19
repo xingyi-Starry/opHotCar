@@ -42,9 +42,9 @@
 // 本例程是开源库空工程 可用作移植或者测试各类内外设
 
 // **************************** 代码区域 ****************************
-uint16 x = 9;
-uint16 y = 9;
-uint32 duty = 750;
+uint32 duty = STEER_MID;
+
+uint8 test_value = 0;
 
 uint8 ImageInit_flag = 0;
 uint8 image_bak[MT9V03X_H][MT9V03X_W];
@@ -70,7 +70,7 @@ int core0_main(void)
     // 逐飞助手初始化
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
-    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 40, LeftLine_show[0], RightLine_show[0], NULL, LeftLine_show[1], RightLine_show[1], NULL);
+    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 45, LeftLine_show[0], RightLine_show[0], MidLine_show[0], LeftLine_show[1], RightLine_show[1], MidLine_show[1]);
 
     // 屏幕初始化
     ips200_set_dir(IPS200_CROSSWISE);
@@ -101,8 +101,8 @@ int core0_main(void)
                 {
                     ImageInit_flag = 1;
                     Image_Init();
-                    Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-                    Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+                    // Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+                    // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
                 }
             }
         }
@@ -153,17 +153,10 @@ int core0_main(void)
         ips200_show_uint(5, 69, Image_rptsRightsNum, 3);
         ips200_show_int(5, 85, Encoder_1Data, 7);
         ips200_show_int(5, 101, Encoder_2Data, 7);
-
+        seekfree_assistant_camera_send();
         // sf_ass_OnlyLine();
-        if (mt9v03x_finish_flag)
-        {
-            mt9v03x_finish_flag = 0;
 
-            // 在发送前将图像备份再进行发送，这样可以避免图像出现撕裂的问题
-            // memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
-            // 发送图像
-            seekfree_assistant_camera_send();
-        }
+
         // 此处编写需要循环执行的代码
     }
 }

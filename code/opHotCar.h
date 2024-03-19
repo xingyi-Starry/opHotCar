@@ -8,6 +8,7 @@
 #ifndef CODE_OPHOTCAR_H_
 #define CODE_OPHOTCAR_H_
 
+#include "cpu0_main.h"
 #include "zf_myFunction.h"
 #include "opHot_encoder.h"
 #include "opHot_motor.h"
@@ -23,5 +24,7 @@
 #define KEY2                    (P20_7)
 #define KEY3                    (P11_2)
 #define KEY4                    (P11_3)
+
+extern uint8 test_value;
 
 #endif /* CODE_OPHOTCAR_H_ */
