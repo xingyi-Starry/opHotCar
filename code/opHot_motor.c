@@ -8,8 +8,8 @@
 
 PID Motor1_PID;
 PID Motor2_PID;
-float Motor1_target = 50;   // 电机1PID目标（编码器读数）
-float Motor2_target = 50;   // 电机2PID目标（编码器读数）
+float Motor1_target = 75;   // 电机1PID目标（编码器读数）
+float Motor2_target = 75;   // 电机2PID目标（编码器读数）
 
 /**
  * @brief   电机引脚初始化
