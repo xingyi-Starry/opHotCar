@@ -1126,11 +1126,11 @@ void Image_Process(uint8 *image)
     //    }
     //----------------------------------------
     // 复制中线数据至图传数组
-    for (uint8 i = 0; i < Image_rptsLeftsNum; ++i)
-    {
-        MidLine_show[0][i] = Image_MidLine[i][0];
-        MidLine_show[1][i] = Image_MidLine[i][1];
-    }
+//    for (uint8 i = 0; i < Image_rptsLeftsNum; ++i)
+//    {
+//        MidLine_show[0][i] = Image_MidLine[i][0];
+//        MidLine_show[1][i] = Image_MidLine[i][1];
+//    }
     // 找中线
     if (TRACE_TYPE == LEFT_MIDLINE)
     {
@@ -1141,6 +1141,12 @@ void Image_Process(uint8 *image)
     {
         Image_TrackRightLine(Image_rptsRights, Image_rptsRightsNum, Image_MidLine, (uint8)round(Image_angleDist / Image_sampleDist), Image_pixelPreMeter * Image_roadWidth / 2);
         Image_MidLineNum = Image_rptsRightsNum;
+    }
+    //复制等距采样后的中线数据至图传数组
+    for (uint8 i = 0; i < Image_rptsLeftsNum; ++i)
+    {
+        MidLine_show[0][i] = Image_RsMidLine[i][0];
+        MidLine_show[1][i] = Image_RsMidLine[i][1];
     }
 
     // 对中线进行等距采样

@@ -45,9 +45,9 @@
 /**
  * @brief 逐飞助手图传模式配置
  * @note  0表示传输逆透视边线及中线，1表示传输原始图像和原始边线
- * 
+ *
  */
-#define SEEKFREE_ASSISTANT_MODE     0
+#define SEEKFREE_ASSISTANT_MODE 0
 
 uint32 duty = STEER_MID;
 
@@ -77,10 +77,10 @@ int core0_main(void)
     // 逐飞助手初始化，此处选择无线串口，速率较慢，有条件可购买并选择一些更高速的下位机，或自行移植下位机
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
     // 逐飞助手图传模式配置
-#if (0 == SEEKFREE_ASSISTANT_MODE)      // 逆透视边线传输
+#if (0 == SEEKFREE_ASSISTANT_MODE) // 逆透视边线传输
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
     seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 45, LeftLine_show[0], RightLine_show[0], MidLine_show[0], LeftLine_show[1], RightLine_show[1], MidLine_show[1]);
-#elif (1 == SEEKFREE_ASSISTANT_MODE)    // 原图及边线传输
+#elif (1 == SEEKFREE_ASSISTANT_MODE) // 原图及边线传输
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
     seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 90, LeftLine_raw_show[0], RightLine_raw_show[0], NULL, LeftLine_raw_show[1], RightLine_raw_show[1], NULL);
 #endif
@@ -98,8 +98,10 @@ int core0_main(void)
 
     // PID初始化
     Motor_PID_Init();
-    // Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-    // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    Steer_PID_Init();
+    Steer_PID_Set(STEER_PID_P, STEER_PID_I, STEER_PID_D, STEER_PID_SL, STEER_PID_UL, 1);
+    //Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    //Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
 
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
 
@@ -114,8 +116,8 @@ int core0_main(void)
                 {
                     ImageInit_flag = 1;
                     Image_Init();
-                    // Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-                    // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+                    Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+                    Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
                 }
             }
             memset(data_buffer, 0, 32);
@@ -156,19 +158,18 @@ int core0_main(void)
             memset(data_buffer, 0, 32);
         }
 
-        Steer_SetDuty(duty);
+        // Steer_SetDuty(duty);
         memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
         ips200_show_gray_image(50, 50, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
         Image_ShowLine(50, 50);
-        ips200_show_uint(5, 5, Image_threSum, 3);
-        ips200_show_uint(5, 21, Image_iptsLeftNum, 3);
-        ips200_show_uint(5, 37, Image_iptsRightNum, 3);
-        ips200_show_uint(5, 53, Image_rptsLeftsNum, 3);
-        ips200_show_uint(5, 69, Image_rptsRightsNum, 3);
-        ips200_show_int(5, 85, Encoder_1Data, 7);
-        ips200_show_int(5, 101, test_value, 7);
-        //seekfree_assistant_camera_send();
-
+        ips200_show_int(5, 5, Image_threSum, 3);
+        ips200_show_int(5, 21, Image_iptsLeftNum, 3);
+        ips200_show_int(5, 37, Encoder_1Data, 5);
+        ips200_show_int(5, 53, Encoder_2Data, 5);
+        ips200_show_int(5, 69, Steer_current, 5);
+        ips200_show_int(5, 85, Steer_target, 5);
+        ips200_show_int(5, 101, Steer_PID.ut, 5);
+        seekfree_assistant_camera_send();
 
         // 此处编写需要循环执行的代码
     }

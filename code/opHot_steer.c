@@ -89,5 +89,5 @@ void Steer_PID_Clear(void)
 void Steer_PIDwork(void)
 {
     PID_PostionalPID(&Steer_PID, Steer_target, Steer_current);
-    Steer_SetDuty((uint32)Steer_PID.ut);
+    Steer_SetDuty((uint32)(Steer_PID.ut + Steer_current));
 }

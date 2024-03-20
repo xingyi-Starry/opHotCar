@@ -23,7 +23,7 @@
 #define MOTOR_PID_I             0
 #define MOTOR_PID_D             0
 #define MOTOR_PID_SL            5000
-#define MOTOR_PID_UL            1500
+#define MOTOR_PID_UL            2000
 
 typedef enum
 {

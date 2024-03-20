@@ -42,4 +42,5 @@ void Tracing_GetTarget(void)
 void Tracing_Work(void)
 {
     Tracing_GetTarget();
+    Steer_PIDwork();
 }

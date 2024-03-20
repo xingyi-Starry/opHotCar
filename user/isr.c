@@ -68,6 +68,7 @@ IFX_INTERRUPT(cc61_pit_ch0_isr, 0, CCU6_1_CH0_ISR_PRIORITY)
     if (mt9v03x_finish_flag == 1)
     {
         Image_Process(mt9v03x_image[0]);
+        Tracing_Work();
     }
 }
 

@@ -19,12 +19,13 @@
 #define STEER_L_LIM     (2480)     //舵机左转极限占空比
 
 //---------PID参数----------------
-#define STEER_PID_P             (100)
+#define STEER_PID_P             (1)
 #define STEER_PID_I             (0)
 #define STEER_PID_D             (0)
 #define STEER_PID_SL            (5000)
-#define STEER_PID_UL            (1500)
+#define STEER_PID_UL            (2500)
 
+extern PID Steer_PID;
 extern float Steer_target;
 extern float Steer_current;
 

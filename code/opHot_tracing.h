@@ -12,7 +12,7 @@
 #include "opHotCar.h"
 
 #define TRACE_CENTRAL       (94)    // 跟踪中心
-#define TRACE_KDE           (150)     // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
+#define TRACE_KDE           (450)     // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
 #define LENGTH_OF_CAR       (30)    // 车身长度
 
 typedef enum
@@ -26,5 +26,6 @@ extern uint8 tracing_aim;                     // 预瞄点在中线的位置
 
 
 void Tracing_GetTarget(void);
+void Tracing_Work(void);
 
 #endif /* CODE_OPHOT_TRACING_H_ */
