@@ -15,6 +15,7 @@
 #include "opHot_pid.h"
 #include "opHot_steer.h"
 #include "opHot_image_processing.h"
+#include "opHot_tracing.h"
 #include "opHot_image_show.h"
 
 #define LED1                    (P20_9)

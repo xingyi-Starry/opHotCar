@@ -7,7 +7,7 @@
 #include <opHot_steer.h>
 
 PID Steer_PID;
-float Steer_target = STEER_MID;
+float Steer_target = STEER_MID;     // 舵机PID目标占空比
 float Steer_current = STEER_MID;
 
 /**

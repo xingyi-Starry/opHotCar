@@ -42,6 +42,13 @@
 // 本例程是开源库空工程 可用作移植或者测试各类内外设
 
 // **************************** 代码区域 ****************************
+/**
+ * @brief 逐飞助手图传模式配置
+ * @note  0表示传输逆透视边线及中线，1表示传输原始图像和原始边线
+ * 
+ */
+#define SEEKFREE_ASSISTANT_MODE     0
+
 uint32 duty = STEER_MID;
 
 uint8 test_value = 0;
@@ -67,10 +74,16 @@ int core0_main(void)
     Encoder_Init();
     Steer_Init();
 
-    // 逐飞助手初始化
+    // 逐飞助手初始化，此处选择无线串口，速率较慢，有条件可购买并选择一些更高速的下位机，或自行移植下位机
     seekfree_assistant_interface_init(SEEKFREE_ASSISTANT_WIRELESS_UART);
+    // 逐飞助手图传模式配置
+#if (0 == SEEKFREE_ASSISTANT_MODE)      // 逆透视边线传输
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
     seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 45, LeftLine_show[0], RightLine_show[0], MidLine_show[0], LeftLine_show[1], RightLine_show[1], MidLine_show[1]);
+#elif (1 == SEEKFREE_ASSISTANT_MODE)    // 原图及边线传输
+    seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
+    seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 90, LeftLine_raw_show[0], RightLine_raw_show[0], NULL, LeftLine_raw_show[1], RightLine_raw_show[1], NULL);
+#endif
 
     // 屏幕初始化
     ips200_set_dir(IPS200_CROSSWISE);
@@ -105,6 +118,7 @@ int core0_main(void)
                     // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
                 }
             }
+            memset(data_buffer, 0, 32);
         }
         // 此处编写需要循环执行的代码
         // ips200_show_gray_image(30, 29, mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
@@ -152,9 +166,8 @@ int core0_main(void)
         ips200_show_uint(5, 53, Image_rptsLeftsNum, 3);
         ips200_show_uint(5, 69, Image_rptsRightsNum, 3);
         ips200_show_int(5, 85, Encoder_1Data, 7);
-        ips200_show_int(5, 101, Encoder_2Data, 7);
-        seekfree_assistant_camera_send();
-        // sf_ass_OnlyLine();
+        ips200_show_int(5, 101, test_value, 7);
+        //seekfree_assistant_camera_send();
 
 
         // 此处编写需要循环执行的代码
