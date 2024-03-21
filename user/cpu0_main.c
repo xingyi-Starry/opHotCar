@@ -54,7 +54,6 @@ uint32 duty = STEER_MID;
 uint8 test_value = 0;
 
 uint8 ImageInit_flag = 0;
-uint8 image_bak[MT9V03X_H][MT9V03X_W];
 uint8 data_buffer[32];
 uint8 data_len;
 uint8 pit_state = 0;
@@ -94,7 +93,6 @@ int core0_main(void)
     //-----------定时中断初始化---------------
     pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集&电机PID
     pit_ms_init(CCU60_CH1, 1000);
-    // pit_ms_init(CCU61_CH0, 10); // ccu61_ch0(cpu1) 图像处理
 
     // PID初始化
     Motor_PID_Init();
@@ -161,12 +159,12 @@ int core0_main(void)
             memset(data_buffer, 0, 32);
         }
 
-        memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
         ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
         if (Image_show_NE == 1)
         {
+            //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             Image_ShowLine(0, 0);
-            seekfree_assistant_camera_send();
+            // seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
         ips200_show_int(0, 120, Image_threSum, 5);

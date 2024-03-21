@@ -8,4 +8,9 @@
 
 void CommonRoad_Check(void)
 {
+    if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
+    {
+        // 角点二次检查，暂时搁置
+        OVERALL_STATE = CROSS;
+    }
 }

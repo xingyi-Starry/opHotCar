@@ -57,13 +57,18 @@ extern uint8 Image_rptsLefts[IMAGE_RESAMPLE_MAX_NUM][2];  // µÈ¾à²ÉÑùºóµÄ×ó±ßÏß×
 extern uint8 Image_rptsRights[IMAGE_RESAMPLE_MAX_NUM][2]; // µÈ¾à²ÉÑùºóµÄÓÒ±ßÏß×ø±ê´æ´¢
 extern uint8 Image_rptsLeftsNum;                          // µÈ¾à²ÉÑùºóµÄ×ó±ßÏß³¤¶È
 extern uint8 Image_rptsRightsNum;                         // µÈ¾à²ÉÑùºóµÄÓÒ±ßÏß³¤¶È
+extern uint8 Image_LeftLine_Lost;                         // ×ó±ßÏß¶ªÊ§±êÖ¾Î»
+extern uint8 Image_RightLine_Lost;                        // ×ó±ßÏß¶ªÊ§±êÖ¾Î»
 
+//------------------------------
+// Í¼´«Ïà¹Ø
 extern uint8 LeftLine_raw_show[2][IMAGE_LINE_MAX_NUM];  // Í¼´«Ô­Ê¼×ó±ßÏß
 extern uint8 RightLine_raw_show[2][IMAGE_LINE_MAX_NUM]; // Í¼´«Ô­Ê¼ÓÒ±ßÏß
 extern uint8 LeftLine_show[2][IMAGE_RESAMPLE_MAX_NUM];  // Í¼´«×ó±ßÏß
 extern uint8 RightLine_show[2][IMAGE_RESAMPLE_MAX_NUM]; // Í¼´«ÓÒ±ßÏß
 extern uint8 MidLine_show[2][IMAGE_RESAMPLE_MAX_NUM];   // Í¼´«ÖÐÏß
 extern uint8 Image_show_NE;                             // Í¼´«±êÖ¾Î»
+extern uint8 image_bak[MT9V03X_H][MT9V03X_W];           // Ô­Í¼±¸·Ý
 //------------------------------
 // ±ßÏß¾Ö²¿½Ç¶È±ä»¯ÂÊÏà¹Ø
 extern const float Image_angleDist; // ¼ÆËã±ßÏß×ª½ÇÊ±,Èý¸ö¼ÆËãµãµÄ¾àÀë
@@ -110,36 +115,10 @@ extern uint8 image_begin_y;          // ±ßÏß´¦ÀíÆðÊ¼µÄy×ø±ê
 extern uint8 image_block_size;       // ÇøÓò¶þÖµ»¯µÄÇøÓò±ß³¤
 extern uint8 image_block_clip_value; // ÐÞÕýµÄ¾­Ñé²ÎÊý(Ò»°ãÎª2~5)
 
-typedef enum
-{
-    IMAGE_IPS200 = 0x00,
-    IMAGE_TFT180 = 0x01,
-} IMAGE_SCREEN;
 
-typedef enum
-{
-    IMAGE_ORIGIN = 0x00,
-    IMAGE_MAPPING = 0x01,
-    IMAGE_MIDLINE_LEFT = 0x02,
-    IMAGE_MIDLINE_RIGHT = 0x03,
-    IMAGE_CLEAR_ORIGIN = 0x04,
-    IMAGE_CLEAR_MAPPING = 0x05,
-    IMAGE_CLEAR_MIDLINE_LEFT = 0x06,
-    IMAGE_CLEAR_MIDLINE_RIGHT = 0x07,
-} IMAGE_SHOW_TYPE;
-
-typedef enum
-{
-    IMAGE_LCORNER_NONE = 0x10,
-    IMAGE_LCORNER_BEGIN_LEFT = 0x00,
-    IMAGE_LCORNER_BEGIN_RIGHT = 0x01,
-    IMAGE_LCORNER_IS_GRAGE_LEFT = 0x02,
-    IMAGE_LCORNER_IS_GRAGE_RIGHT = 0x03,
-    IMAGE_LCORNER_IS_CIRCLE_LEFT = 0x04,
-    IMAGE_LCORNER_IS_CIRCLE_RIGHT = 0x05,
-} IMAGE_LCORNER_JUDGE;
 
 //-----------º¯Êý-----------
+void Image_LineCut(void);
 void Image_Init(void);
 void Image_Process(uint8 *image);
 
