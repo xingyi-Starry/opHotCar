@@ -312,3 +312,61 @@ user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfre
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant.h :
 user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
+d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/user/cpu0_main.h
+d:/opHotCar_Learning/opHotCar/user/cpu0_main.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h
+d:/opHotCar_Learning/opHotCar/code/zf_myFunction.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_encoder.h
+d:/opHotCar_Learning/opHotCar/code/opHot_encoder.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_motor.h
+d:/opHotCar_Learning/opHotCar/code/opHot_motor.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
+d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_pid.h
+d:/opHotCar_Learning/opHotCar/code/opHot_pid.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_steer.h
+d:/opHotCar_Learning/opHotCar/code/opHot_steer.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h
+d:/opHotCar_Learning/opHotCar/code/opHot_image_processing.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h
+d:/opHotCar_Learning/opHotCar/code/opHot_basic_function.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_tracing.h
+d:/opHotCar_Learning/opHotCar/code/opHot_tracing.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h
+d:/opHotCar_Learning/opHotCar/code/opHot_image_show.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_overall_state.h
+d:/opHotCar_Learning/opHotCar/code/opHot_overall_state.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_circle.h
+d:/opHotCar_Learning/opHotCar/code/opHot_circle.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_cross.h
+d:/opHotCar_Learning/opHotCar/code/opHot_cross.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_common_road.h
+d:/opHotCar_Learning/opHotCar/code/opHot_common_road.h :
+user/cpu1_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :

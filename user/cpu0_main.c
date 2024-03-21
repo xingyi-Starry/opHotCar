@@ -92,21 +92,24 @@ int core0_main(void)
     ips200_full(RGB565_GREEN);
 
     //-----------定时中断初始化---------------
-    pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集
-    pit_ms_init(CCU60_CH1, 500);
-    pit_ms_init(CCU61_CH0, 10); // ccu61_ch0(cpu1) 图像处理
+    pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集&电机PID
+    pit_ms_init(CCU60_CH1, 1000);
+    // pit_ms_init(CCU61_CH0, 10); // ccu61_ch0(cpu1) 图像处理
 
     // PID初始化
     Motor_PID_Init();
     Steer_PID_Init();
     Steer_PID_Set(STEER_PID_P, STEER_PID_I, STEER_PID_D, STEER_PID_SL, STEER_PID_UL, 1);
-    //Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-    //Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    // Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+
+    Image_Init();
 
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
 
     while (TRUE)
     {
+        /*
         while (!ImageInit_flag)
         {
             data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
@@ -121,7 +124,7 @@ int core0_main(void)
                 }
             }
             memset(data_buffer, 0, 32);
-        }
+        }*/
         // 此处编写需要循环执行的代码
         // ips200_show_gray_image(30, 29, mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
@@ -158,18 +161,21 @@ int core0_main(void)
             memset(data_buffer, 0, 32);
         }
 
-        // Steer_SetDuty(duty);
         memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
-        ips200_show_gray_image(50, 50, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
-        Image_ShowLine(50, 50);
-        ips200_show_int(5, 5, Image_threSum, 3);
-        ips200_show_int(5, 21, Image_iptsLeftNum, 3);
-        ips200_show_int(5, 37, Encoder_1Data, 5);
-        ips200_show_int(5, 53, Encoder_2Data, 5);
-        ips200_show_int(5, 69, Steer_current, 5);
-        ips200_show_int(5, 85, Steer_target, 5);
-        ips200_show_int(5, 101, Steer_PID.ut, 5);
-        seekfree_assistant_camera_send();
+        ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
+        if (Image_show_NE == 1)
+        {
+            Image_ShowLine(0, 0);
+            seekfree_assistant_camera_send();
+            Image_show_NE = 0;
+        }
+        ips200_show_int(0, 120, Image_threSum, 5);
+        // ips200_show_int(0, 136, test_value, 5);
+        ips200_show_int(0, 152, Encoder_1Data, 5);
+        ips200_show_int(0, 168, Encoder_2Data, 5);
+        ips200_show_int(0, 184, Steer_current, 5);
+        ips200_show_int(0, 200, Steer_target, 5);
+        ips200_show_int(0, 216, Steer_PID.ut, 5);
 
         // 此处编写需要循环执行的代码
     }

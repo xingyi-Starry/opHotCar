@@ -17,6 +17,10 @@
 #include "opHot_image_processing.h"
 #include "opHot_tracing.h"
 #include "opHot_image_show.h"
+#include "opHot_overall_state.h"
+#include "opHot_circle.h"
+#include "opHot_cross.h"
+#include "opHot_common_road.h"
 
 #define LED1                    (P20_9)
 #define LED2                    (P20_8)

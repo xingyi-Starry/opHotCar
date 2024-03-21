@@ -26,6 +26,7 @@
 //------------------------------------------------------------
 // 所有状态机
 extern uint8 Image_Process_Status;
+extern uint8 Image_Init_flag;
 //------------------------------------------------------------
 // 基本变量
 extern uint16 Image_threSum;
@@ -62,6 +63,7 @@ extern uint8 RightLine_raw_show[2][IMAGE_LINE_MAX_NUM]; // 图传原始右边线
 extern uint8 LeftLine_show[2][IMAGE_RESAMPLE_MAX_NUM];  // 图传左边线
 extern uint8 RightLine_show[2][IMAGE_RESAMPLE_MAX_NUM]; // 图传右边线
 extern uint8 MidLine_show[2][IMAGE_RESAMPLE_MAX_NUM];   // 图传中线
+extern uint8 Image_show_NE;                             // 图传标志位
 //------------------------------
 // 边线局部角度变化率相关
 extern const float Image_angleDist; // 计算边线转角时,三个计算点的距离

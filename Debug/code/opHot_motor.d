@@ -354,3 +354,19 @@ code/opHot_motor.o :	../code/opHot_image_show.h
 ../code/opHot_image_show.h :
 code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_motor.o :	../code/opHot_overall_state.h
+../code/opHot_overall_state.h :
+code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_motor.o :	../code/opHot_circle.h
+../code/opHot_circle.h :
+code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_motor.o :	../code/opHot_cross.h
+../code/opHot_cross.h :
+code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_motor.o :	../code/opHot_common_road.h
+../code/opHot_common_road.h :
+code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
