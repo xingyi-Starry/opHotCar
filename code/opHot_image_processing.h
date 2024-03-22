@@ -5,7 +5,7 @@
 #include "opHotCar.h"
 #include "opHot_basic_function.h"
 
-// CAMERA_SELECTION内容解释
+// CAMERA_SELECTION内容解释   --现在只有总钻风，这是学长挖了没填的大坑，看个乐 --linnuofan-2024/3/22
 // 为 1 的时候,选择总钻风
 // 为 2 的时候,选择小钻风
 // 为 3 的时候,选择凌瞳
@@ -21,6 +21,7 @@
 #define IMAGE_WIDTH (SCC8660_W)
 #endif
 
+#define INVERTED_TRACING_Y  (20)    //反向巡线起始y坐标
 #define IMAGE_LINE_MAX_NUM (90)     // 图片边线像素点最大个数
 #define IMAGE_RESAMPLE_MAX_NUM (60) // 重采样边线像素点最大个数
 //------------------------------------------------------------

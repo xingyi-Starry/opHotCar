@@ -17,8 +17,9 @@
 
 typedef enum
 {
-    LEFT_MIDLINE,
-    RIGHT_MIDLINE
+    TRACE_LEFT_MIDLINE,
+    TRACE_RIGHT_MIDLINE,
+    TRACE_NONE
 }TRACE_TYPE_enum;
 
 extern TRACE_TYPE_enum TRACE_TYPE;

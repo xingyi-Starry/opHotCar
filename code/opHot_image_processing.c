@@ -401,11 +401,11 @@ uint8 map_y[120][188] = {
 
 //------------------------------调试参数处理------------------------------
 // 用于调试的参数(为了作区分,这里的标头起始字母用小写处理, 同时使用下划线命名法)
-uint8 image_thre = 120;                     // 边线处理的初始阈值
-uint8 image_begin_x = IMAGE_WIDTH / 2 + 15; // 边线处理的起始x坐标偏离中心的距离
-uint8 image_begin_y = IMAGE_HEIGHT - 30;    // 边线处理起始的y坐标
-uint8 image_block_size = 7;                 // 区域二值化的区域边长
-uint8 image_block_clip_value = 4;           // 修正的经验参数(一般为2~5)
+uint8 image_thre = 120;                  // 边线处理的初始阈值
+uint8 image_begin_x = IMAGE_WIDTH / 2;   // 边线处理的起始x坐标偏离中心的距离
+uint8 image_begin_y = IMAGE_HEIGHT - 20; // 边线处理起始的y坐标
+uint8 image_block_size = 7;              // 区域二值化的区域边长
+uint8 image_block_clip_value = 4;        // 修正的经验参数(一般为2~5)
 
 /**
  * @brief                   获取图像数据
@@ -1015,9 +1015,22 @@ void Image_Process(uint8 *image)
     Image_iptsLeftNum = sizeof(Image_iptsLeft) / sizeof(Image_iptsLeft[0]);
     uint8 x1 = image_begin_x;
     uint8 y1 = image_begin_y;
-    for (; x1 > 0; --x1)
-        if (IMAGE_AT(image, x1 - 1, y1) < image_thre)
-            break; // 查找边界上的第一个点
+    // 十字反向巡线
+    if (CROSS_STATE == CROSS_EXIT)
+    {
+        // 反向巡线模式，修改边线处理起始坐标
+        x1 = IMAGE_WIDTH / 2;    // 边线处理的起始x坐标
+        y1 = INVERTED_TRACING_Y; // 边线处理起始的y坐标
+        for (; x1 < IMAGE_WIDTH - 1; ++x1)
+            if (IMAGE_AT(image, x1 + 1, y1) < image_thre)
+                break; // 查找边界上的第一个点
+    }
+    else
+    {
+        for (; x1 > 0; --x1)
+            if (IMAGE_AT(image, x1 - 1, y1) < image_thre)
+                break; // 查找边界上的第一个点
+    }
     if (IMAGE_AT(image, x1, y1) >= image_thre)
     { // 没有到边界就正常处理
         Image_FindLine_LeftHand_Adaptive(image, image_block_size, image_block_clip_value, x1, y1);
@@ -1029,9 +1042,22 @@ void Image_Process(uint8 *image)
     Image_iptsRightNum = sizeof(Image_iptsRight) / sizeof(Image_iptsRight[0]);
     uint8 x2 = image_begin_x;
     uint8 y2 = image_begin_y;
-    for (; x2 < IMAGE_WIDTH - 1; ++x2)
-        if (IMAGE_AT(image, x2 + 1, y1) < image_thre)
-            break;                             // 查找边界上的第一个点
+    // 十字反向巡线
+    if (CROSS_STATE == CROSS_EXIT)
+    {
+        // 反向巡线模式，修改边线处理起始坐标
+        x2 = IMAGE_WIDTH / 2;    // 边线处理的起始x坐标
+        y2 = INVERTED_TRACING_Y; // 边线处理起始的y坐标
+        for (; x2 > 0; --x2)
+            if (IMAGE_AT(image, x2 - 1, y2) < image_thre)
+                break; // 查找边界上的第一个点
+    }
+    else
+    {
+        for (; x2 < IMAGE_WIDTH - 1; ++x2)
+            if (IMAGE_AT(image, x2 + 1, y2) < image_thre)
+                break; // 查找边界上的第一个点
+    }
     if (IMAGE_AT(image, x2, y2) >= image_thre) // 没有到边界就正常处理
         Image_FindLine_RightHand_Adaptive(image, image_block_size, image_block_clip_value, x2, y2);
     else
@@ -1168,12 +1194,12 @@ void Image_Process(uint8 *image)
     State_Check();
 
     // 找中线
-    if (TRACE_TYPE == LEFT_MIDLINE)
+    if (TRACE_TYPE == TRACE_LEFT_MIDLINE)
     {
         Image_TrackLeftLine(Image_rptsLefts, Image_rptsLeftsNum, Image_MidLine, (uint8)round(Image_angleDist / Image_sampleDist), Image_pixelPreMeter * Image_roadWidth / 2);
         Image_MidLineNum = Image_rptsLeftsNum;
     }
-    else if (TRACE_TYPE == RIGHT_MIDLINE)
+    else if (TRACE_TYPE == TRACE_RIGHT_MIDLINE)
     {
         Image_TrackRightLine(Image_rptsRights, Image_rptsRightsNum, Image_MidLine, (uint8)round(Image_angleDist / Image_sampleDist), Image_pixelPreMeter * Image_roadWidth / 2);
         Image_MidLineNum = Image_rptsRightsNum;
@@ -1188,7 +1214,7 @@ void Image_Process(uint8 *image)
     // 延长中线
     if (CROSS_STATE == CROSS_ENTER)
     {
-        Image_MidLine_Extend(40);
+        Image_MidLine_Extend(30);
     }
 
     Image_Process_Status = 1;
