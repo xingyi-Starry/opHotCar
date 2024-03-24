@@ -31,12 +31,11 @@ void CommonRoad_Check(void)
         CROSS_STATE = CROSS_ENTER;
     }
 
-    // 环岛检查
-    /*
-    if (Image_LptLeft_Found == true || Image_LptRight_Found == true && OVERALL_STATE == COMMON_ROAD)
+    // 右环岛检查
+    
+    if (Image_LptRight_Found == true && OVERALL_STATE == COMMON_ROAD)
     {
         OVERALL_STATE = CIRCLE;
-        CIRCLE_STATE = CIRCLE_NONE;
-        Circle_Check();
-    }*/
+        CIRCLE_STATE = CIRCLE_RIGHT_BEGIN;
+    }
 }
