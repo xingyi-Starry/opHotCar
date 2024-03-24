@@ -11,8 +11,8 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
-#define CROSS_ENTER_CORNER_EDGE_DIST    (IMAGE_HEIGHT - 30)      // 状态机切换边界角点像素距离
-#define CROSS_EXIT_ENCODER_THRE         (9300)                    // 退出CROSS_EXIT编码器阈值
+#define CROSS_ENTER_CORNER_EDGE_DIST    (IMAGE_HEIGHT - 35)      // 状态机切换边界角点像素距离
+#define CROSS_EXIT_ENCODER_THRE         (2000)                    // 退出CROSS_EXIT编码器阈值
 
 typedef enum
 {

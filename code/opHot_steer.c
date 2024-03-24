@@ -88,6 +88,10 @@ void Steer_PID_Clear(void)
 
 void Steer_PIDwork(void)
 {
+    if (TRACE_TYPE == TRACE_NONE)
+        Steer_SetPIDD(-0.99);
+    else
+        Steer_SetPIDD(0);
     PID_PostionalPID(&Steer_PID, Steer_target, Steer_current);
     Steer_SetDuty((uint32)(Steer_PID.ut + Steer_current));
 }

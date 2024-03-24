@@ -44,13 +44,16 @@ void Cross_Check(void)
         }
         break;
     case CROSS_EXIT:
+        // 巡前线
+        image_begin_y = 30;
         // 预瞄点配置
-        tracing_aim = TRACE_CLOSE_AIM;
-        TRACE_TYPE = TRACE_NONE;
+        tracing_aim = TRACE_CROSS_AIM;
 
-        // 当角点消失后再前进一段距离，退出CROSS
+        // 行驶固定距离后退出CROSS_EXIT
         if (Encoder_sum_Motor1 >= CROSS_EXIT_ENCODER_THRE)
         {
+            // 恢复巡线起点
+            image_begin_y = IMAGE_HEIGHT - 20;
             // 结束积分，清除积分数据
             Encoder_End(ENCODER_MOTOR_1);
             Encoder_Clear(ENCODER_MOTOR_1);

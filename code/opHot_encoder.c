@@ -74,7 +74,7 @@ void Encoder_SpeedRead(void) {
 
 /**
  * @brief                   编码器开始积分
- * @param motorSelect   电机选择
+ * @param motorSelect       电机选择 ENCODER_MOTOR_1为左编码器，ENCODER_MOTOR_2为右编码器
  * @example
  * @attention               编码器需要在中断中进行调用
  */

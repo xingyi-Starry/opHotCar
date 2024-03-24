@@ -22,8 +22,8 @@
 
 //------------------------------数据定义相关------------------------------
 typedef enum {
-    ENCODER_MOTOR_1 = 0x00,
-    ENCODER_MOTOR_2 = 0x01,
+    ENCODER_MOTOR_1 = 0x00, // 左编码器
+    ENCODER_MOTOR_2 = 0x01, // 右编码器
 }ENCODER_MOTOR_SELECT;
 
 //对外接口

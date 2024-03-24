@@ -80,7 +80,7 @@ int core0_main(void)
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
     seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 45, LeftLine_show[0], RightLine_show[0], MidLine_show[0], LeftLine_show[1], RightLine_show[1], MidLine_show[1]);
 #elif (1 == SEEKFREE_ASSISTANT_MODE) // 原图及边线传输
-    seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, NULL, MT9V03X_W, MT9V03X_H);
+    seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak, MT9V03X_W, MT9V03X_H);
     seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 90, LeftLine_raw_show[0], RightLine_raw_show[0], NULL, LeftLine_raw_show[1], RightLine_raw_show[1], NULL);
 #endif
 
@@ -123,8 +123,11 @@ int core0_main(void)
             }
             memset(data_buffer, 0, 32);
         }
+
+        seekfree_assistant_data_analysis();
+        //image_begin_y = (uint8)seekfree_assistant_parameter[0];
         // 此处编写需要循环执行的代码
-        // ips200_show_gray_image(30, 29, mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
+        /*
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
         if (data_len != 0)
         {
@@ -160,22 +163,22 @@ int core0_main(void)
                 break;
             }
             memset(data_buffer, 0, 32);
-        }
+        }*/
 
         if (Image_show_NE == 1)
         {
             //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
-            Image_ShowResampleLine(0, 0);
+            Image_ShowLine(0, 0);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
             seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
         ips200_show_int(0, 120, image_thre, 5);
         // ips200_show_int(0, 136, test_value, 5);
-        ips200_show_int(0, 152, Image_cornerNumLeft, 5);
+        ips200_show_int(0, 152, Err, 5);
         ips200_show_int(0, 168, Encoder_sum_Motor1, 5);
-        ips200_show_int(0, 184, Image_LptRight_rptsRights_id, 5);
+        ips200_show_int(0, 184, TRACE_TYPE, 5);
         ips200_show_int(0, 200, OVERALL_STATE, 5);
         ips200_show_int(0, 216, CROSS_STATE, 5);
 

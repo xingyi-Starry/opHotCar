@@ -403,7 +403,7 @@ uint8 map_y[120][188] = {
 // 用于调试的参数(为了作区分,这里的标头起始字母用小写处理, 同时使用下划线命名法)
 uint8 image_thre = 120;                  // 边线处理的初始阈值
 uint8 image_begin_x = IMAGE_WIDTH / 2;   // 边线处理的起始x坐标偏离中心的距离
-uint8 image_begin_y = IMAGE_HEIGHT - 20; // 边线处理起始的y坐标
+uint8 image_begin_y = 100; // 边线处理起始的y坐标
 uint8 image_block_size = 7;              // 区域二值化的区域边长
 uint8 image_block_clip_value = 4;        // 修正的经验参数(一般为2~5)
 
@@ -1220,7 +1220,7 @@ void Image_Process(uint8 *image)
         // 延长中线
         if (CROSS_STATE == CROSS_ENTER)
         {
-            Image_MidLine_Extend(30);
+            // Image_MidLine_Extend(30);
         }
     }
 
