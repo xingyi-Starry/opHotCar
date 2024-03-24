@@ -21,7 +21,7 @@
 #define IMAGE_WIDTH (SCC8660_W)
 #endif
 
-#define INVERTED_TRACING_Y  (20)    //反向巡线起始y坐标
+#define INVERTED_TRACING_Y (70)     // 斜向巡线起始y坐标
 #define IMAGE_LINE_MAX_NUM (90)     // 图片边线像素点最大个数
 #define IMAGE_RESAMPLE_MAX_NUM (60) // 重采样边线像素点最大个数
 //------------------------------------------------------------
@@ -39,6 +39,8 @@ extern uint8 Image_iptsLeft[90][2];  // 左边线坐标存储 - 0代表x坐标,1代表y坐标
 extern uint8 Image_iptsRight[90][2]; // 右边线坐标存储
 extern uint8 Image_iptsLeftNum;      // 左边线像素点个数
 extern uint8 Image_iptsRightNum;     // 右边线像素点个数
+extern uint8 Image_iptsLeftNum_Bak;  // 左边线像素点个数备份
+extern uint8 Image_iptsRightNum_Bak; // 右边线像素点个数备份
 // 逆透视变换曲线
 extern uint8 Image_rptsLeft[90][2];  // 左边线去畸变+逆透视变换坐标存储
 extern uint8 Image_rptsRight[90][2]; // 右边线去畸变+逆透视变换坐标存储
@@ -94,6 +96,9 @@ extern uint8 Image_MidLineNum; // 中线线长
 
 //------------------------------角点寻找相关------------------------------
 //------------------------------
+// 角点个数
+extern uint8 Image_cornerNumLeft;  // 角点个数
+extern uint8 Image_cornerNumRight; // 角点个数
 // L角点
 extern uint8 Image_LptLeft_rptsLefts_id;   // 左边线L角点id
 extern uint8 Image_LptRight_rptsRights_id; // 右边线L角点id
@@ -115,8 +120,6 @@ extern uint8 image_begin_x;          // 边线处理的起始x坐标偏离中心的距离
 extern uint8 image_begin_y;          // 边线处理起始的y坐标
 extern uint8 image_block_size;       // 区域二值化的区域边长
 extern uint8 image_block_clip_value; // 修正的经验参数(一般为2~5)
-
-
 
 //-----------函数-----------
 void Image_LineCut(void);

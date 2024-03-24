@@ -47,6 +47,7 @@ IFX_INTERRUPT(cc60_pit_ch0_isr, 0, CCU6_0_CH0_ISR_PRIORITY)
     pit_clear_flag(CCU60_CH0);
 
     Encoder_SpeedRead(); // 编码器读取速度
+    Encoder_Count();     // 编码器积分
 
     //----------电机PID工作----------
     Motor1_PIDwork();

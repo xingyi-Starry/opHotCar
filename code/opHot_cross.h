@@ -11,10 +11,10 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
-#define CROSS_ENTER_CORNER_EDGE_DIST    (45)        // 状态机切换边界角点像素距离
-#define CROSS_EXIT_CORNER_EDGE_DIST     (30)        // 状态机切换边界角点像素距离
+#define CROSS_ENTER_CORNER_EDGE_DIST    (IMAGE_HEIGHT - 30)      // 状态机切换边界角点像素距离
+#define CROSS_EXIT_ENCODER_THRE         (9300)                    // 退出CROSS_EXIT编码器阈值
 
-typedef enum 
+typedef enum
 {
     CROSS_ENTER,
     CROSS_RUNNING,
@@ -24,6 +24,5 @@ typedef enum
 extern CROSS_STATE_enum CROSS_STATE;
 
 void Cross_Check(void);
-
 
 #endif /* CODE_OPHOT_CROSS_H_ */
