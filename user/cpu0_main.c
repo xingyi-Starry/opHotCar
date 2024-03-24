@@ -169,18 +169,20 @@ int core0_main(void)
         {
             //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
+                        ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
             Image_ShowLine(0, 0);
+            Image_ShowResampleLine(0, 120);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
             seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
-        ips200_show_int(0, 120, image_thre, 5);
+        ips200_show_int(188, 120, image_thre, 5);
         // ips200_show_int(0, 136, test_value, 5);
-        ips200_show_int(0, 152, Err, 5);
-        ips200_show_int(0, 168, Encoder_sum_Motor1, 5);
-        ips200_show_int(0, 184, TRACE_TYPE, 5);
-        ips200_show_int(0, 200, OVERALL_STATE, 5);
-        ips200_show_int(0, 216, CROSS_STATE, 5);
+        ips200_show_int(188, 152, Err, 5);
+        ips200_show_int(188, 168, Encoder_sum_Motor1, 5);
+        ips200_show_int(188, 184, TRACE_TYPE, 5);
+        ips200_show_int(188, 200, OVERALL_STATE, 5);
+        ips200_show_int(188, 216, CIRCLE_STATE, 5);
 
         // 此处编写需要循环执行的代码
     }

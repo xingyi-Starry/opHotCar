@@ -22,6 +22,10 @@ void Image_ShowResampleLine(uint8 x, uint8 y)
     {
         ips200_draw_point(x + Image_rptsRights[i][0], y + Image_rptsRights[i][1], RGB565_RED);
     }
+    for (uint8 i = 0; i < Image_MidLineNum; i++)
+    {
+        ips200_draw_point(x + Image_RsMidLine[i][0], y + Image_RsMidLine[i][1], RGB565_YELLOW);
+    }
 }
 
 void Image_ShowArray(uint8 x, uint8 y, uint8 height, float Array[], uint8 num, rgb565_color_enum Color)

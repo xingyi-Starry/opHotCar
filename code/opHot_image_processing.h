@@ -90,6 +90,7 @@ extern uint8 Image_rptsRightanNum;  // 右边线点的个数
 // extern uint8 Image_rptsLeftc[IMAGE_RESAMPLE_MAX_NUM][2];  // 左边线跟踪得到的中线数据
 // extern uint8 Image_rptsRightc[IMAGE_RESAMPLE_MAX_NUM][2]; // 右边线跟踪得到的中线数据
 extern uint8 Image_MidLine[IMAGE_RESAMPLE_MAX_NUM][2]; // 中线数据
+extern uint8 Image_RsMidLine[IMAGE_RESAMPLE_MAX_NUM][2]; // 等距采样后的中线数据
 // extern uint8 Image_rptsLeftcNum;                          // 左边线跟踪得到的中线的线长
 // extern uint8 Image_rptsRightcNum;                         // 右边线跟踪得到的中线的线长
 extern uint8 Image_MidLineNum; // 中线线长
