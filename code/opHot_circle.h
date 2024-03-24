@@ -11,7 +11,7 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
-#define CIRCLE_BEGIN_CORNER_EDGE_DIST (IMAGE_HEIGHT - 35)   // 状态机切换边界角点像素距离
+#define CIRCLE_BEGIN_CORNER_EDGE_DIST (IMAGE_HEIGHT - 15)   // 状态机切换边界角点像素距离
 #define CIRCLE_IN1_ENCODER_THRE (10000)                      // 退出CIRCLE_IN1编码器阈值
 #define CIRCLE_IN2_ENCODER_THRE (4500)                      // 退出CIRCLE_IN2编码器阈值
 #define CIRCLE_RUNNING_CORNER_EDGE_DIST (IMAGE_HEIGHT - 20) // 状态机切换边界角点像素距离

@@ -29,6 +29,7 @@ void Circle_Check(void)
         {
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = CROSS;
+            CROSS_STATE = CROSS_ENTER;
         }
         // 如果角点接近或者角点消失，切换到CIRCLE_IN1
         if (Image_rptsRights[Image_LptRight_rptsRights_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
@@ -46,6 +47,13 @@ void Circle_Check(void)
             TRACE_TYPE = TRACE_LEFT_MIDLINE;
         else
             TRACE_TYPE = TRACE_NONE;
+        // 如果检测到第二个角点，切换到十字
+        if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
+        {
+            CIRCLE_STATE = CIRCLE_NONE;
+            OVERALL_STATE = CROSS;
+            CROSS_STATE = CROSS_ENTER;
+        }
         // 行驶固定距离后进入CIRCLE_IN2
         if (Encoder_sum_Motor1 >= CIRCLE_IN1_ENCODER_THRE)
         {
