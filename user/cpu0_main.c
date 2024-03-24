@@ -101,13 +101,13 @@ int core0_main(void)
     // Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
     // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
 
-    //Image_Init();
+    // Image_Init();
 
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
 
     while (TRUE)
     {
-        
+
         while (!ImageInit_flag)
         {
             data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
@@ -125,8 +125,8 @@ int core0_main(void)
         }
 
         seekfree_assistant_data_analysis();
-        //image_begin_y = (uint8)seekfree_assistant_parameter[0];
-        // 此处编写需要循环执行的代码
+        // image_begin_y = (uint8)seekfree_assistant_parameter[0];
+        //  此处编写需要循环执行的代码
         /*
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
         if (data_len != 0)
@@ -167,18 +167,16 @@ int core0_main(void)
 
         if (Image_show_NE == 1)
         {
-            //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            // memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
-                        ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
             Image_ShowLine(0, 0);
-            Image_ShowResampleLine(0, 120);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
             seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
         ips200_show_int(188, 120, image_thre, 5);
         // ips200_show_int(0, 136, test_value, 5);
-        ips200_show_int(188, 152, Err, 5);
+        ips200_show_int(188, 152, (int16)Err, 5);
         ips200_show_int(188, 168, Encoder_sum_Motor1, 5);
         ips200_show_int(188, 184, TRACE_TYPE, 5);
         ips200_show_int(188, 200, OVERALL_STATE, 5);

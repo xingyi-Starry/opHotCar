@@ -36,7 +36,7 @@ void Circle_Check(void)
             // 启动编码器积分
             Encoder_Begin(ENCODER_MOTOR_1);
 
-            CIRCLE_STATE = CIRCLE_LEFT_IN1;
+            CIRCLE_STATE = CIRCLE_RIGHT_IN1;
         }
         break;
 
@@ -90,10 +90,14 @@ void Circle_Check(void)
 
     case CIRCLE_RIGHT_OUT1:
         // 跟踪边线选择 只跟右线
+        /*
         if (Image_RightLine_Lost == 0)
             TRACE_TYPE = TRACE_RIGHT_MIDLINE;
         else
             TRACE_TYPE = TRACE_NONE;
+            */
+        // 先开环控制，闭环暂时丢线
+        TRACE_TYPE = TRACE_NONE;
         // 发现左线为直线时进入CIRCLE_OUT2
         if (Image_isStraightLeft == true)
         {
