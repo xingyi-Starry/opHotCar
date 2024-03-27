@@ -12,10 +12,10 @@
 #include "opHotCar.h"
 
 #define TRACE_CENTRAL       (86)    // 跟踪中心
-#define TRACE_KDE           (470)     // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
+#define TRACE_KDE           (490)     // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
 #define LENGTH_OF_CAR       (30)    // 车身长度
-#define TRACE_COMMON_AIM    (9)    // 标准预瞄点
-#define TRACE_CLOSE_AIM     (7)     // 近预瞄点
+#define TRACE_COMMON_AIM    (20)    // 标准预瞄点
+#define TRACE_CLOSE_AIM     (5)     // 近预瞄点
 #define TRACE_CROSS_AIM     (3)     // 十字预瞄点
 
 typedef enum

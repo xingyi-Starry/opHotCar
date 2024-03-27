@@ -41,7 +41,7 @@ uint8 Image_Init_flag = 0;
 //------------------------------变量------------------------------
 //------------------------------
 // 基本变量
-const float Image_pixelPreMeter = 100;   // 每米95.56个像素点(45cm ~ 44pixel)
+const float Image_pixelPreMeter = 100;     // 每米95.56个像素点(45cm ~ 44pixel)
 const float Image_roadWidth = 0.45;        // 赛道的宽度 - (单位为m)
 const float Image_PI = 3.14159265358;      // PI(手打的)
 uint8 Image_disPictureCnt = 0;             // 丢弃图片的数量计数
@@ -140,8 +140,8 @@ bool Image_isStraightLeft;  // 左边线是否为直道
 bool Image_isStraightRight; // 右边线是否为直道
 //------------------------------
 // 弯道
-bool Image_isTurnLeft;  // 左边线是否为弯道
-bool Image_isTurnRight; // 右边线是否为弯道
+uint8 Image_LeftDir = 0;  // 左线方向，0为直道，1为左拐，2为右拐
+uint8 Image_RightDir = 0; // 右线方向，0为直道，1为左拐，2为右拐
 //------------------------------
 // 获取选中角点数据
 uint8 Image_angleCntLeft = 0;  // 记录当前选中的是第几个点 - 左边线
@@ -762,6 +762,34 @@ void Image_FindCorners(void)
 }
 
 /**
+ * @brief 弯道方向判断
+ *
+ */
+void Image_DirJudge(void)
+{
+    float dx = (float)(Image_rptsLefts[0][0] - Image_rptsLefts[Image_rptsLeftsNum][0]);
+    float dy = (float)(Image_rptsLefts[0][1] - Image_rptsLefts[Image_rptsLeftsNum][1]);
+    float dn = sqrtf(dx * dx + dy * dy);
+    dx /= dn;
+    if (dx < -NOTSTRAIT_JUDGE_SIN)
+        Image_LeftDir = 2;
+    else if (dx > NOTSTRAIT_JUDGE_SIN)
+        Image_LeftDir = 1;
+    else 
+        Image_LeftDir = 0;
+    
+    dx = (float)(Image_rptsRights[0][0] - Image_rptsRights[Image_rptsRightsNum][0]);
+    dy = (float)(Image_rptsRights[0][1] - Image_rptsRights[Image_rptsRightsNum][1]);
+    dn = sqrtf(dx * dx + dy * dy);
+    if (dx < -NOTSTRAIT_JUDGE_SIN)
+        Image_RightDir = 2;
+    else if (dx > NOTSTRAIT_JUDGE_SIN)
+        Image_RightDir = 1;
+    else 
+        Image_RightDir = 0;
+}
+
+/**
  * @brief 边线截断
  * @note  于L角点处截断边线，防止小车沿直角边线巡出
  *
@@ -1190,8 +1218,11 @@ void Image_Process(uint8 *image)
     // 寻找角点
     Image_FindCorners();
 
+    // 判断弯道
+    Image_DirJudge();
+
     // 状态机检测
-    //State_Check();
+    State_Check();
 
     // 在L角点处截断边线，防止巡出十字
     Image_LineCut();

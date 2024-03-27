@@ -30,5 +30,22 @@ void State_Check(void)
     default:
         break;
     }
+
+    if (TRACE_TYPE == TRACE_LEFT_MIDLINE)
+    {
+        // 左线左转近预瞄
+        if (Image_LeftDir == 1)
+            tracing_aim = TRACE_CLOSE_AIM;
+        else 
+            tracing_aim = TRACE_COMMON_AIM;
+    }
+    else if (TRACE_TYPE == TRACE_RIGHT_MIDLINE)
+    {
+        // 右线右转近预瞄
+        if (Image_RightDir == 2)
+            tracing_aim = TRACE_CLOSE_AIM;
+        else 
+            tracing_aim = TRACE_COMMON_AIM;
+    }
 }
 
