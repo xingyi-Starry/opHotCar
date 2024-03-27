@@ -41,7 +41,7 @@ uint8 Image_Init_flag = 0;
 //------------------------------变量------------------------------
 //------------------------------
 // 基本变量
-const float Image_pixelPreMeter = 97.78;   // 每米95.56个像素点(45cm ~ 44pixel)
+const float Image_pixelPreMeter = 100;   // 每米95.56个像素点(45cm ~ 44pixel)
 const float Image_roadWidth = 0.45;        // 赛道的宽度 - (单位为m)
 const float Image_PI = 3.14159265358;      // PI(手打的)
 uint8 Image_disPictureCnt = 0;             // 丢弃图片的数量计数
@@ -1191,7 +1191,7 @@ void Image_Process(uint8 *image)
     Image_FindCorners();
 
     // 状态机检测
-    State_Check();
+    //State_Check();
 
     // 在L角点处截断边线，防止巡出十字
     Image_LineCut();
@@ -1200,12 +1200,12 @@ void Image_Process(uint8 *image)
     // 中线跟踪，当TRACE_TYPE == TRACE_NONE时保留上一状态
     if (TRACE_TYPE == TRACE_LEFT_MIDLINE)
     {
-        Image_TrackLeftLine(Image_rptsLefts, Image_rptsLeftsNum, Image_MidLine, (uint8)round(Image_angleDist / Image_sampleDist), Image_pixelPreMeter * Image_roadWidth / 2);
+        Image_TrackLeftLine(Image_rptsLefts, Image_rptsLeftsNum, Image_MidLine, 4, Image_pixelPreMeter * Image_roadWidth / 2);
         Image_MidLineNum = Image_rptsLeftsNum;
     }
     else if (TRACE_TYPE == TRACE_RIGHT_MIDLINE)
     {
-        Image_TrackRightLine(Image_rptsRights, Image_rptsRightsNum, Image_MidLine, (uint8)round(Image_angleDist / Image_sampleDist), Image_pixelPreMeter * Image_roadWidth / 2);
+        Image_TrackRightLine(Image_rptsRights, Image_rptsRightsNum, Image_MidLine, 4, Image_pixelPreMeter * Image_roadWidth / 2);
         Image_MidLineNum = Image_rptsRightsNum;
     }
     // 对中线进行等距采样

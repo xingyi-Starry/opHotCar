@@ -12,7 +12,7 @@ const uint8 tracing_weigh[3] = {5, 3, 2};  // 目标计算权重
 TRACE_TYPE_enum TRACE_TYPE = TRACE_LEFT_MIDLINE; // 跟踪中线来源，由状态机决定
 uint8 tracing_aim = 15;                    // 预瞄点在中线的位置
 uint8 trace_central = TRACE_CENTRAL;
-uint8 trace_kde = TRACE_KDE;
+uint16 trace_kde = TRACE_KDE;
 uint8 length_of_car = LENGTH_OF_CAR;
 
 /**

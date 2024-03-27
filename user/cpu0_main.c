@@ -124,10 +124,36 @@ int core0_main(void)
             memset(data_buffer, 0, 32);
         }
 
-        //seekfree_assistant_data_analysis();
-        // image_begin_y = (uint8)seekfree_assistant_parameter[0];
-        //  此处编写需要循环执行的代码
+        // 调参助手
+        seekfree_assistant_data_analysis();
+        if (seekfree_assistant_parameter_update_flag[0])
+        {
+            seekfree_assistant_parameter_update_flag[0] = 0;
+            trace_central = seekfree_assistant_parameter[0];
+        }
+        if (seekfree_assistant_parameter_update_flag[1])
+        {
+            seekfree_assistant_parameter_update_flag[1] = 0;
+            trace_kde = seekfree_assistant_parameter[1];
+        }
+        if (seekfree_assistant_parameter_update_flag[2])
+        {
+            seekfree_assistant_parameter_update_flag[2] = 0;
+            length_of_car = seekfree_assistant_parameter[2];
+        }
+        if (seekfree_assistant_parameter_update_flag[3])
+        {
+            seekfree_assistant_parameter_update_flag[3] = 0;
+            TRACE_TYPE = seekfree_assistant_parameter[3];
+        }
+        if (seekfree_assistant_parameter_update_flag[4])
+        {
+            seekfree_assistant_parameter_update_flag[4] = 0;
+            tracing_aim = seekfree_assistant_parameter[4];
+        }
         
+        //  此处编写需要循环执行的代码
+        /*
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
         if (data_len != 0)
         {
@@ -163,7 +189,7 @@ int core0_main(void)
                 break;
             }
             memset(data_buffer, 0, 32);
-        }
+        }*/
 
         if (Image_show_NE == 1)
         {
@@ -177,7 +203,7 @@ int core0_main(void)
         ips200_show_int(188, 120, image_thre, 5);
         // ips200_show_int(0, 136, test_value, 5);
         ips200_show_int(188, 152, (int16)Err, 5);
-        ips200_show_int(188, 168, Encoder_sum_Motor1, 5);
+        ips200_show_int(188, 168, Encoder_sum_Motor2, 5);
         ips200_show_int(188, 184, TRACE_TYPE, 5);
         ips200_show_int(188, 200, OVERALL_STATE, 5);
         ips200_show_int(188, 216, CIRCLE_STATE, 5);
