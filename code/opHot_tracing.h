@@ -11,10 +11,10 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
-#define TRACE_CENTRAL       (89)    // 跟踪中心
-#define TRACE_KDE           (825)     // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
-#define LENGTH_OF_CAR       (15)    // 车身长度
-#define TRACE_COMMON_AIM    (22)    // 标准预瞄点
+#define TRACE_CENTRAL       (86)    // 跟踪中心
+#define TRACE_KDE           (440)     // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
+#define LENGTH_OF_CAR       (30)    // 车身长度
+#define TRACE_COMMON_AIM    (21)    // 标准预瞄点
 #define TRACE_CLOSE_AIM     (15)     // 近预瞄点
 #define TRACE_CROSS_AIM     (3)     // 十字预瞄点
 
@@ -28,6 +28,9 @@ typedef enum
 extern float Err;
 extern TRACE_TYPE_enum TRACE_TYPE;
 extern uint8 tracing_aim;                     // 预瞄点在中线的位置
+extern uint8 trace_central;
+extern uint8 trace_kde;
+extern uint8 length_of_car;
 
 
 void Tracing_GetTarget(void);

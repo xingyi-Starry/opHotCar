@@ -124,10 +124,10 @@ int core0_main(void)
             memset(data_buffer, 0, 32);
         }
 
-        seekfree_assistant_data_analysis();
+        //seekfree_assistant_data_analysis();
         // image_begin_y = (uint8)seekfree_assistant_parameter[0];
         //  此处编写需要循环执行的代码
-        /*
+        
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
         if (data_len != 0)
         {
@@ -163,11 +163,11 @@ int core0_main(void)
                 break;
             }
             memset(data_buffer, 0, 32);
-        }*/
+        }
 
         if (Image_show_NE == 1)
         {
-            // memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
             Image_ShowLine(0, 0);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);

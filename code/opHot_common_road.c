@@ -37,4 +37,10 @@ void CommonRoad_Check(void)
         OVERALL_STATE = CIRCLE;
         CIRCLE_STATE = CIRCLE_RIGHT_BEGIN;
     }
+    // ×ó»·µº¼ì²é
+    else if (Image_LptRight_Found == false && Image_LptLeft_Found == true && OVERALL_STATE == COMMON_ROAD)
+    {
+        OVERALL_STATE = CIRCLE;
+        CIRCLE_STATE = CIRCLE_LEFT_BEGIN;
+    }
 }

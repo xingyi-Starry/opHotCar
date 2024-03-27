@@ -11,6 +11,9 @@ float Err;
 const uint8 tracing_weigh[3] = {5, 3, 2};  // 目标计算权重
 TRACE_TYPE_enum TRACE_TYPE = TRACE_LEFT_MIDLINE; // 跟踪中线来源，由状态机决定
 uint8 tracing_aim = 15;                    // 预瞄点在中线的位置
+uint8 trace_central = TRACE_CENTRAL;
+uint8 trace_kde = TRACE_KDE;
+uint8 length_of_car = LENGTH_OF_CAR;
 
 /**
  * @brief   获取舵机PID目标值
@@ -22,9 +25,9 @@ uint8 tracing_aim = 15;                    // 预瞄点在中线的位置
 void Tracing_GetTarget(void)
 {
     // 图像加权误差
-    Err = (float)(Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][0] * tracing_weigh[0] + Image_MidLine[bf_clip(tracing_aim + 1, 0, Image_MidLineNum - 1)][0] * tracing_weigh[1] + Image_MidLine[bf_clip(tracing_aim + 2, 0, Image_MidLineNum - 1)][0] * tracing_weigh[2]) / 10 - TRACE_CENTRAL;
+    Err = (float)(Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][0] * tracing_weigh[0] + Image_MidLine[bf_clip(tracing_aim + 1, 0, Image_MidLineNum - 1)][0] * tracing_weigh[1] + Image_MidLine[bf_clip(tracing_aim + 2, 0, Image_MidLineNum - 1)][0] * tracing_weigh[2]) / 10 - trace_central;
     // 误差对应目标占空比
-    Steer_target = STEER_MID - Err * TRACE_KDE / (LENGTH_OF_CAR + MT9V03X_H - Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][1]);
+    Steer_target = STEER_MID - Err * trace_kde / (length_of_car + MT9V03X_H - Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][1]);
     if (TRACE_TYPE == TRACE_NONE)
         Steer_target = STEER_MID;
     //    if (TRACE_TYPE == LEFT_MIDLINE)
