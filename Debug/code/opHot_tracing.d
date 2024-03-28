@@ -334,6 +334,10 @@ code/opHot_tracing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_comm
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_tracing.o :	../code/opHotCar.h
 ../code/opHotCar.h :
+code/opHot_tracing.o :	../code/opHot_gyroscope.h
+../code/opHot_gyroscope.h :
+code/opHot_tracing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_tracing.o :	../code/opHot_pid.h
 ../code/opHot_pid.h :
 code/opHot_tracing.o :	../code/opHot_steer.h

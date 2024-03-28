@@ -65,11 +65,13 @@ int core0_main(void)
     // 此处编写用户代码 例如外设初始化代码等
 
     // 硬件初始化
+    gpio_init(KEY1, GPI, GPIO_HIGH, GPI_PULL_UP); // 按键初始化
     mt9v03x_init();
     mt9v03x_set_exposure_time(100);
     ips200_init(IPS200_TYPE_PARALLEL8);
     wireless_uart_init();
     Motor_Init();
+    Gyroscope_Init(GYROSCOPE_IMU660RA, 5);
     Encoder_Init();
     Steer_Init();
 
@@ -104,26 +106,15 @@ int core0_main(void)
     // Image_Init();
 
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
+    while (gpio_get_level(KEY1))
+        ;
+    ImageInit_flag = 1;
+    Image_Init();
+    Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
 
     while (TRUE)
     {
-
-        while (!ImageInit_flag)
-        {
-            data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
-            if (data_len != 0)
-            {
-                if (data_buffer[0] == 's')
-                {
-                    ImageInit_flag = 1;
-                    Image_Init();
-                    Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-                    Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-                }
-            }
-            memset(data_buffer, 0, 32);
-        }
-
         // 调参助手
         seekfree_assistant_data_analysis();
         if (seekfree_assistant_parameter_update_flag[0])
@@ -151,7 +142,7 @@ int core0_main(void)
             seekfree_assistant_parameter_update_flag[4] = 0;
             tracing_aim = seekfree_assistant_parameter[4];
         }
-        
+
         //  此处编写需要循环执行的代码
         /*
         data_len = (uint8)wireless_uart_read_buffer(data_buffer, 32);
@@ -193,7 +184,7 @@ int core0_main(void)
 
         if (Image_show_NE == 1)
         {
-            //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
             Image_ShowLine(0, 0);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);

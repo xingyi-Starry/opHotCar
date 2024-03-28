@@ -16,7 +16,7 @@ void Cross_Check(void)
     else if (Image_RightLine_Lost == 0)
         TRACE_TYPE = TRACE_RIGHT_MIDLINE;
     else
-        TRACE_TYPE = TRACE_NONE;
+        TRACE_TYPE = TRACE_STATIC;
 
     switch (CROSS_STATE)
     {
@@ -31,6 +31,7 @@ void Cross_Check(void)
             Encoder_Begin(ENCODER_MOTOR_1); // 开始编码器积分，开环控制
         }
         break;
+        /*暂时无效的状态*/
     case CROSS_RUNNING:
         /**切换到斜向巡线模式，见image_process()**/
         // 预瞄点配置

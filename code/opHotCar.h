@@ -12,6 +12,7 @@
 #include "zf_myFunction.h"
 #include "opHot_encoder.h"
 #include "opHot_motor.h"
+#include "opHot_gyroscope.h"
 #include "opHot_pid.h"
 #include "opHot_steer.h"
 #include "opHot_image_processing.h"

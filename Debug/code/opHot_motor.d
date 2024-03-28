@@ -330,14 +330,18 @@ code/opHot_motor.o :	../libraries/zf_common/zf_common_headfile.h
 ../libraries/zf_common/zf_common_headfile.h :
 code/opHot_motor.o :	../code/opHot_motor.h
 ../code/opHot_motor.h :
+code/opHot_motor.o :	../code/opHot_gyroscope.h
+../code/opHot_gyroscope.h :
+code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_motor.o :	../code/opHotCar.h
+../code/opHotCar.h :
 code/opHot_motor.o :	../code/opHot_pid.h
 ../code/opHot_pid.h :
 code/opHot_motor.o :	../code/opHot_steer.h
 ../code/opHot_steer.h :
 code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
-code/opHot_motor.o :	../code/opHotCar.h
-../code/opHotCar.h :
 code/opHot_motor.o :	../code/opHot_image_processing.h
 ../code/opHot_image_processing.h :
 code/opHot_motor.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h

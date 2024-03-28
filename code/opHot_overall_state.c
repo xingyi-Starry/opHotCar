@@ -11,7 +11,7 @@ OVERALL_STATE_enum OVERALL_STATE = COMMON_ROAD;
 /**
  * @brief 全局状态机检查
  * @note  用于分情况检查不同状态机
- * 
+ *
  */
 void State_Check(void)
 {
@@ -26,17 +26,20 @@ void State_Check(void)
     case CIRCLE:
         Circle_Check();
         break;
-    
+
     default:
         break;
     }
+}
 
+void State_AimJudge(void)
+{
     if (TRACE_TYPE == TRACE_LEFT_MIDLINE)
     {
         // 左线左转近预瞄
         if (Image_LeftDir == 1)
             tracing_aim = TRACE_CLOSE_AIM;
-        else 
+        else
             tracing_aim = TRACE_COMMON_AIM;
     }
     else if (TRACE_TYPE == TRACE_RIGHT_MIDLINE)
@@ -44,8 +47,7 @@ void State_Check(void)
         // 右线右转近预瞄
         if (Image_RightDir == 2)
             tracing_aim = TRACE_CLOSE_AIM;
-        else 
+        else
             tracing_aim = TRACE_COMMON_AIM;
     }
 }
-

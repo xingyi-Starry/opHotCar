@@ -334,6 +334,10 @@ code/opHot_image_processing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_commo
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_image_processing.o :	../code/opHotCar.h
 ../code/opHotCar.h :
+code/opHot_image_processing.o :	../code/opHot_gyroscope.h
+../code/opHot_gyroscope.h :
+code/opHot_image_processing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_image_processing.o :	../code/opHot_pid.h
 ../code/opHot_pid.h :
 code/opHot_image_processing.o :	../code/opHot_steer.h

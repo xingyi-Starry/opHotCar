@@ -334,6 +334,10 @@ user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfil
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
 d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_gyroscope.h
+d:/opHotCar_Learning/opHotCar/code/opHot_gyroscope.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_pid.h
 d:/opHotCar_Learning/opHotCar/code/opHot_pid.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_steer.h

@@ -334,6 +334,10 @@ code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHotCar.h
 d:/opHotCar_Learning/opHotCar/code/opHotCar.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_gyroscope.h
+d:/opHotCar_Learning/opHotCar/code/opHot_gyroscope.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_pid.h
 d:/opHotCar_Learning/opHotCar/code/opHot_pid.h :
 code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_steer.h
