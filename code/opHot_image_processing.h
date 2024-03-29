@@ -24,7 +24,7 @@
 #define INVERTED_TRACING_Y (70)     // 斜向巡线起始y坐标
 #define IMAGE_LINE_MAX_NUM (90)     // 图片边线像素点最大个数
 #define IMAGE_RESAMPLE_MAX_NUM (60) // 重采样边线像素点最大个数
-#define NOTSTRAIT_JUDGE_SIN (0.26)  // 弯道判断正弦
+#define TURN_JUDGE_ANGLE (25)  // 弯道判断角度
 //------------------------------------------------------------
 // 所有状态机
 extern uint8 Image_Process_Status;
@@ -123,6 +123,7 @@ extern uint8 image_block_size;       // 区域二值化的区域边长
 extern uint8 image_block_clip_value; // 修正的经验参数(一般为2~5)
 
 //-----------函数-----------
+uint8 IMAGE_AT(uint8 *image, int16 x, int16 y);
 void Image_LineCut(void);
 void Image_Init(void);
 void Image_Process(uint8 *image);

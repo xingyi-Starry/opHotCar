@@ -18,7 +18,7 @@ void CommonRoad_Check(void)
 
     // 预瞄点配置
     State_AimJudge();
-    
+
     // 十字检查
     if (Image_LptLeft_Found == true && Image_LptRight_Found == true && OVERALL_STATE == COMMON_ROAD)
     {
@@ -40,4 +40,7 @@ void CommonRoad_Check(void)
         OVERALL_STATE = CIRCLE;
         CIRCLE_STATE = CIRCLE_LEFT_BEGIN;
     }
+
+    // 斑马线检查
+    CrossLine_Check();
 }

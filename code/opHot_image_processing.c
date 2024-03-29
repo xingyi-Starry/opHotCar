@@ -140,8 +140,10 @@ bool Image_isStraightLeft;  // 左边线是否为直道
 bool Image_isStraightRight; // 右边线是否为直道
 //------------------------------
 // 弯道
-uint8 Image_LeftDir = 0;  // 左线方向，0为直道，1为左拐，2为右拐
-uint8 Image_RightDir = 0; // 右线方向，0为直道，1为左拐，2为右拐
+float Image_LeftTurnAngle = 0;  // 左线角度，与(1, 0)向量的成角
+float Image_RightTurnAngle = 0; // 右线角度，与(1, 0)向量的成角
+uint8 Image_LeftDir = 0;        // 左线方向，0为直道，1为左拐，2为右拐
+uint8 Image_RightDir = 0;       // 右线方向，0为直道，1为左拐，2为右拐
 //------------------------------
 // 获取选中角点数据
 uint8 Image_angleCntLeft = 0;  // 记录当前选中的是第几个点 - 左边线
@@ -762,28 +764,36 @@ void Image_FindCorners(void)
 }
 
 /**
+ * @brief 获取边线终点到起点的向量与(1, 0)的夹角
+ * 
+ */
+void Image_GetTurnAngle(void)
+{
+    float dx = (float)(Image_rptsLefts[0][0] - Image_rptsLefts[Image_rptsLeftsNum][0]);
+    float dy = (float)(Image_rptsLefts[0][1] - Image_rptsLefts[Image_rptsLeftsNum][1]);
+    Image_LeftTurnAngle = atan2f(dy, dx);
+
+    dx = (float)(Image_rptsRights[0][0] - Image_rptsRights[Image_rptsRightsNum][0]);
+    dy = (float)(Image_rptsRights[0][1] - Image_rptsRights[Image_rptsRightsNum][1]);
+    Image_RightTurnAngle = atan2f(dy, dx);
+}
+
+/**
  * @brief 弯道方向判断
  *
  */
 void Image_DirJudge(void)
 {
-    float dx = (float)(Image_rptsLefts[0][0] - Image_rptsLefts[Image_rptsLeftsNum][0]);
-    float dy = (float)(Image_rptsLefts[0][1] - Image_rptsLefts[Image_rptsLeftsNum][1]);
-    float dn = sqrtf(dx * dx + dy * dy);
-    dx /= dn;
-    if (dx < -NOTSTRAIT_JUDGE_SIN)
+    if (Image_LeftTurnAngle <= 90 - TURN_JUDGE_ANGLE)
         Image_LeftDir = 2;
-    else if (dx > NOTSTRAIT_JUDGE_SIN)
+    else if (Image_LeftTurnAngle >= 90 + TURN_JUDGE_ANGLE)
         Image_LeftDir = 1;
     else 
         Image_LeftDir = 0;
-    
-    dx = (float)(Image_rptsRights[0][0] - Image_rptsRights[Image_rptsRightsNum][0]);
-    dy = (float)(Image_rptsRights[0][1] - Image_rptsRights[Image_rptsRightsNum][1]);
-    dn = sqrtf(dx * dx + dy * dy);
-    if (dx < -NOTSTRAIT_JUDGE_SIN)
+
+    if (Image_RightTurnAngle <= 90 - TURN_JUDGE_ANGLE)
         Image_RightDir = 2;
-    else if (dx > NOTSTRAIT_JUDGE_SIN)
+    else if (Image_RightTurnAngle >= 90 + TURN_JUDGE_ANGLE)
         Image_RightDir = 1;
     else 
         Image_RightDir = 0;
@@ -1219,6 +1229,7 @@ void Image_Process(uint8 *image)
     Image_FindCorners();
 
     // 判断弯道
+    Image_GetTurnAngle();
     Image_DirJudge();
 
     // 状态机检测

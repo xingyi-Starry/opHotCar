@@ -23,10 +23,12 @@ typedef enum
     TRACE_LEFT_MIDLINE,  // 左巡线
     TRACE_RIGHT_MIDLINE, // 右巡线
     TRACE_NONE,          // 不巡线（归中）
-    TRACE_STATIC         // 不巡线（保持）
+    TRACE_STATIC,        // 不巡线（保持）
+    TRACE_GYRO           // 不巡线（陀螺仪控制）
 } TRACE_TYPE_enum;
 
 extern float Err;
+extern float gyro_target;
 extern TRACE_TYPE_enum TRACE_TYPE;
 extern uint8 tracing_aim; // 预瞄点在中线的位置
 extern uint8 trace_central;

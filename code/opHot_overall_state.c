@@ -26,6 +26,9 @@ void State_Check(void)
     case CIRCLE:
         Circle_Check();
         break;
+    case CROSSLINE:
+        CrossLine_Check();
+        break;
 
     default:
         break;

@@ -22,6 +22,7 @@
 #include "opHot_circle.h"
 #include "opHot_cross.h"
 #include "opHot_common_road.h"
+#include "opHot_crossline.h"
 
 #define LED1                    (P20_9)
 #define LED2                    (P20_8)

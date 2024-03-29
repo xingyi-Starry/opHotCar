@@ -15,7 +15,9 @@ typedef enum
 {
     COMMON_ROAD,
     CROSS,
-    CIRCLE
+    CIRCLE,
+    CROSSLINE,
+    STOP
 } OVERALL_STATE_enum;
 
 extern OVERALL_STATE_enum OVERALL_STATE;

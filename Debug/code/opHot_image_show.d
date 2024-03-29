@@ -374,3 +374,7 @@ code/opHot_image_show.o :	../code/opHot_common_road.h
 ../code/opHot_common_road.h :
 code/opHot_image_show.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_image_show.o :	../code/opHot_crossline.h
+../code/opHot_crossline.h :
+code/opHot_image_show.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
