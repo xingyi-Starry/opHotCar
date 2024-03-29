@@ -71,8 +71,8 @@ int core0_main(void)
     ips200_init(IPS200_TYPE_PARALLEL8);
     wireless_uart_init();
     Motor_Init();
-    //imu660ra_init();
-    //Gyroscope_Init(GYROSCOPE_IMU660RA, 5);
+    imu660ra_init();
+    Gyroscope_Init(GYROSCOPE_IMU660RA, 5);
     Encoder_Init();
     Steer_Init();
 
@@ -185,14 +185,23 @@ int core0_main(void)
 
         if (Image_show_NE == 1)
         {
-            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
-            Image_ShowLine(0, 0);
+            Image_ShowResampleLine(0, 0);
             ips200_draw_line(64, 50, 124, 50, RGB565_PURPLE);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
             //seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
+        ips200_show_float(0, 120, 0, 3, 2);
+        ips200_show_float(0, 136, 0, 3, 2);
+        ips200_show_float(0, 152, Acc_corrZ, 3, 2);
+        ips200_show_float(0, 168, Gyro_corrX, 3, 2);
+        ips200_show_float(0, 184, Gyro_corrY, 3, 2);
+        ips200_show_float(0, 200, Gyro_corrZ, 3, 2);
+        ips200_show_float(0, 216, Image_LeftTurnAngle, 3, 2);
+        ips200_show_float(0, 232, Image_RightTurnAngle, 3, 2);
+
         ips200_show_int(188, 120, image_thre, 5);
         // ips200_show_int(0, 136, test_value, 5);
         ips200_show_int(188, 152, (int16)Err, 5);

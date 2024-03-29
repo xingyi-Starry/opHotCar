@@ -42,5 +42,5 @@ void CommonRoad_Check(void)
     }
 
     // °ßÂíÏß¼ì²é
-    CrossLine_Check();
+    //CrossLine_Detect();
 }

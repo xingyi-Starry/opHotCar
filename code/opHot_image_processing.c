@@ -769,13 +769,13 @@ void Image_FindCorners(void)
  */
 void Image_GetTurnAngle(void)
 {
-    float dx = (float)(Image_rptsLefts[0][0] - Image_rptsLefts[Image_rptsLeftsNum][0]);
-    float dy = (float)(Image_rptsLefts[0][1] - Image_rptsLefts[Image_rptsLeftsNum][1]);
-    Image_LeftTurnAngle = atan2f(dy, dx);
+    float dx = (float)(Image_rptsLefts[0][0] - Image_rptsLefts[Image_rptsLeftsNum - 1][0]);
+    float dy = (float)(Image_rptsLefts[0][1] - Image_rptsLefts[Image_rptsLeftsNum - 1][1]);
+    Image_LeftTurnAngle = atan2f(dy, dx) * 180 / 3.1416;
 
-    dx = (float)(Image_rptsRights[0][0] - Image_rptsRights[Image_rptsRightsNum][0]);
-    dy = (float)(Image_rptsRights[0][1] - Image_rptsRights[Image_rptsRightsNum][1]);
-    Image_RightTurnAngle = atan2f(dy, dx);
+    dx = (float)(Image_rptsRights[0][0] - Image_rptsRights[Image_rptsRightsNum - 1][0]);
+    dy = (float)(Image_rptsRights[0][1] - Image_rptsRights[Image_rptsRightsNum - 1][1]);
+    Image_RightTurnAngle = atan2f(dy, dx) * 180 / 3.1416;
 }
 
 /**
@@ -785,16 +785,16 @@ void Image_GetTurnAngle(void)
 void Image_DirJudge(void)
 {
     if (Image_LeftTurnAngle <= 90 - TURN_JUDGE_ANGLE)
-        Image_LeftDir = 2;
-    else if (Image_LeftTurnAngle >= 90 + TURN_JUDGE_ANGLE)
         Image_LeftDir = 1;
+    else if (Image_LeftTurnAngle >= 90 + TURN_JUDGE_ANGLE)
+        Image_LeftDir = 2;
     else 
         Image_LeftDir = 0;
 
     if (Image_RightTurnAngle <= 90 - TURN_JUDGE_ANGLE)
-        Image_RightDir = 2;
-    else if (Image_RightTurnAngle >= 90 + TURN_JUDGE_ANGLE)
         Image_RightDir = 1;
+    else if (Image_RightTurnAngle >= 90 + TURN_JUDGE_ANGLE)
+        Image_RightDir = 2;
     else 
         Image_RightDir = 0;
 }

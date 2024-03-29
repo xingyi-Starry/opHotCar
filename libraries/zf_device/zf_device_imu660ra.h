@@ -162,7 +162,7 @@ uint8 imu660ra_init                 (void);                                     
 // 使用示例     float data = imu660ra_acc_transition(imu660ra_acc_x);           // 单位为 g(m/s^2)
 // 备注信息
 //-------------------------------------------------------------------------------------------------------------------
-#define imu660ra_acc_transition(acc_value)      ((float)acc_value / imu660ra_transition_factor[0])
+#define imu660ra_acc_transition(acc_value)      ((float)(acc_value) / imu660ra_transition_factor[0])
 
 //-------------------------------------------------------------------------------------------------------------------
 // 函数简介     将 IMU660RA 陀螺仪数据转换为实际物理数据
@@ -171,7 +171,7 @@ uint8 imu660ra_init                 (void);                                     
 // 使用示例     float data = imu660ra_gyro_transition(imu660ra_gyro_x);         // 单位为 °/s
 // 备注信息
 //-------------------------------------------------------------------------------------------------------------------
-#define imu660ra_gyro_transition(gyro_value)    ((float)gyro_value / imu660ra_transition_factor[1])
+#define imu660ra_gyro_transition(gyro_value)    ((float)(gyro_value) / imu660ra_transition_factor[1])
 //================================================声明 IMU660RA 拓展函数================================================
 
 #endif

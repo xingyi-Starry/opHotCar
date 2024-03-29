@@ -24,7 +24,7 @@
 #define INVERTED_TRACING_Y (70)     // 斜向巡线起始y坐标
 #define IMAGE_LINE_MAX_NUM (90)     // 图片边线像素点最大个数
 #define IMAGE_RESAMPLE_MAX_NUM (60) // 重采样边线像素点最大个数
-#define TURN_JUDGE_ANGLE (25)  // 弯道判断角度
+#define TURN_JUDGE_ANGLE (20)  // 弯道判断角度
 //------------------------------------------------------------
 // 所有状态机
 extern uint8 Image_Process_Status;
@@ -111,7 +111,9 @@ extern bool Image_LptRight_Found;          // 右边线L角点找到判断
 extern bool Image_isStraightLeft;  // 左边线是否为直道
 extern bool Image_isStraightRight; // 右边线是否为直道
 //------------------------------
-// 弯道
+// 弯道=
+extern float Image_LeftTurnAngle;  // 左线角度，与(1, 0)向量的成角
+extern float Image_RightTurnAngle; // 右线角度，与(1, 0)向量的成角
 extern uint8 Image_LeftDir;
 extern uint8 Image_RightDir;
 //------------------------------调试参数处理------------------------------

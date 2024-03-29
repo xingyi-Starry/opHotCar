@@ -45,6 +45,7 @@ uint8 Acc_z_status = 0;  // 加速度z值计数状态机
  * @brief               陀螺仪处理初始化
  * @param device        使用的陀螺仪设备
  * @param time          使用的中断时间，单位为毫秒
+ * @note                z轴角速度左转为正，右转为负
  * @example             Gyroscope_Init(GYROSCOPE_IMU660RA, 10);
  */
 void Gyroscope_Init(GYROSCOPE_TYPE device, uint16 time)
@@ -192,31 +193,14 @@ void Gyroscope_End(GYROSCOPE_MEASURE_TYPE measureType)
 void Gyroscope_GetData(void)
 {
     //------------------------------处理数据------------------------------
-    if (Gyroscope_device == GYROSCOPE_IMU660RA)
-    {
-        imu660ra_get_gyro();
-        imu660ra_get_acc();
-    }
-    else if (Gyroscope_device == GYROSCOPE_IMU963RA)
-    {
-        imu963ra_get_gyro();
-        imu963ra_get_acc();
-    }
-    else if (Gyroscope_device == GYROSCOPE_ICM20602)
-    {
-        icm20602_get_gyro();
-        icm20602_get_acc();
-    }
-
-    if (Gyroscope_device == GYROSCOPE_IMU660RA)
-    {
-        Gyro_corrX = imu660ra_gyro_transition((float)imu660ra_gyro_x - Gyro_Offset.Gyro_Xdata);
-        Gyro_corrY = imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata);
-        Gyro_corrZ = imu660ra_gyro_transition((float)imu660ra_gyro_z - Gyro_Offset.Gyro_Zdata);
-        Acc_corrX = imu660ra_acc_transition((float)imu660ra_acc_x - Gyro_Offset.ACC_Xdata);
-        Acc_corrY = imu660ra_acc_transition((float)imu660ra_acc_y - Gyro_Offset.ACC_Ydata);
-        Acc_corrZ = imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata);
-    }
+    imu660ra_get_gyro();
+    imu660ra_get_acc();
+    Gyro_corrX = imu660ra_gyro_transition((float)imu660ra_gyro_x - Gyro_Offset.Gyro_Xdata);
+    Gyro_corrY = imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata);
+    Gyro_corrZ = imu660ra_gyro_transition((float)imu660ra_gyro_z - Gyro_Offset.Gyro_Zdata);
+    Acc_corrX = imu660ra_acc_transition((float)imu660ra_acc_x - Gyro_Offset.ACC_Xdata);
+    Acc_corrY = imu660ra_acc_transition((float)imu660ra_acc_y - Gyro_Offset.ACC_Ydata);
+    Acc_corrZ = imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata);
 }
 
 void Gyroscope_Conut(void)
@@ -231,98 +215,32 @@ void Gyroscope_Conut(void)
     //--------------------数据处理--------------------
     if (Gyro_x_status == 1)
     {
-        if (Gyroscope_device == GYROSCOPE_IMU660RA)
-        {
-            Gyro_x += imu660ra_gyro_transition((float)imu660ra_gyro_x - Gyro_Offset.Gyro_Xdata) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_IMU963RA)
-        {
-            Gyro_x += imu963ra_gyro_transition(imu963ra_gyro_x) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_ICM20602)
-        {
-            Gyro_x += icm20602_gyro_transition(icm20602_gyro_x) * Gyroscope_time * 0.001;
-        }
+        Gyro_x += imu660ra_gyro_transition((float)imu660ra_gyro_x - Gyro_Offset.Gyro_Xdata) * Gyroscope_time * 0.001;
     }
 
     if (Gyro_y_status == 1)
     {
-        if (Gyroscope_device == GYROSCOPE_IMU660RA)
-        {
-            Gyro_y += imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_IMU963RA)
-        {
-            Gyro_y += imu963ra_gyro_transition(imu963ra_gyro_y) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_ICM20602)
-        {
-            Gyro_y += icm20602_gyro_transition(icm20602_gyro_y) * Gyroscope_time * 0.001;
-        }
+        Gyro_y += imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata) * Gyroscope_time * 0.001;
     }
 
     if (Gyro_z_status == 1)
     {
-        if (Gyroscope_device == GYROSCOPE_IMU660RA)
-        {
-            Gyro_z += imu660ra_gyro_transition((float)imu660ra_gyro_z - Gyro_Offset.Gyro_Zdata) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_IMU963RA)
-        {
-            Gyro_z += imu963ra_gyro_transition(imu963ra_gyro_z) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_ICM20602)
-        {
-            Gyro_z += icm20602_gyro_transition(icm20602_gyro_z) * Gyroscope_time * 0.001;
-        }
+        Gyro_z += imu660ra_gyro_transition((float)imu660ra_gyro_z - Gyro_Offset.Gyro_Zdata) * Gyroscope_time * 0.001;
     }
 
     if (Acc_x_status == 1)
     {
-        if (Gyroscope_device == GYROSCOPE_IMU660RA)
-        {
-            Acc_x += imu660ra_acc_transition((float)imu660ra_acc_x - Gyro_Offset.ACC_Xdata) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_IMU963RA)
-        {
-            Acc_x += imu963ra_acc_transition(imu963ra_acc_x) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_ICM20602)
-        {
-            Acc_x += icm20602_gyro_transition(icm20602_gyro_x) * Gyroscope_time * 0.001;
-        }
+        Acc_x += imu660ra_acc_transition((float)imu660ra_acc_x - Gyro_Offset.ACC_Xdata) * Gyroscope_time * 0.001;
     }
 
     if (Acc_y_status == 1)
     {
-        if (Gyroscope_device == GYROSCOPE_IMU660RA)
-        {
-            Acc_y += imu660ra_acc_transition((float)imu660ra_acc_y - Gyro_Offset.ACC_Ydata) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_IMU963RA)
-        {
-            Acc_y += imu963ra_acc_transition(imu963ra_acc_y) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_ICM20602)
-        {
-            Acc_y += icm20602_gyro_transition(icm20602_gyro_y) * Gyroscope_time * 0.001;
-        }
+        Acc_y += imu660ra_acc_transition((float)imu660ra_acc_y - Gyro_Offset.ACC_Ydata) * Gyroscope_time * 0.001;
     }
 
     if (Acc_z_status == 1)
     {
-        if (Gyroscope_device == GYROSCOPE_IMU660RA)
-        {
-            Acc_z += imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_IMU963RA)
-        {
-            Acc_z += imu963ra_acc_transition(imu963ra_acc_z) * Gyroscope_time * 0.001;
-        }
-        else if (Gyroscope_device == GYROSCOPE_ICM20602)
-        {
-            Acc_z += icm20602_gyro_transition(icm20602_gyro_z) * Gyroscope_time * 0.001;
-        }
+        Acc_z += imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata) * Gyroscope_time * 0.001;
     }
 }
 
