@@ -44,6 +44,7 @@ void Cross_Check(void)
         image_begin_y = 30;
         // Ô¤ÃéµãÅäÖÃ
         tracing_aim = TRACE_CROSS_AIM;
+        TRACE_TYPE = TRACE_GYRO;
 
         // ÐÐÊ»¹Ì¶¨¾àÀëºóÍË³öCROSS_EXIT
         if (Encoder_sum_Motor1 >= CROSS_EXIT_ENCODER_THRE)

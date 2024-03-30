@@ -40,7 +40,7 @@ void Tracing_GetTarget(void)
     //ÍÓÂÝÒÇ¿ØÖÆÄ£Ê½
     else if (TRACE_TYPE == TRACE_GYRO)
     {
-        Steer_target = (gyro_target - Gyro_z) * 4 + STEER_MID;
+        Steer_target = (gyro_target - Gyro_z) * 5 + STEER_MID;
     }
     //    if (TRACE_TYPE == LEFT_MIDLINE)
     //    {

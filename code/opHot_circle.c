@@ -33,6 +33,7 @@ void Circle_Check(void)
             Gyroscope_End(GYROSCOPE_GYRO_Z);
             Gyroscope_Begin(GYROSCOPE_GYRO_Z);
             Tracing_GetGyroTarget();
+            return;
         }
         // 如果角点接近或者角点消失，切换到CIRCLE_IN
         if (Image_rptsLefts[Image_LptLeft_rptsLefts_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
@@ -56,6 +57,7 @@ void Circle_Check(void)
             Gyroscope_End(GYROSCOPE_GYRO_Z);
             Gyroscope_Begin(GYROSCOPE_GYRO_Z);
             Tracing_GetGyroTarget();
+            return;
         }
         // 编码器积分超过阈值，切换到CIRCLE_RUNNING
         if (Encoder_sum_Motor2 >= CIRCLE_IN_ENCODER_THRE)
@@ -111,6 +113,7 @@ void Circle_Check(void)
             Gyroscope_End(GYROSCOPE_GYRO_Z);
             Gyroscope_Begin(GYROSCOPE_GYRO_Z);
             Tracing_GetGyroTarget();
+            return;
         }
         // 如果角点接近或者角点消失，切换到CIRCLE_IN
         if (Image_rptsRights[Image_LptRight_rptsRights_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
@@ -134,6 +137,7 @@ void Circle_Check(void)
             Gyroscope_End(GYROSCOPE_GYRO_Z);
             Gyroscope_Begin(GYROSCOPE_GYRO_Z);
             Tracing_GetGyroTarget();
+            return;
         }
         // 编码器积分超过阈值，切换到CIRCLE_RUNNING
         if (Encoder_sum_Motor1 >= CIRCLE_IN_ENCODER_THRE)
