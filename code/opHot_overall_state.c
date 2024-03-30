@@ -29,6 +29,10 @@ void State_Check(void)
     case CROSSLINE:
         CrossLine_Check();
         break;
+    case TEST:
+        Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+        TRACE_TYPE = TRACE_GYRO;
+        break;
 
     default:
         break;

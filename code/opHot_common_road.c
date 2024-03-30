@@ -26,6 +26,9 @@ void CommonRoad_Check(void)
 
         OVERALL_STATE = CROSS;
         CROSS_STATE = CROSS_ENTER;
+        Gyroscope_End(GYROSCOPE_GYRO_Z);
+        Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+        Tracing_GetGyroTarget();
     }
 
     // 右环岛检查
@@ -42,5 +45,5 @@ void CommonRoad_Check(void)
     }
 
     // 斑马线检查
-    //CrossLine_Detect();
+    // CrossLine_Detect();
 }

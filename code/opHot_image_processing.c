@@ -1228,15 +1228,15 @@ void Image_Process(uint8 *image)
     // 寻找角点
     Image_FindCorners();
 
+    // 在L角点处截断边线，防止巡出十字
+    Image_LineCut();
+
     // 判断弯道
     Image_GetTurnAngle();
     Image_DirJudge();
 
     // 状态机检测
     State_Check();
-
-    // 在L角点处截断边线，防止巡出十字
-    Image_LineCut();
 
     //---------------------------------------
     // 中线跟踪，当TRACE_TYPE == TRACE_NONE时保留上一状态

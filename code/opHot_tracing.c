@@ -40,7 +40,7 @@ void Tracing_GetTarget(void)
     //ÍÓÂÝÒÇ¿ØÖÆÄ£Ê½
     else if (TRACE_TYPE == TRACE_GYRO)
     {
-
+        Steer_target = (gyro_target - Gyro_z) * 4 + STEER_MID;
     }
     //    if (TRACE_TYPE == LEFT_MIDLINE)
     //    {
@@ -50,6 +50,23 @@ void Tracing_GetTarget(void)
     //    {
     //        Steer_target = (float)(Image_rptsRightc[bf_clip(tracing_aim, 0, Image_rptsLeftcNum - 1)][0] * tracing_weigh[0] + Image_rptsRightc[bf_clip(tracing_aim + //1, 0, Image_rptsLeftcNum - 1)][0] * tracing_weigh[1] + Image_rptsRightc[bf_clip(tracing_aim + 2, 0, Image_rptsLeftcNum - 1)][0] * tracing_weigh[2]) / 10;
     //    }
+}
+
+void Tracing_GetGyroTarget(void)
+{
+    if (Image_LeftLine_Lost == 1 && Image_RightLine_Lost == 0)
+        gyro_target = 90 - Image_LeftTurnAngle;
+    else if (Image_LeftLine_Lost == 0 && Image_RightLine_Lost == 1)
+        gyro_target = 90 - Image_RightTurnAngle;
+    else if (Image_LeftLine_Lost == 0 && Image_RightLine_Lost == 0)
+    {
+        if (Image_rptsLeftsNum > Image_rptsRightsNum)
+            gyro_target = 90 - Image_LeftTurnAngle;
+        else
+            gyro_target = 90 - Image_RightTurnAngle;
+    }
+    else 
+        gyro_target = 0;
 }
 
 /**

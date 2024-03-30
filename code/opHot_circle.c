@@ -30,9 +30,12 @@ void Circle_Check(void)
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = CROSS;
             CROSS_STATE = CROSS_ENTER;
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+            Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+            Tracing_GetGyroTarget();
         }
         // 如果角点接近或者角点消失，切换到CIRCLE_IN
-        if (Image_rptsRights[Image_LptLeft_rptsLefts_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
+        if (Image_rptsLefts[Image_LptLeft_rptsLefts_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
         {
             // 启动编码器积分
             Encoder_Begin(ENCODER_MOTOR_2);
@@ -50,6 +53,9 @@ void Circle_Check(void)
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = CROSS;
             CROSS_STATE = CROSS_ENTER;
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+            Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+            Tracing_GetGyroTarget();
         }
         // 编码器积分超过阈值，切换到CIRCLE_RUNNING
         if (Encoder_sum_Motor2 >= CIRCLE_IN_ENCODER_THRE)
@@ -65,12 +71,12 @@ void Circle_Check(void)
 
     case CIRCLE_LEFT_RUNNING:
         // 跟踪边线选择 优先左线
-        Tracing_LeftFirst(TRACE_NONE);
+        Tracing_LeftFirst(TRACE_STATIC);
         // 陀螺仪积分超过阈值或编码器积分超过阈值，切换到CIRCLE_OUT1
         if (Gyro_z >= CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor2 >= CIRCLE_RUNNING_ENCODER_THRE)
         {
             Encoder_Clear(ENCODER_MOTOR_2);
-            //结束编码器积分
+            // 结束编码器积分
             Gyroscope_Clear(GYROSCOPE_GYRO_Z);
             Gyroscope_End(GYROSCOPE_GYRO_Z);
 
@@ -87,6 +93,84 @@ void Circle_Check(void)
         {
             Encoder_End(ENCODER_MOTOR_2);
             Encoder_Clear(ENCODER_MOTOR_2);
+
+            CIRCLE_STATE = CIRCLE_NONE;
+            OVERALL_STATE = COMMON_ROAD;
+        }
+        break;
+
+    case CIRCLE_RIGHT_BEGIN:
+        // 跟踪边线选择 优先左线
+        Tracing_RightFirst(TRACE_NONE);
+        // 如果检测到第二个角点，切换到十字
+        if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
+        {
+            CIRCLE_STATE = CIRCLE_NONE;
+            OVERALL_STATE = CROSS;
+            CROSS_STATE = CROSS_ENTER;
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+            Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+            Tracing_GetGyroTarget();
+        }
+        // 如果角点接近或者角点消失，切换到CIRCLE_IN
+        if (Image_rptsRights[Image_LptRight_rptsRights_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
+        {
+            // 启动编码器积分
+            Encoder_Begin(ENCODER_MOTOR_1);
+
+            CIRCLE_STATE = CIRCLE_RIGHT_IN;
+        }
+        break;
+
+    case CIRCLE_RIGHT_IN:
+        // 跟踪边线选择 优先右线
+        Tracing_RightFirst(TRACE_NONE);
+        // 如果检测到第二个角点，切换到十字
+        if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
+        {
+            CIRCLE_STATE = CIRCLE_NONE;
+            OVERALL_STATE = CROSS;
+            CROSS_STATE = CROSS_ENTER;
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+            Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+            Tracing_GetGyroTarget();
+        }
+        // 编码器积分超过阈值，切换到CIRCLE_RUNNING
+        if (Encoder_sum_Motor1 >= CIRCLE_IN_ENCODER_THRE)
+        {
+            // 重置编码器积分
+            Encoder_Clear(ENCODER_MOTOR_1);
+            // 开始陀螺仪积分
+            Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+
+            CIRCLE_STATE = CIRCLE_RIGHT_RUNNING;
+        }
+        break;
+
+    case CIRCLE_RIGHT_RUNNING:
+        // 跟踪边线选择 优先右线
+        Tracing_RightFirst(TRACE_STATIC);
+        // 陀螺仪积分超过阈值或编码器积分超过阈值，切换到CIRCLE_OUT1
+        if (Gyro_z <= -CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor1 >= CIRCLE_RUNNING_ENCODER_THRE)
+        {
+            Encoder_Clear(ENCODER_MOTOR_1);
+            // 结束编码器积分
+            Gyroscope_Clear(GYROSCOPE_GYRO_Z);
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+
+            CIRCLE_STATE = CIRCLE_RIGHT_OUT;
+        }
+        break;
+
+    case CIRCLE_RIGHT_OUT:
+        // 跟踪边线选择 只巡右线
+        Tracing_LeftOnly(TRACE_NONE);
+        break;
+        // 编码器积分超过阈值，结束CIRCLE状态
+        if (Encoder_sum_Motor1 >= CIRCLE_OUT2_ENCODER_THRE)
+        {
+            Encoder_End(ENCODER_MOTOR_1);
+            Encoder_Clear(ENCODER_MOTOR_1);
 
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = COMMON_ROAD;

@@ -17,7 +17,7 @@ typedef enum
     CROSS,
     CIRCLE,
     CROSSLINE,
-    STOP
+    TEST
 } OVERALL_STATE_enum;
 
 extern OVERALL_STATE_enum OVERALL_STATE;

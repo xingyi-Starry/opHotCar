@@ -7,12 +7,12 @@
 #include <opHot_steer.h>
 
 PID Steer_PID;
-float Steer_target = STEER_MID;     // 舵机PID目标占空比
+float Steer_target = STEER_MID; // 舵机PID目标占空比
 float Steer_current = STEER_MID;
 
 /**
  * @brief 舵机初始化
- * 
+ *
  */
 void Steer_Init(void)
 {
@@ -21,7 +21,7 @@ void Steer_Init(void)
 
 /**
  * @brief 设置舵机占空比
- * 
+ *
  * @param duty 占空比，取值690~820，750为中值，大于750右拐，小于750左拐
  */
 void Steer_SetDuty(uint32 duty)
@@ -38,7 +38,7 @@ void Steer_SetDuty(uint32 duty)
 
 /**
  * @brief 舵机PID初始化
- * 
+ *
  */
 void Steer_PID_Init(void)
 {
@@ -47,7 +47,7 @@ void Steer_PID_Init(void)
 
 /**
  * @brief 舵机PID设置参数
- * 
+ *
  */
 void Steer_PID_Set(float K_p_set, float K_i_set, float K_d_set, float pLimit, float coLimit, float boost)
 {
@@ -88,10 +88,6 @@ void Steer_PID_Clear(void)
 
 void Steer_PIDwork(void)
 {
-    if (TRACE_TYPE == TRACE_NONE)
-        Steer_SetPIDD(-0.99);
-    else
-        Steer_SetPIDD(0);
     PID_PostionalPID(&Steer_PID, Steer_target, Steer_current);
     Steer_SetDuty((uint32)(Steer_PID.ut + Steer_current));
 }

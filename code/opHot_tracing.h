@@ -11,10 +11,10 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
-#define TRACE_CENTRAL (86)    // 跟踪中心
-#define TRACE_KDE (490)       // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
+#define TRACE_CENTRAL (85)    // 跟踪中心
+#define TRACE_KDE (495)       // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
 #define LENGTH_OF_CAR (27)    // 车身长度
-#define TRACE_COMMON_AIM (20) // 标准预瞄点
+#define TRACE_COMMON_AIM (22) // 标准预瞄点
 #define TRACE_CLOSE_AIM (5)   // 近预瞄点
 #define TRACE_CROSS_AIM (3)   // 十字预瞄点
 
@@ -36,6 +36,7 @@ extern uint16 trace_kde;
 extern uint8 length_of_car;
 
 void Tracing_GetTarget(void);
+void Tracing_GetGyroTarget(void);
 void Tracing_Work(void);
 void Tracing_LeftFirst(TRACE_TYPE_enum TRACE_OTHER);
 void Tracing_RightFirst(TRACE_TYPE_enum TRACE_OTHER);

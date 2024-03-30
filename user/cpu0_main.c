@@ -47,7 +47,7 @@
  * @note  0表示传输逆透视边线及中线，1表示传输原始图像和原始边线
  *
  */
-#define SEEKFREE_ASSISTANT_MODE 1
+#define SEEKFREE_ASSISTANT_MODE 0
 
 uint32 duty = STEER_MID;
 
@@ -126,7 +126,7 @@ int core0_main(void)
         if (seekfree_assistant_parameter_update_flag[1])
         {
             seekfree_assistant_parameter_update_flag[1] = 0;
-            trace_kde = seekfree_assistant_parameter[1];
+            Motor1_target = Motor2_target = seekfree_assistant_parameter[1];
         }
         if (seekfree_assistant_parameter_update_flag[2])
         {
@@ -141,7 +141,7 @@ int core0_main(void)
         if (seekfree_assistant_parameter_update_flag[4])
         {
             seekfree_assistant_parameter_update_flag[4] = 0;
-            tracing_aim = seekfree_assistant_parameter[4];
+            gyro_target = seekfree_assistant_parameter[4];
         }
 
         //  此处编写需要循环执行的代码
@@ -190,7 +190,7 @@ int core0_main(void)
             Image_ShowResampleLine(0, 0);
             ips200_draw_line(64, 50, 124, 50, RGB565_PURPLE);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
-            //seekfree_assistant_camera_send();
+            seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
         ips200_show_float(0, 120, 0, 3, 2);

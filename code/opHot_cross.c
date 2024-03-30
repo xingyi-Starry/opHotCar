@@ -11,12 +11,7 @@ CROSS_STATE_enum CROSS_STATE = CROSS_ENTER;
 void Cross_Check(void)
 {
     // 跟踪边线选择
-    if (Image_LeftLine_Lost == 0)
-        TRACE_TYPE = TRACE_LEFT_MIDLINE;
-    else if (Image_RightLine_Lost == 0)
-        TRACE_TYPE = TRACE_RIGHT_MIDLINE;
-    else
-        TRACE_TYPE = TRACE_STATIC;
+    Tracing_LeftFirst(TRACE_GYRO);
 
     switch (CROSS_STATE)
     {
@@ -58,6 +53,8 @@ void Cross_Check(void)
             // 结束积分，清除积分数据
             Encoder_End(ENCODER_MOTOR_1);
             Encoder_Clear(ENCODER_MOTOR_1);
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+            Gyroscope_Clear(GYROSCOPE_GYRO_Z);
             // CROSS状态机复位，退出CROSS
             CROSS_STATE = CROSS_ENTER;
             OVERALL_STATE = COMMON_ROAD;
