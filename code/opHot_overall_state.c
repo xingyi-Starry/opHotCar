@@ -37,6 +37,8 @@ void State_Check(void)
     default:
         break;
     }
+
+    CrossLine_Detect();
 }
 
 void State_AimJudge(void)

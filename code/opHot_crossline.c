@@ -8,14 +8,10 @@
 #include "opHot_crossline.h"
 
 CROSSLINE_STATE_enum CROSSLINE_STATE = CROSSLINE_RUNNING;
-uint8 CrossLine_RowCount = 0;
+uint8 CrossLine_value = 0;
 uint8 CrossLine_ChangeCount = 0;
 bool isWhite = true;
-uint8 actual_grey;
 uint8 current_grey;
-uint8 last_grey;
-uint8 llast_grey;
-
 /**
  * @brief 斑马线检测
  * @note  通过扫描(64, 50)到(124, 50)一条线上的点，当黑白点数目大约1:1时即判断为检测到斑马线
@@ -24,16 +20,12 @@ uint8 llast_grey;
  */
 void CrossLine_Detect(void)
 {
-    CrossLine_RowCount = 0;
-    for (uint8 r = 0; r < 5; r++)
+    for (uint8 r = 0; r < 40; r += 10)
     {
         CrossLine_ChangeCount = 0;
         for (uint8 i = 64; i <= 124; i += 2)
         {
-            llast_grey = last_grey;
-            last_grey = current_grey;
-            current_grey = IMAGE_AT(mt9v03x_image[0], i, 50 + i);
-            actual_grey = (uint8)((float)current_grey * 0.5 + (float)last_grey * 0.3 + (float)llast_grey * 0.2);
+            current_grey = IMAGE_AT(mt9v03x_image, i, 50 + r);
             if (isWhite && current_grey < image_thre)
             {
                 isWhite = false;
@@ -46,15 +38,14 @@ void CrossLine_Detect(void)
             }
         }
         if (CrossLine_ChangeCount > CROSSLINE_RUNNING_CHANGE_THRE)
-            CrossLine_RowCount++;
+        {
+            OVERALL_STATE = CROSSLINE;
+            CROSSLINE_STATE = CROSSLINE_RUNNING;
+            Encoder_Begin(ENCODER_MOTOR_1);
+            return;
+        }
     }
-    // 当5行中不少于3行检测到斑马线特征即判定为检测到斑马线
-    if (CrossLine_RowCount >= 3)
-    {
-        OVERALL_STATE = CROSSLINE;
-        CROSSLINE_STATE = CROSSLINE_RUNNING;
-        Encoder_Begin(ENCODER_MOTOR_1);
-    }
+    CrossLine_value = CrossLine_ChangeCount;
 }
 
 /**

@@ -12,7 +12,7 @@
 #include "zf_common_headfile.h"
 
 #define CROSSLINE_RUNNING_CHANGE_THRE   (8) // 斑马线判定黑白跳变次数阈值
-#define CROSSLINE_RUNNING_ENCODER_THRE  (2500) // 检测到斑马线后行驶距离阈值
+#define CROSSLINE_RUNNING_ENCODER_THRE  (4000) // 检测到斑马线后行驶距离阈值
 
 typedef enum 
 {
@@ -20,7 +20,7 @@ typedef enum
     CROSSLINE_END
 } CROSSLINE_STATE_enum;
 
-extern uint8 CrossLine_RowCount;
+extern uint8 CrossLine_value;
 extern uint8 CrossLine_ChangeCount;
 
 void CrossLine_Detect(void);

@@ -47,7 +47,7 @@
  * @note  0表示传输逆透视边线及中线，1表示传输原始图像和原始边线
  *
  */
-#define SEEKFREE_ASSISTANT_MODE 1
+#define SEEKFREE_ASSISTANT_MODE 0
 
 uint32 duty = STEER_MID;
 
@@ -190,7 +190,7 @@ int core0_main(void)
             Image_ShowResampleLine(0, 0);
             ips200_draw_line(64, 50, 124, 50, RGB565_PURPLE);
             // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
-            seekfree_assistant_camera_send();
+            //seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
         ips200_show_float(0, 120, 0, 3, 2);
@@ -209,7 +209,7 @@ int core0_main(void)
         ips200_show_int(188, 184, Encoder_sum_Motor2, 5);
         ips200_show_int(188, 200, TRACE_TYPE, 5);
         ips200_show_int(188, 216, OVERALL_STATE, 5);
-        ips200_show_int(188, 232, CIRCLE_STATE, 5);
+        ips200_show_int(188, 232, CrossLine_value, 5);
 
         // 此处编写需要循环执行的代码
     }
