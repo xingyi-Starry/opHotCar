@@ -8,8 +8,9 @@
 
 PID Motor1_PID;
 PID Motor2_PID;
-float Motor1_target = 50;   // 电机1PID目标（编码器读数）
-float Motor2_target = 50;   // 电机2PID目标（编码器读数）
+float Motor_target = 0;
+float Motor1_target = 0;   // 电机1PID目标（编码器读数）
+float Motor2_target = 0;   // 电机2PID目标（编码器读数）
 
 /**
  * @brief   电机引脚初始化
@@ -145,12 +146,14 @@ void Motor2_SetPIDCoLimit(float coLimt)
 
 void Motor1_PIDwork(void)
 {
+    Motor1_target = Motor_target;
     PID_PostionalPID(&Motor1_PID, Motor1_target, Encoder_1Data);
     Motor_SetSpeed(MOTOR_1, (int16)Motor1_PID.ut);
 }
 
 void Motor2_PIDwork(void)
 {
+    Motor2_target = Motor_target;
     PID_PostionalPID(&Motor2_PID, Motor2_target, Encoder_2Data);
     Motor_SetSpeed(MOTOR_2, (int16)Motor2_PID.ut);
 }

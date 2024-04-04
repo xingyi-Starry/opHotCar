@@ -60,7 +60,7 @@ void core1_main(void)
         if (mt9v03x_finish_flag == 1)
         {
             Image_Process(mt9v03x_image[0]);
-            test_value++;
+            fps++;
         }
         if (Image_Process_Status == 1)
         {

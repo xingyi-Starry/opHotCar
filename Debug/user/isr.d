@@ -380,3 +380,7 @@ user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_crossline.h
 d:/opHotCar_Learning/opHotCar/code/opHot_crossline.h :
 user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/code/opHot_osci.h
+d:/opHotCar_Learning/opHotCar/code/opHot_osci.h :
+user/isr.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :

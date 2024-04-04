@@ -12,7 +12,7 @@
 #include "opHotCar.h"
 
 #define CROSS_ENTER_CORNER_EDGE_DIST    (IMAGE_HEIGHT - 35)      // 状态机切换边界角点像素距离
-#define CROSS_EXIT_ENCODER_THRE         (6500)                    // 退出CROSS_EXIT编码器阈值
+#define CROSS_EXIT_ENCODER_THRE         (7000)                    // 退出CROSS_EXIT编码器阈值
 
 typedef enum
 {

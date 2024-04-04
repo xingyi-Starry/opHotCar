@@ -68,8 +68,7 @@ void CrossLine_Check(void)
 
     case CROSSLINE_END:
         // Í£³µ
-        Motor1_target = 0;
-        Motor2_target = 0;
+        Motor_target = 0;
         break;
     default:
         break;

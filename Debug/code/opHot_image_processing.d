@@ -374,6 +374,10 @@ code/opHot_image_processing.o :	../code/opHot_crossline.h
 ../code/opHot_crossline.h :
 code/opHot_image_processing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_image_processing.o :	../code/opHot_osci.h
+../code/opHot_osci.h :
+code/opHot_image_processing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_image_processing.o :	../code/opHot_basic_function.h
 ../code/opHot_basic_function.h :
 code/opHot_image_processing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h

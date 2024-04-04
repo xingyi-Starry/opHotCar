@@ -719,7 +719,7 @@ void Image_FindCorners(void)
         float conf = fabs(Image_rptsLefta[i]) - fabs(Image_rptsLefta[im1] + Image_rptsLefta[ip1]) / 2;
 
         // LΩ«µ„≈–∂œ
-        if (Image_LptLeft_Found == false && 50 < conf && 110 > conf && i < 0.5 / Image_sampleDist)
+        if (Image_LptLeft_Found == false && 60 < conf && 130 > conf && i < 0.5 / Image_sampleDist)
         {
             Image_LptLeft_rptsLefts_id = i;
             Image_LptLeft_Found = true;
@@ -746,7 +746,7 @@ void Image_FindCorners(void)
         float conf = fabs(Image_rptsRighta[i]) - fabs(Image_rptsRighta[im1] + Image_rptsRighta[ip1]) / 2;
 
         // LΩ«µ„≈–∂œ
-        if (Image_LptRight_Found == false && 50 < conf && 110 > conf && i < 0.5 / Image_sampleDist)
+        if (Image_LptRight_Found == false && 60 < conf && 130 > conf && i < 0.5 / Image_sampleDist)
         {
             Image_LptRight_rptsRights_id = i;
             Image_LptRight_Found = true;

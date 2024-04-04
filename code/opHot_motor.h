@@ -31,6 +31,7 @@ typedef enum
     MOTOR_2 = 0x01
 } MOTOR_PWM_enum;
 
+extern float Motor_target;
 extern float Motor1_target;
 extern float Motor2_target;
 

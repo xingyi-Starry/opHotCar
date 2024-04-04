@@ -23,6 +23,7 @@
 #include "opHot_cross.h"
 #include "opHot_common_road.h"
 #include "opHot_crossline.h"
+#include "opHot_osci.h"
 
 #define LED1                    (P20_9)
 #define LED2                    (P20_8)
@@ -32,6 +33,6 @@
 #define KEY3                    (P11_2)
 #define KEY4                    (P11_3)
 
-extern uint8 test_value;
+extern uint8 fps;
 
 #endif /* CODE_OPHOTCAR_H_ */

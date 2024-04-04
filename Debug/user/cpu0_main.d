@@ -378,3 +378,7 @@ user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_crossline.h
 d:/opHotCar_Learning/opHotCar/code/opHot_crossline.h :
 user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/code/opHot_osci.h
+d:/opHotCar_Learning/opHotCar/code/opHot_osci.h :
+user/cpu0_main.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :

@@ -49,14 +49,9 @@
  */
 #define SEEKFREE_ASSISTANT_MODE 0
 
-uint32 duty = STEER_MID;
-
-uint8 test_value = 0;
-
-uint8 ImageInit_flag = 0;
-uint8 data_buffer[32];
-uint8 data_len;
-uint8 pit_state = 0;
+uint8 fps = 0;
+// 初始完成化标志位
+uint8 Init_flag = 0;
 
 int core0_main(void)
 {
@@ -86,6 +81,8 @@ int core0_main(void)
     seekfree_assistant_camera_information_config(SEEKFREE_ASSISTANT_MT9V03X, image_bak, MT9V03X_W, MT9V03X_H);
     seekfree_assistant_camera_boundary_config(XY_BOUNDARY, 90, LeftLine_raw_show[0], RightLine_raw_show[0], NULL, LeftLine_raw_show[1], RightLine_raw_show[1], NULL);
 #endif
+    // 逐飞助手虚拟示波器初始化
+    Osci_Init();
 
     // 屏幕初始化
     ips200_set_dir(IPS200_PORTAIT);
@@ -95,48 +92,49 @@ int core0_main(void)
 
     //-----------定时中断初始化---------------
     pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集&电机PID
-    pit_ms_init(CCU60_CH1, 1000);
+    pit_ms_init(CCU60_CH1, 50);
 
     // PID初始化
     Motor_PID_Init();
     Steer_PID_Init();
+    Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
     Steer_PID_Set(STEER_PID_P, STEER_PID_I, STEER_PID_D, STEER_PID_SL, STEER_PID_UL, 1);
-    // Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-    // Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_P, MOTOR_PID_SL, MOTOR_PID_UL, 1);
 
     // Image_Init();
 
     cpu_wait_event_ready(); // 等待所有核心初始化完毕
+    // 等待按键
     while (gpio_get_level(KEY1))
         ;
-    ImageInit_flag = 1;
     Image_Init();
-    Motor1_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
-    Motor2_PID_Set(MOTOR_PID_P, MOTOR_PID_I, MOTOR_PID_D, MOTOR_PID_SL, MOTOR_PID_UL, 1);
+    Init_flag = 1;
+    Motor_target = 50;
 
     while (TRUE)
     {
         // 调参助手
         seekfree_assistant_data_analysis();
-        if (seekfree_assistant_parameter_update_flag[0])
+        if (seekfree_assistant_parameter_update_flag[0]) // 跟踪中心
         {
             seekfree_assistant_parameter_update_flag[0] = 0;
             trace_central = seekfree_assistant_parameter[0];
         }
-        if (seekfree_assistant_parameter_update_flag[1])
+        if (seekfree_assistant_parameter_update_flag[1]) // 目标速度
         {
             seekfree_assistant_parameter_update_flag[1] = 0;
-            Motor1_target = Motor2_target = seekfree_assistant_parameter[1];
+            Motor_target = seekfree_assistant_parameter[1];
         }
-        if (seekfree_assistant_parameter_update_flag[2])
+        if (seekfree_assistant_parameter_update_flag[2]) // 跟踪系数
         {
             seekfree_assistant_parameter_update_flag[2] = 0;
-            length_of_car = seekfree_assistant_parameter[2];
+            trace_kde = seekfree_assistant_parameter[2];
         }
-        if (seekfree_assistant_parameter_update_flag[3])
+        if (seekfree_assistant_parameter_update_flag[3]) // motor_PID_P
         {
             seekfree_assistant_parameter_update_flag[3] = 0;
-            TRACE_TYPE = seekfree_assistant_parameter[3];
+            Motor1_SetPIDP(seekfree_assistant_parameter[3]);
+            Motor2_SetPIDP(seekfree_assistant_parameter[3]);
         }
         if (seekfree_assistant_parameter_update_flag[4])
         {
@@ -185,12 +183,12 @@ int core0_main(void)
 
         if (Image_show_NE == 1)
         {
-            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            // memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
             Image_ShowResampleLine(0, 0);
-            ips200_draw_line(64, 50, 124, 50, RGB565_PURPLE);
-            // Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
-            //seekfree_assistant_camera_send();
+            // ips200_draw_line(64, 50, 124, 50, RGB565_PURPLE);
+            //  Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
+            // seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
         ips200_show_float(0, 120, 0, 3, 2);
@@ -203,13 +201,13 @@ int core0_main(void)
         ips200_show_float(0, 232, Image_RightTurnAngle, 3, 2);
 
         ips200_show_int(188, 120, image_thre, 5);
-        // ips200_show_int(0, 136, test_value, 5);
+        // ips200_show_int(0, 136, fps, 5);
         ips200_show_int(188, 152, (int16)Err, 5);
         ips200_show_int(188, 168, Encoder_sum_Motor1, 5);
         ips200_show_int(188, 184, Encoder_sum_Motor2, 5);
         ips200_show_int(188, 200, TRACE_TYPE, 5);
         ips200_show_int(188, 216, OVERALL_STATE, 5);
-        ips200_show_int(188, 232, CrossLine_value, 5);
+        ips200_show_int(188, 232, OVERALL_STATE == CROSS ? CROSS_STATE : CIRCLE_STATE, 5);
 
         // 此处编写需要循环执行的代码
     }

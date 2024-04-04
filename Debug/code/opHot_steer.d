@@ -378,3 +378,7 @@ code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_crossline.h
 d:/opHotCar_Learning/opHotCar/code/opHot_crossline.h :
 code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/code/opHot_osci.h
+d:/opHotCar_Learning/opHotCar/code/opHot_osci.h :
+code/opHot_steer.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
