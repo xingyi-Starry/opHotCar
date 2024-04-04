@@ -109,7 +109,7 @@ int core0_main(void)
         ;
     Image_Init();
     Init_flag = 1;
-    Motor_target = 50;
+    Motor_target = 75;
 
     while (TRUE)
     {

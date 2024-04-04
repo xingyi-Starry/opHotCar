@@ -144,16 +144,41 @@ void Motor2_SetPIDCoLimit(float coLimt)
     Motor2_PID.utLimit = coLimt;
 }
 
+/**
+ * @brief 获取差速目标
+ * 
+ */
+void Motor_GetTarget(void)
+{
+    if (Steer_current - STEER_MID >= MOTOR_DIFSPEED_THRE)
+    {
+        Motor2_target = Motor_target;
+        Motor1_target = Motor_target * (1 - MOTOR_DIFSPEED_FACTOR * (Steer_current - STEER_MID) / STEER_MAX_ERR);
+    }
+    else if (STEER_MID - Steer_current >= MOTOR_DIFSPEED_THRE)
+    {
+        Motor1_target = Motor_target;
+        Motor2_target = Motor_target * (1 - MOTOR_DIFSPEED_FACTOR * (STEER_MID - Steer_current) / STEER_MAX_ERR);
+    }
+    else 
+    {
+        Motor1_target = Motor_target;
+        Motor2_target = Motor_target;
+    }
+}
+
+/**
+ * @brief 电机PID运行
+ * 
+ */
 void Motor1_PIDwork(void)
 {
-    Motor1_target = Motor_target;
     PID_PostionalPID(&Motor1_PID, Motor1_target, Encoder_1Data);
     Motor_SetSpeed(MOTOR_1, (int16)Motor1_PID.ut);
 }
 
 void Motor2_PIDwork(void)
 {
-    Motor2_target = Motor_target;
     PID_PostionalPID(&Motor2_PID, Motor2_target, Encoder_2Data);
     Motor_SetSpeed(MOTOR_2, (int16)Motor2_PID.ut);
 }

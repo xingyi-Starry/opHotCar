@@ -52,6 +52,7 @@ IFX_INTERRUPT(cc60_pit_ch0_isr, 0, CCU6_0_CH0_ISR_PRIORITY)
     Gyroscope_Conut(); // 陀螺仪获取数据和积分
 
     //----------电机PID工作----------
+    Motor_GetTarget();
     Motor1_PIDwork();
     Motor2_PIDwork();
 }

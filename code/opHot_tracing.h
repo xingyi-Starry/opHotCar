@@ -12,7 +12,7 @@
 #include "opHotCar.h"
 
 #define TRACE_CENTRAL (85)    // 跟踪中心
-#define TRACE_KDE (495)       // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
+#define TRACE_KDE (510)       // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
 #define LENGTH_OF_CAR (27)    // 车身长度
 #define TRACE_COMMON_AIM (22) // 标准预瞄点
 #define TRACE_CLOSE_AIM (5)   // 近预瞄点

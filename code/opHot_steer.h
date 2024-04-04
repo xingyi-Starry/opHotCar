@@ -17,6 +17,7 @@
 #define STEER_R_LIM     (2040)     //舵机右转极限占空比
 #define STEER_MID       (2250)     //舵机摆角中值占空比
 #define STEER_L_LIM     (2480)     //舵机左转极限占空比
+#define STEER_MAX_ERR   (200)      //舵机最大弯道误差（用于差速参考）
 
 //---------PID参数----------------
 #define STEER_PID_P             (1)

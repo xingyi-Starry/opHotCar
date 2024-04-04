@@ -19,11 +19,16 @@
 #define MOTOR_2_PWM             (ATOM0_CH1_P21_3)
 
 // PID参数
-#define MOTOR_PID_P             100
+#define MOTOR_PID_P             180
 #define MOTOR_PID_I             0
 #define MOTOR_PID_D             0
 #define MOTOR_PID_SL            5000
 #define MOTOR_PID_UL            4000
+
+// 差速相关
+#define MOTOR_DIFSPEED_FACTOR   (0.2)   // 差速修正系数
+#define MOTOR_DIFSPEED_THRE     (80)    // 差速触发死区（舵机占空比err）
+
 
 typedef enum
 {
@@ -51,7 +56,8 @@ void Motor2_SetPIDI(float setI);
 void Motor2_SetPIDD(float setD);
 void Motor2_SetPIDLimit(float pLimit);
 void Motor2_SetPIDCoLimit(float coLimt);
-void Motor_pidClear();
+void Motor_pidClear(void);
+void Motor_GetTarget(void);
 void Motor1_PIDwork(void);
 void Motor2_PIDwork(void);
 

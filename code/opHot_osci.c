@@ -11,7 +11,7 @@ seekfree_assistant_oscilloscope_struct osci_data;
 
 /**
  * @brief 虚拟示波器初始化
- * @note  共4个通道 ch0-左轮速度 ch1-右轮速度 ch2-左轮目标 ch3-右轮目标
+ * @note  共4个通道 ch0-左轮速度 ch1-右轮速度 ch2-速度目标 ch3-舵机占空比
  * 
  */
 void Osci_Init(void)
@@ -27,8 +27,8 @@ void Osci_Send(void)
 {
     osci_data.data[0] = Encoder_1Data;
     osci_data.data[1] = Encoder_2Data;
-    osci_data.data[2] = Motor1_target;
-    osci_data.data[3] = Motor2_target;
+    osci_data.data[2] = Motor_target;
+    osci_data.data[3] = Steer_current;
     seekfree_assistant_oscilloscope_send(&osci_data);
 }
 
