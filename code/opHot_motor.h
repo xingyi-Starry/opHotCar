@@ -19,11 +19,11 @@
 #define MOTOR_2_PWM             (ATOM0_CH1_P21_3)
 
 // PID参数
-#define MOTOR_PID_P             180
-#define MOTOR_PID_I             0
-#define MOTOR_PID_D             0
-#define MOTOR_PID_SL            5000
-#define MOTOR_PID_UL            4000
+#define MOTOR_PID_P             (160)
+#define MOTOR_PID_I             (0)
+#define MOTOR_PID_D             (-10)
+#define MOTOR_PID_SL            (5000)
+#define MOTOR_PID_UL            (4000)
 
 // 差速相关
 #define MOTOR_DIFSPEED_FACTOR   (0.2)   // 差速修正系数

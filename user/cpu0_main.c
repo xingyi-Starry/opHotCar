@@ -109,7 +109,7 @@ int core0_main(void)
         ;
     Image_Init();
     Init_flag = 1;
-    Motor_target = 75;
+    Motor_target = 50;
 
     while (TRUE)
     {
@@ -136,10 +136,11 @@ int core0_main(void)
             Motor1_SetPIDP(seekfree_assistant_parameter[3]);
             Motor2_SetPIDP(seekfree_assistant_parameter[3]);
         }
-        if (seekfree_assistant_parameter_update_flag[4])
+        if (seekfree_assistant_parameter_update_flag[4]) // motor_PID_D
         {
             seekfree_assistant_parameter_update_flag[4] = 0;
-            gyro_target = seekfree_assistant_parameter[4];
+            Motor1_SetPIDD(seekfree_assistant_parameter[4]);
+            Motor2_SetPIDD(seekfree_assistant_parameter[4]);
         }
 
         //  此处编写需要循环执行的代码

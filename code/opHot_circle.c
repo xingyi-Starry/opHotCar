@@ -48,6 +48,7 @@ void Circle_Check(void)
     case CIRCLE_LEFT_IN:
         // 跟踪边线选择 优先左线
         Tracing_LeftFirst(TRACE_NONE);
+        Steer_current = 2270;
         // 如果检测到第二个角点，切换到十字
         if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
         {
@@ -74,9 +75,24 @@ void Circle_Check(void)
     case CIRCLE_LEFT_RUNNING:
         // 跟踪边线选择 优先左线
         Tracing_LeftFirst(TRACE_STATIC);
+        // 如果检测到第二个角点，切换到十字
+        if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
+        {
+            CIRCLE_STATE = CIRCLE_NONE;
+            OVERALL_STATE = CROSS;
+            CROSS_STATE = CROSS_ENTER;
+            Encoder_End(ENCODER_MOTOR_2);
+            Encoder_Clear(ENCODER_MOTOR_2);
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+            Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+            Tracing_GetGyroTarget();
+            return;
+        }
         // 陀螺仪积分超过阈值或编码器积分超过阈值，切换到CIRCLE_OUT1
         if (Gyro_z >= CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor2 >= CIRCLE_RUNNING_ENCODER_THRE)
         {
+            /*面向赛道编程 出环后加速*/
+            Motor_target = 100;
             Encoder_Clear(ENCODER_MOTOR_2);
             // 结束编码器积分
             Gyroscope_Clear(GYROSCOPE_GYRO_Z);
@@ -154,6 +170,19 @@ void Circle_Check(void)
     case CIRCLE_RIGHT_RUNNING:
         // 跟踪边线选择 优先右线
         Tracing_RightFirst(TRACE_STATIC);
+        // 如果检测到第二个角点，切换到十字
+        if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
+        {
+            CIRCLE_STATE = CIRCLE_NONE;
+            OVERALL_STATE = CROSS;
+            CROSS_STATE = CROSS_ENTER;
+            Encoder_End(ENCODER_MOTOR_1);
+            Encoder_Clear(ENCODER_MOTOR_1);
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+            Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+            Tracing_GetGyroTarget();
+            return;
+        }
         // 陀螺仪积分超过阈值或编码器积分超过阈值，切换到CIRCLE_OUT1
         if (Gyro_z <= -CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor1 >= CIRCLE_RUNNING_ENCODER_THRE)
         {
