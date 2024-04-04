@@ -378,6 +378,10 @@ code/opHot_tracing.o :	../code/opHot_crossline.h
 ../code/opHot_crossline.h :
 code/opHot_tracing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_tracing.o :	../code/opHot_slope.h
+../code/opHot_slope.h :
+code/opHot_tracing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_tracing.o :	../code/opHot_osci.h
 ../code/opHot_osci.h :
 code/opHot_tracing.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h

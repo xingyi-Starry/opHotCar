@@ -17,6 +17,7 @@ typedef enum
     CROSS,
     CIRCLE,
     CROSSLINE,
+    SLOPE,
     TEST
 } OVERALL_STATE_enum;
 

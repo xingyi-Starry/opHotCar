@@ -17,6 +17,7 @@ C_SRCS += \
 ../code/opHot_osci.c \
 ../code/opHot_overall_state.c \
 ../code/opHot_pid.c \
+../code/opHot_slope.c \
 ../code/opHot_steer.c \
 ../code/opHot_tracing.c \
 ../code/zf_myFunction.c 
@@ -35,6 +36,7 @@ COMPILED_SRCS += \
 ./code/opHot_osci.src \
 ./code/opHot_overall_state.src \
 ./code/opHot_pid.src \
+./code/opHot_slope.src \
 ./code/opHot_steer.src \
 ./code/opHot_tracing.src \
 ./code/zf_myFunction.src 
@@ -53,6 +55,7 @@ C_DEPS += \
 ./code/opHot_osci.d \
 ./code/opHot_overall_state.d \
 ./code/opHot_pid.d \
+./code/opHot_slope.d \
 ./code/opHot_steer.d \
 ./code/opHot_tracing.d \
 ./code/zf_myFunction.d 
@@ -71,6 +74,7 @@ OBJS += \
 ./code/opHot_osci.o \
 ./code/opHot_overall_state.o \
 ./code/opHot_pid.o \
+./code/opHot_slope.o \
 ./code/opHot_steer.o \
 ./code/opHot_tracing.o \
 ./code/zf_myFunction.o 
@@ -96,7 +100,7 @@ code/%.o: ./code/%.src code/subdir.mk
 clean: clean-code
 
 clean-code:
-	-$(RM) ./code/opHot_basic_function.d ./code/opHot_basic_function.o ./code/opHot_basic_function.src ./code/opHot_circle.d ./code/opHot_circle.o ./code/opHot_circle.src ./code/opHot_common_road.d ./code/opHot_common_road.o ./code/opHot_common_road.src ./code/opHot_cross.d ./code/opHot_cross.o ./code/opHot_cross.src ./code/opHot_crossline.d ./code/opHot_crossline.o ./code/opHot_crossline.src ./code/opHot_encoder.d ./code/opHot_encoder.o ./code/opHot_encoder.src ./code/opHot_gyroscope.d ./code/opHot_gyroscope.o ./code/opHot_gyroscope.src ./code/opHot_image_processing.d ./code/opHot_image_processing.o ./code/opHot_image_processing.src ./code/opHot_image_show.d ./code/opHot_image_show.o ./code/opHot_image_show.src ./code/opHot_motor.d ./code/opHot_motor.o ./code/opHot_motor.src ./code/opHot_osci.d ./code/opHot_osci.o ./code/opHot_osci.src ./code/opHot_overall_state.d ./code/opHot_overall_state.o ./code/opHot_overall_state.src ./code/opHot_pid.d ./code/opHot_pid.o ./code/opHot_pid.src ./code/opHot_steer.d ./code/opHot_steer.o ./code/opHot_steer.src ./code/opHot_tracing.d ./code/opHot_tracing.o ./code/opHot_tracing.src ./code/zf_myFunction.d ./code/zf_myFunction.o ./code/zf_myFunction.src
+	-$(RM) ./code/opHot_basic_function.d ./code/opHot_basic_function.o ./code/opHot_basic_function.src ./code/opHot_circle.d ./code/opHot_circle.o ./code/opHot_circle.src ./code/opHot_common_road.d ./code/opHot_common_road.o ./code/opHot_common_road.src ./code/opHot_cross.d ./code/opHot_cross.o ./code/opHot_cross.src ./code/opHot_crossline.d ./code/opHot_crossline.o ./code/opHot_crossline.src ./code/opHot_encoder.d ./code/opHot_encoder.o ./code/opHot_encoder.src ./code/opHot_gyroscope.d ./code/opHot_gyroscope.o ./code/opHot_gyroscope.src ./code/opHot_image_processing.d ./code/opHot_image_processing.o ./code/opHot_image_processing.src ./code/opHot_image_show.d ./code/opHot_image_show.o ./code/opHot_image_show.src ./code/opHot_motor.d ./code/opHot_motor.o ./code/opHot_motor.src ./code/opHot_osci.d ./code/opHot_osci.o ./code/opHot_osci.src ./code/opHot_overall_state.d ./code/opHot_overall_state.o ./code/opHot_overall_state.src ./code/opHot_pid.d ./code/opHot_pid.o ./code/opHot_pid.src ./code/opHot_slope.d ./code/opHot_slope.o ./code/opHot_slope.src ./code/opHot_steer.d ./code/opHot_steer.o ./code/opHot_steer.src ./code/opHot_tracing.d ./code/opHot_tracing.o ./code/opHot_tracing.src ./code/zf_myFunction.d ./code/zf_myFunction.o ./code/zf_myFunction.src
 
 .PHONY: clean-code
 

@@ -29,6 +29,9 @@ void State_Check(void)
     case CROSSLINE:
         CrossLine_Check();
         break;
+    case SLOPE:
+        Slope_Check();
+        break;
     case TEST:
         Gyroscope_Begin(GYROSCOPE_GYRO_Z);
         TRACE_TYPE = TRACE_GYRO;
@@ -38,7 +41,10 @@ void State_Check(void)
         break;
     }
 
+    // °ßÂíÏß¼ì²â
     CrossLine_Detect();
+    // ÆÂµÀ¼ì²â
+    Slope_Detect();
 }
 
 void State_AimJudge(void)

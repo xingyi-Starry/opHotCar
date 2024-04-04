@@ -23,6 +23,7 @@
 #include "opHot_cross.h"
 #include "opHot_common_road.h"
 #include "opHot_crossline.h"
+#include "opHot_slope.h"
 #include "opHot_osci.h"
 
 #define LED1                    (P20_9)

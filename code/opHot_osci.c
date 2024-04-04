@@ -16,7 +16,7 @@ seekfree_assistant_oscilloscope_struct osci_data;
  */
 void Osci_Init(void)
 {
-    osci_data.channel_num = 4;    
+    osci_data.channel_num = 5;    
 }
 
 /**
@@ -28,7 +28,7 @@ void Osci_Send(void)
     osci_data.data[0] = Encoder_1Data;
     osci_data.data[1] = Encoder_2Data;
     osci_data.data[2] = Motor_target;
-    osci_data.data[3] = Steer_current;
+    osci_data.data[3] = Acc_corrZ;
     seekfree_assistant_oscilloscope_send(&osci_data);
 }
 

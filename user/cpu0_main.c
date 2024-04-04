@@ -192,8 +192,8 @@ int core0_main(void)
             // seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
-        ips200_show_float(0, 120, 0, 3, 2);
-        ips200_show_float(0, 136, 0, 3, 2);
+        ips200_show_float(0, 120, Acc_corrX, 3, 2);
+        ips200_show_float(0, 136, Acc_corrY, 3, 2);
         ips200_show_float(0, 152, Acc_corrZ, 3, 2);
         ips200_show_float(0, 168, Gyro_corrX, 3, 2);
         ips200_show_float(0, 184, Gyro_corrY, 3, 2);
