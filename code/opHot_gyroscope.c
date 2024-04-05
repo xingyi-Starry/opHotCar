@@ -14,10 +14,10 @@ uint16 Gyroscope_time = 0;
 GYROSCOPE_TYPE Gyroscope_device = GYROSCOPE_IMU660RA;
 // 陀螺仪偏移量
 struct GyroscopeOffset Gyro_Offset;
-// z轴加速度滤波序列
-float AccZ_FilterData[GYRO_FILTER_MAX];
+// y轴角速度滤波序列
+float GyroY_FilterData[GYRO_FILTER_MAX];
 // 滤波权重
-float Gyro_FilterWeigh[4] = {0.25, 0.25, 0.25,0.25};
+float Gyro_FilterWeigh[GYRO_FILTER_MAX] = {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1};
 // 滤波数据指针
 uint8 Gyro_FilterPointer = 0;
 
@@ -202,11 +202,11 @@ void Gyroscope_GetData(void)
     imu660ra_get_gyro();
     imu660ra_get_acc();
     Gyro_corrX = imu660ra_gyro_transition((float)imu660ra_gyro_x - Gyro_Offset.Gyro_Xdata);
-    Gyro_corrY = imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata);
+    Gyro_corrY = LowPass_Filter(Sliding_Filter(GyroY_FilterData, Gyro_FilterWeigh, GYRO_FILTER_MAX, &Gyro_FilterPointer, imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata)), Gyro_corrY, 0.25);
     Gyro_corrZ = imu660ra_gyro_transition((float)imu660ra_gyro_z - Gyro_Offset.Gyro_Zdata);
     Acc_corrX = imu660ra_acc_transition((float)imu660ra_acc_x - Gyro_Offset.ACC_Xdata);
     Acc_corrY = imu660ra_acc_transition((float)imu660ra_acc_y - Gyro_Offset.ACC_Ydata);
-    Acc_corrZ = Gyroscope_Filter(AccZ_FilterData, Gyro_FilterWeigh, GYRO_FILTER_MAX, &Gyro_FilterPointer, imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata));
+    Acc_corrZ = imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata);
 }
 
 void Gyroscope_Conut(void)

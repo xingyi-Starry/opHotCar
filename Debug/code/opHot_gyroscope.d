@@ -324,6 +324,12 @@ code/opHot_gyroscope.o :	../code/zf_myFunction.h
 ../code/zf_myFunction.h :
 code/opHot_gyroscope.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_gyroscope.o :	../code/opHot_filter.h
+../code/opHot_filter.h :
+code/opHot_gyroscope.o :	../code/opHotCar.h
+../code/opHotCar.h :
+code/opHot_gyroscope.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_gyroscope.o :	../code/opHot_encoder.h
 ../code/opHot_encoder.h :
 code/opHot_gyroscope.o :	../libraries/zf_common/zf_common_headfile.h
@@ -332,8 +338,6 @@ code/opHot_gyroscope.o :	../code/opHot_motor.h
 ../code/opHot_motor.h :
 code/opHot_gyroscope.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
-code/opHot_gyroscope.o :	../code/opHotCar.h
-../code/opHotCar.h :
 code/opHot_gyroscope.o :	../code/opHot_gyroscope.h
 ../code/opHot_gyroscope.h :
 code/opHot_gyroscope.o :	../code/opHot_pid.h

@@ -11,7 +11,7 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
-#define GYRO_FILTER_MAX (4) //陀螺仪滤波序列大小
+#define GYRO_FILTER_MAX (10) //陀螺仪滤波序列大小
 
 //------------------------------数据类型定义------------------------------
 //使用的陀螺仪类型

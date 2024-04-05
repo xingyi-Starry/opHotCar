@@ -92,7 +92,7 @@ int core0_main(void)
 
     //-----------定时中断初始化---------------
     pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集&电机PID
-    pit_ms_init(CCU60_CH1, 50);
+    pit_ms_init(CCU60_CH1, 20);
 
     // PID初始化
     Motor_PID_Init();

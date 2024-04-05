@@ -21,7 +21,7 @@
 // PID²ÎÊý
 #define MOTOR_PID_P             (160)
 #define MOTOR_PID_I             (0)
-#define MOTOR_PID_D             (-10)
+#define MOTOR_PID_D             (-1)
 #define MOTOR_PID_SL            (5000)
 #define MOTOR_PID_UL            (4000)
 

@@ -326,6 +326,12 @@ code/opHot_crossline.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/s
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant.h :
 code/opHot_crossline.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h :
+code/opHot_crossline.o :	../code/opHot_filter.h
+../code/opHot_filter.h :
+code/opHot_crossline.o :	../code/opHotCar.h
+../code/opHotCar.h :
+code/opHot_crossline.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
 code/opHot_crossline.o :	../code/opHot_encoder.h
 ../code/opHot_encoder.h :
 code/opHot_crossline.o :	../libraries/zf_common/zf_common_headfile.h
@@ -334,8 +340,6 @@ code/opHot_crossline.o :	../code/opHot_motor.h
 ../code/opHot_motor.h :
 code/opHot_crossline.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
-code/opHot_crossline.o :	../code/opHotCar.h
-../code/opHotCar.h :
 code/opHot_crossline.o :	../code/opHot_gyroscope.h
 ../code/opHot_gyroscope.h :
 code/opHot_crossline.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h

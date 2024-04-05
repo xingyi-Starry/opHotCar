@@ -10,6 +10,7 @@
 
 #include "cpu0_main.h"
 #include "zf_myFunction.h"
+#include "opHot_filter.h"
 #include "opHot_encoder.h"
 #include "opHot_motor.h"
 #include "opHot_gyroscope.h"
