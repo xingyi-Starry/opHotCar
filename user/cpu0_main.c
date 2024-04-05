@@ -109,7 +109,7 @@ int core0_main(void)
         ;
     Image_Init();
     Init_flag = 1;
-    Motor_target = 100;
+    Motor_target = MOTOR_COMMON_SPEED;
 
     while (TRUE)
     {
@@ -206,7 +206,7 @@ int core0_main(void)
         ips200_show_int(188, 152, (int16)Err, 5);
         ips200_show_int(188, 168, Encoder_sum_Motor1, 5);
         ips200_show_int(188, 184, Encoder_sum_Motor2, 5);
-        ips200_show_int(188, 200, TRACE_TYPE, 5);
+        ips200_show_int(188, 200, Image_isStraightLeft + Image_isStraightRight, 5);
         ips200_show_int(188, 216, OVERALL_STATE, 5);
         ips200_show_int(188, 232, OVERALL_STATE == CROSS ? CROSS_STATE : CIRCLE_STATE, 5);
 

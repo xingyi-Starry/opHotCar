@@ -111,7 +111,7 @@ extern bool Image_LptRight_Found;          // 右边线L角点找到判断
 extern bool Image_isStraightLeft;  // 左边线是否为直道
 extern bool Image_isStraightRight; // 右边线是否为直道
 //------------------------------
-// 弯道=
+// 弯道
 extern float Image_LeftTurnAngle;  // 左线角度，与(1, 0)向量的成角
 extern float Image_RightTurnAngle; // 右线角度，与(1, 0)向量的成角
 extern uint8 Image_LeftDir;

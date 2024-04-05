@@ -10,7 +10,7 @@ SLOPE_STATE_enum SLOPE_STATE = SLOPE_RUNNING;
 
 /**
  * @brief 坡道检测
- * @note  主要通过陀螺仪
+ * @note  主要通过陀螺仪，当车头向上旋转时判定为坡道
  * 
  */
 void Slope_Detect(void)

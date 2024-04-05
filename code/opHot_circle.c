@@ -38,6 +38,7 @@ void Circle_Check(void)
         // 如果角点接近或者角点消失，切换到CIRCLE_IN
         if (Image_rptsLefts[Image_LptLeft_rptsLefts_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
         {
+            Motor_target = MOTOR_CIRCLE_IN_SPEED;
             // 启动编码器积分
             Encoder_Begin(ENCODER_MOTOR_2);
 
@@ -48,10 +49,15 @@ void Circle_Check(void)
     case CIRCLE_LEFT_IN:
         // 跟踪边线选择 优先左线
         Tracing_LeftFirst(TRACE_NONE);
-        Steer_current = 2270;
+        // 若左线丢线则巡线中心左移以找左线
+        if (Image_LeftLine_Lost == 1)
+            trace_central = TRACE_CENTRAL - 4;
+        else
+            trace_central = TRACE_CENTRAL;
         // 如果检测到第二个角点，切换到十字
         if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
         {
+            Motor_target = MOTOR_COMMON_SPEED;
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = CROSS;
             CROSS_STATE = CROSS_ENTER;
@@ -75,9 +81,16 @@ void Circle_Check(void)
     case CIRCLE_LEFT_RUNNING:
         // 跟踪边线选择 优先左线
         Tracing_LeftFirst(TRACE_STATIC);
+        // 若左线丢线则巡线中心左移以找左线
+        if (Image_LeftLine_Lost == 1)
+            trace_central = TRACE_CENTRAL - 4;
+        else
+            trace_central = TRACE_CENTRAL;
         // 如果检测到第二个角点，切换到十字
         if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
         {
+            trace_central = TRACE_CENTRAL;
+            Motor_target = MOTOR_COMMON_SPEED;
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = CROSS;
             CROSS_STATE = CROSS_ENTER;
@@ -92,7 +105,7 @@ void Circle_Check(void)
         if (Gyro_z >= CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor2 >= CIRCLE_RUNNING_ENCODER_THRE)
         {
             /*面向赛道编程 出环后加速*/
-            Motor_target = 100;
+            Motor_target = MOTOR_COMMON_SPEED;
             Encoder_Clear(ENCODER_MOTOR_2);
             // 结束编码器积分
             Gyroscope_Clear(GYROSCOPE_GYRO_Z);
@@ -134,6 +147,7 @@ void Circle_Check(void)
         // 如果角点接近或者角点消失，切换到CIRCLE_IN
         if (Image_rptsRights[Image_LptRight_rptsRights_id][1] >= CIRCLE_BEGIN_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
         {
+            Motor_target = MOTOR_CIRCLE_IN_SPEED;
             // 启动编码器积分
             Encoder_Begin(ENCODER_MOTOR_1);
 
@@ -144,9 +158,15 @@ void Circle_Check(void)
     case CIRCLE_RIGHT_IN:
         // 跟踪边线选择 优先右线
         Tracing_RightFirst(TRACE_NONE);
+        // 若右线丢线则巡线中心右移以找右线
+        if (Image_RightLine_Lost == 1)
+            trace_central = TRACE_CENTRAL + 4;
+        else
+            trace_central = TRACE_CENTRAL;
         // 如果检测到第二个角点，切换到十字
         if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
         {
+            Motor_target = MOTOR_COMMON_SPEED;
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = CROSS;
             CROSS_STATE = CROSS_ENTER;
@@ -170,9 +190,16 @@ void Circle_Check(void)
     case CIRCLE_RIGHT_RUNNING:
         // 跟踪边线选择 优先右线
         Tracing_RightFirst(TRACE_STATIC);
+        // 若右线丢线则巡线中心右移以找右线
+        if (Image_RightLine_Lost == 1)
+            trace_central = TRACE_CENTRAL + 4;
+        else
+            trace_central = TRACE_CENTRAL;
         // 如果检测到第二个角点，切换到十字
         if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
         {
+            Motor_target = MOTOR_COMMON_SPEED;
+            trace_central = TRACE_CENTRAL;
             CIRCLE_STATE = CIRCLE_NONE;
             OVERALL_STATE = CROSS;
             CROSS_STATE = CROSS_ENTER;
@@ -186,6 +213,7 @@ void Circle_Check(void)
         // 陀螺仪积分超过阈值或编码器积分超过阈值，切换到CIRCLE_OUT1
         if (Gyro_z <= -CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor1 >= CIRCLE_RUNNING_ENCODER_THRE)
         {
+            Motor_target = MOTOR_COMMON_SPEED;
             Encoder_Clear(ENCODER_MOTOR_1);
             // 结束编码器积分
             Gyroscope_Clear(GYROSCOPE_GYRO_Z);
