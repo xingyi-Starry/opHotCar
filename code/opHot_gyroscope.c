@@ -202,7 +202,7 @@ void Gyroscope_GetData(void)
     imu660ra_get_gyro();
     imu660ra_get_acc();
     Gyro_corrX = imu660ra_gyro_transition((float)imu660ra_gyro_x - Gyro_Offset.Gyro_Xdata);
-    Gyro_corrY = LowPass_Filter(Sliding_Filter(GyroY_FilterData, Gyro_FilterWeigh, GYRO_FILTER_MAX, &Gyro_FilterPointer, imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata)), Gyro_corrY, 0.25);
+    Gyro_corrY = LowPass_Filter(Sliding_Filter(GyroY_FilterData, Gyro_FilterWeigh, GYRO_FILTER_MAX, &Gyro_FilterPointer, imu660ra_gyro_transition((float)imu660ra_gyro_y - Gyro_Offset.Gyro_Ydata)), Gyro_corrY, 0.15);
     Gyro_corrZ = imu660ra_gyro_transition((float)imu660ra_gyro_z - Gyro_Offset.Gyro_Zdata);
     Acc_corrX = imu660ra_acc_transition((float)imu660ra_acc_x - Gyro_Offset.ACC_Xdata);
     Acc_corrY = imu660ra_acc_transition((float)imu660ra_acc_y - Gyro_Offset.ACC_Ydata);

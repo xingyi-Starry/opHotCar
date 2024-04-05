@@ -44,7 +44,8 @@ void State_Check(void)
     // °ßÂíÏß¼ì²â
     CrossLine_Detect();
     // ÆÂµÀ¼ì²â
-    //Slope_Detect();
+    if (OVERALL_STATE != SLOPE)
+        Slope_Detect();
 }
 
 void State_AimJudge(void)
