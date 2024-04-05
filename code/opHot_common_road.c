@@ -16,6 +16,12 @@ void CommonRoad_Check(void)
     else
         TRACE_TYPE = TRACE_NONE;
 
+    // 速度决策
+    if (Image_isStraightLeft == true && Image_isStraightRight == true)
+        Motor_target = MOTOR_STRAIGHT_SPEED;
+    else 
+        Motor_target = MOTOR_COMMON_SPEED;
+
     // 预瞄点配置
     State_AimJudge();
 

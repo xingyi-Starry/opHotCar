@@ -104,7 +104,7 @@ void Circle_Check(void)
         // 陀螺仪积分超过阈值或编码器积分超过阈值，切换到CIRCLE_OUT1
         if (Gyro_z >= CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor2 >= CIRCLE_RUNNING_ENCODER_THRE)
         {
-            /*面向赛道编程 出环后加速*/
+            // 速度决策
             Motor_target = MOTOR_COMMON_SPEED;
             Encoder_Clear(ENCODER_MOTOR_2);
             // 结束编码器积分
@@ -213,6 +213,7 @@ void Circle_Check(void)
         // 陀螺仪积分超过阈值或编码器积分超过阈值，切换到CIRCLE_OUT1
         if (Gyro_z <= -CIRCLE_RUNNING_GYRO_THRE || Encoder_sum_Motor1 >= CIRCLE_RUNNING_ENCODER_THRE)
         {
+            // 速度决策
             Motor_target = MOTOR_COMMON_SPEED;
             Encoder_Clear(ENCODER_MOTOR_1);
             // 结束编码器积分

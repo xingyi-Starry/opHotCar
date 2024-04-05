@@ -13,6 +13,9 @@ void Cross_Check(void)
     // 跟踪边线选择
     Tracing_LeftFirst(TRACE_GYRO);
 
+    // 速度决策
+    Motor_target = MOTOR_COMMON_SPEED;
+
     switch (CROSS_STATE)
     {
     case CROSS_ENTER:

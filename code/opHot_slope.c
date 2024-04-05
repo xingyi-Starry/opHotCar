@@ -32,6 +32,8 @@ void Slope_Detect(void)
 
 void Slope_Check(void)
 {
+    // 速度决策
+    Motor_target = MOTOR_COMMON_SPEED;
     // 配置预瞄点
     State_AimJudge();
     // 配置跟踪模式

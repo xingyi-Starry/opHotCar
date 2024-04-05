@@ -44,7 +44,7 @@ void State_Check(void)
     // °ßÂíÏß¼ì²â
     CrossLine_Detect();
     // ÆÂµÀ¼ì²â
-    if (OVERALL_STATE != SLOPE)
+    if (OVERALL_STATE != SLOPE && OVERALL_STATE != CROSSLINE)
         Slope_Detect();
 }
 
