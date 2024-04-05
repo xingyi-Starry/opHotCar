@@ -159,7 +159,7 @@ uint8 imu660ra_init                 (void);                                     
 // 函数简介     将 IMU660RA 加速度计数据转换为实际物理数据
 // 参数说明     acc_value       任意轴的加速度计数据
 // 返回参数     void
-// 使用示例     float data = imu660ra_acc_transition(imu660ra_acc_x);           // 单位为 g(m/s^2)
+// 使用示例     float data = imu660ra_acc_transition(imu660ra_acc_x);           // 单位为 0.1g(m/s^2) 约为1m/s^2
 // 备注信息
 //-------------------------------------------------------------------------------------------------------------------
 #define imu660ra_acc_transition(acc_value)      ((float)(acc_value) / imu660ra_transition_factor[0])

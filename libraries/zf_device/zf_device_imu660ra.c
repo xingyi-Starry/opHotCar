@@ -67,7 +67,7 @@
 
 int16 imu660ra_gyro_x = 0, imu660ra_gyro_y = 0, imu660ra_gyro_z = 0;            // 三轴陀螺仪数据      GYRO (陀螺仪)
 int16 imu660ra_acc_x = 0, imu660ra_acc_y = 0, imu660ra_acc_z = 0;               // 三轴加速度计数据     ACC  (accelerometer 加速度计)
-float imu660ra_transition_factor[2] = {4096, 16.4};                             // 转换实际值的比例
+float imu660ra_transition_factor[2] = {409.6, 16.4};                             // 转换实际值的比例
 
 #if IMU660RA_USE_SOFT_IIC
 static soft_iic_info_struct imu660ra_iic_struct;

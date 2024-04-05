@@ -11,6 +11,8 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
+#define GYRO_FILTER_MAX (4) //陀螺仪滤波序列大小
+
 //------------------------------数据类型定义------------------------------
 //使用的陀螺仪类型
 typedef enum {
@@ -62,6 +64,7 @@ void Gyroscope_End(GYROSCOPE_MEASURE_TYPE measureType);
 void Gyroscope_GetData(void);
 void Gyroscope_Conut(void);
 void Gyroscope_Clear(GYROSCOPE_MEASURE_TYPE measureType);
+float Gyroscope_Filter(float data[], float data_weigh[], uint8 data_num, uint8 *data_pointer, float new_data);
 
 
 #endif /* CODE_XIAO_GYROSCOPE_H_ */

@@ -714,8 +714,8 @@ void Image_FindCorners(void)
         if (Image_rptsLeftan[i] == 0)
             continue;
         // 当检测到有角度的点然后去判断
-        uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
-        uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
+        //uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
+        //uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
         float conf = fabs(Image_rptsLefta[i]);
 
         // L角点判断
@@ -741,8 +741,8 @@ void Image_FindCorners(void)
         if (Image_rptsRightan[i] == 0.0)
             continue;
         // 当检测到有角度的点然后去判断
-        uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
-        uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
+        //uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
+        //uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
         float conf = fabs(Image_rptsRighta[i]);
 
         // L角点判断

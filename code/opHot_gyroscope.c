@@ -14,23 +14,29 @@ uint16 Gyroscope_time = 0;
 GYROSCOPE_TYPE Gyroscope_device = GYROSCOPE_IMU660RA;
 // 陀螺仪偏移量
 struct GyroscopeOffset Gyro_Offset;
+// z轴加速度滤波序列
+float AccZ_FilterData[GYRO_FILTER_MAX];
+// 滤波权重
+float Gyro_FilterWeigh[4] = {0.25, 0.25, 0.25,0.25};
+// 滤波数据指针
+uint8 Gyro_FilterPointer = 0;
 
 //------------------------------计数变量------------------------------
 //------------------------------
 // 存储数据变量
-float Gyro_x; // 陀螺仪x值 - 角度
-float Gyro_y; // 陀螺仪y值 - 角度
-float Gyro_z; // 陀螺仪z值 - 角度
-float Acc_x;  // 加速度x值 - 速度
-float Acc_y;  // 加速度y值 - 速度
-float Acc_z;  // 加速度z值 - 速度
+float Gyro_x; // 陀螺仪x值 - 角度 单位°
+float Gyro_y; // 陀螺仪y值 - 角度 单位°
+float Gyro_z; // 陀螺仪z值 - 角度 单位°
+float Acc_x;  // 加速度x值 - 速度 单位m/s
+float Acc_y;  // 加速度y值 - 速度 单位m/s
+float Acc_z;  // 加速度z值 - 速度 单位m/s
 
-float Gyro_corrX; // 陀螺仪x值 - 角速度
-float Gyro_corrY; // 陀螺仪y值 - 角速度
-float Gyro_corrZ; // 陀螺仪z值 - 角速度
-float Acc_corrX;  // 加速度x值 - 加速度
-float Acc_corrY;  // 加速度y值 - 加速度
-float Acc_corrZ;  // 加速度z值 - 加速度
+float Gyro_corrX; // 陀螺仪x值 - 角速度 单位°/s
+float Gyro_corrY; // 陀螺仪y值 - 角速度 单位°/s
+float Gyro_corrZ; // 陀螺仪z值 - 角速度 单位°/s
+float Acc_corrX;  // 加速度x值 - 加速度 单位m/s^2
+float Acc_corrY;  // 加速度y值 - 加速度 单位m/s^2
+float Acc_corrZ;  // 加速度z值 - 加速度 单位m/s^2
 
 //------------------------------
 // 计数状态机
@@ -200,7 +206,7 @@ void Gyroscope_GetData(void)
     Gyro_corrZ = imu660ra_gyro_transition((float)imu660ra_gyro_z - Gyro_Offset.Gyro_Zdata);
     Acc_corrX = imu660ra_acc_transition((float)imu660ra_acc_x - Gyro_Offset.ACC_Xdata);
     Acc_corrY = imu660ra_acc_transition((float)imu660ra_acc_y - Gyro_Offset.ACC_Ydata);
-    Acc_corrZ = imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata);
+    Acc_corrZ = Gyroscope_Filter(AccZ_FilterData, Gyro_FilterWeigh, GYRO_FILTER_MAX, &Gyro_FilterPointer, imu660ra_acc_transition((float)imu660ra_acc_z - Gyro_Offset.ACC_Zdata));
 }
 
 void Gyroscope_Conut(void)
@@ -274,4 +280,29 @@ void Gyroscope_Clear(GYROSCOPE_MEASURE_TYPE measureType)
     {
         Acc_z = 0.0;
     }
+}
+
+/**
+ * @brief 对陀螺仪的滑动窗口滤波
+ * 
+ * @param data          数据序列
+ * @param data_weigh    滤波权重
+ * @param data_num      序列长度
+ * @param data_pointer  数据指针
+ * @param new_data      新输入的数据
+ * @return data_out     滤波输出
+ */
+float Gyroscope_Filter(float data[], float data_weigh[], uint8 data_num, uint8 *data_pointer, float new_data)
+{
+    float data_out = 0;
+    data[*data_pointer] = new_data;
+    for (uint8 i = 0; i < data_num; i++)
+    {
+        uint8 index = *data_pointer - i;
+        if (index < 0)
+            index += data_num;
+        data_out += data[index] * data_weigh[index];
+    }
+    *data_pointer = ((*data_pointer)++) % data_num;
+    return data_out;
 }
