@@ -11,7 +11,7 @@
 #include "opHotCar.h"
 #include "zf_common_headfile.h"
 
-#define SLOPE_RUNNING_ENCODER_THRE  (6500) // 退出坡道状态编码器阈值
+#define SLOPE_RUNNING_ENCODER_THRE  (8000) // 退出坡道状态编码器阈值
 
 typedef enum
 {

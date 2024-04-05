@@ -15,7 +15,7 @@ SLOPE_STATE_enum SLOPE_STATE = SLOPE_RUNNING;
  */
 void Slope_Detect(void)
 {
-    if (fabs(Acc_corrZ) >= 0.5)
+    if (fabs(Gyro_corrY) >= 35)
     {
         Encoder_End(ENCODER_MOTOR_1);
         Encoder_End(ENCODER_MOTOR_2);
