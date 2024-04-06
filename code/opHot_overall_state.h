@@ -11,7 +11,7 @@
 #include "zf_common_headfile.h"
 #include "opHotCar.h"
 
-#define     START_ENCODER_THRE  (6500)
+#define     START_ENCODER_THRE  (45000)
 
 typedef enum
 {

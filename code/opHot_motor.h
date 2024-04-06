@@ -30,9 +30,9 @@
 #define MOTOR_DIFSPEED_THRE     (80)    // 差速触发死区（舵机占空比err）
 
 // 速度预设
-#define MOTOR_START_SPEED       (60)
+#define MOTOR_START_SPEED       (100)
 #define MOTOR_STRAIGHT_SPEED    (150)
-#define MOTOR_COMMON_SPEED      (100)
+#define MOTOR_COMMON_SPEED      (85)
 #define MOTOR_CIRCLE_IN_SPEED   (70)
 
 

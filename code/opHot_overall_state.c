@@ -48,8 +48,8 @@ void State_Check(void)
     if (OVERALL_STATE != START)
         CrossLine_Detect();
     // 坡道检测
-    //if (OVERALL_STATE != SLOPE && OVERALL_STATE != CROSSLINE && OVERALL_STATE != START)
-        //Slope_Detect();
+    // if (OVERALL_STATE != SLOPE && OVERALL_STATE != CROSSLINE && OVERALL_STATE != START)
+    // Slope_Detect();
 }
 
 void State_AimJudge(void)
@@ -96,5 +96,14 @@ void Start_Check(void)
         Encoder_Clear(ENCODER_MOTOR_1);
         Encoder_End(ENCODER_MOTOR_1);
         OVERALL_STATE = COMMON_ROAD;
+    }
+    // 左环岛检查
+    if (Image_LptRight_Found == false && Image_LptLeft_Found == true)
+    {
+        OVERALL_STATE = CIRCLE;
+        CIRCLE_STATE = CIRCLE_LEFT_BEGIN;
+        // 结束编码器积分并清零
+        Encoder_Clear(ENCODER_MOTOR_1);
+        Encoder_End(ENCODER_MOTOR_1);
     }
 }

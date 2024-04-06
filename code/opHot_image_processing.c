@@ -719,13 +719,13 @@ void Image_FindCorners(void)
         float conf = fabs(Image_rptsLefta[i]);
 
         // L角点判断
-        if (Image_LptLeft_Found == false && 65 < conf && 135 > conf && i < 0.5 / Image_sampleDist)
+        if (Image_LptLeft_Found == false && 65 < conf && 135 > conf && i < 0.7 / Image_sampleDist)
         {
             Image_LptLeft_rptsLefts_id = i;
             Image_LptLeft_Found = true;
         }
         // 长直道判断
-        if (conf > 15.0 && i < 0.5 / Image_sampleDist)
+        if (conf > 10.0 && i < 0.7 / Image_sampleDist)
         {
             Image_isStraightLeft = false;
         }
@@ -746,13 +746,13 @@ void Image_FindCorners(void)
         float conf = fabs(Image_rptsRighta[i]);
 
         // L角点判断
-        if (Image_LptRight_Found == false && 65 < conf && 135 > conf && i < 0.5 / Image_sampleDist)
+        if (Image_LptRight_Found == false && 65 < conf && 135 > conf && i < 0.7 / Image_sampleDist)
         {
             Image_LptRight_rptsRights_id = i;
             Image_LptRight_Found = true;
         }
         // 长直道判断
-        if (conf > 15.0 && i < 0.5 / Image_sampleDist)
+        if (conf > 10.0 && i < 0.7 / Image_sampleDist)
         {
             Image_isStraightRight = false;
         }

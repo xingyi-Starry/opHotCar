@@ -18,7 +18,7 @@
 #define CIRCLE_OUT1_ENCODER_THRE (8500)                     // 退出CIRCLE_OUT1编码器阈值
 #define CIRCLE_OUT2_ENCODER_THRE (15000)                    // 退出CIRCLE_OUT2编码器阈值
 #define CIRCLE_RUNNING_GYRO_THRE (350)                      // 退出CIRCLE_RUNNING的陀螺仪阈值
-#define CIRCLE_RUNNING_ENCODER_S_THRE (6000)                // CIRCLE_RUNNING直道积分阈值
+#define CIRCLE_RUNNING_ENCODER_S_THRE (11000)                // CIRCLE_RUNNING直道积分阈值
 
 typedef enum
 {

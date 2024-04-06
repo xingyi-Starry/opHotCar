@@ -332,12 +332,12 @@ code/opHot_filter.o :	../code/opHot_encoder.h
 ../code/opHot_encoder.h :
 code/opHot_filter.o :	../libraries/zf_common/zf_common_headfile.h
 ../libraries/zf_common/zf_common_headfile.h :
+code/opHot_filter.o :	../code/opHotCar.h
+../code/opHotCar.h :
 code/opHot_filter.o :	../code/opHot_motor.h
 ../code/opHot_motor.h :
 code/opHot_filter.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
-code/opHot_filter.o :	../code/opHotCar.h
-../code/opHotCar.h :
 code/opHot_filter.o :	../code/opHot_gyroscope.h
 ../code/opHot_gyroscope.h :
 code/opHot_filter.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
