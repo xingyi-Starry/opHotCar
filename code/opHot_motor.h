@@ -32,7 +32,7 @@
 // ÀŸ∂»‘§…Ë
 #define MOTOR_START_SPEED       (60)
 #define MOTOR_STRAIGHT_SPEED    (150)
-#define MOTOR_COMMON_SPEED      (110)
+#define MOTOR_COMMON_SPEED      (100)
 #define MOTOR_CIRCLE_IN_SPEED   (70)
 
 

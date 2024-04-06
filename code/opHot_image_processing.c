@@ -102,7 +102,7 @@ uint8 Image_show_NE = 0;                         // 图传标志位
 uint8 image_bak[MT9V03X_H][MT9V03X_W];           // 原图备份
 //------------------------------
 // 边线局部角度变化率相关
-const float Image_angleDist = 0.5;          // 计算边线转角时,三个计算点的距离
+const float Image_angleDist = 0.2;          // 计算边线转角时,三个计算点的距离
 float Image_rptsLefta[IMAGE_LINE_MAX_NUM];  // 左边线对应点处的角度大小
 float Image_rptsRighta[IMAGE_LINE_MAX_NUM]; // 右边线对应点处的角度大小
 //------------------------------
@@ -719,7 +719,7 @@ void Image_FindCorners(void)
         float conf = fabs(Image_rptsLefta[i]);
 
         // L角点判断
-        if (Image_LptLeft_Found == false && 55 < conf && 135 > conf && i < 0.5 / Image_sampleDist)
+        if (Image_LptLeft_Found == false && 65 < conf && 135 > conf && i < 0.5 / Image_sampleDist)
         {
             Image_LptLeft_rptsLefts_id = i;
             Image_LptLeft_Found = true;
@@ -746,7 +746,7 @@ void Image_FindCorners(void)
         float conf = fabs(Image_rptsRighta[i]);
 
         // L角点判断
-        if (Image_LptRight_Found == false && 55 < conf && 135 > conf && i < 0.5 / Image_sampleDist)
+        if (Image_LptRight_Found == false && 65 < conf && 135 > conf && i < 0.5 / Image_sampleDist)
         {
             Image_LptRight_rptsRights_id = i;
             Image_LptRight_Found = true;

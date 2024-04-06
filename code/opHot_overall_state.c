@@ -48,8 +48,8 @@ void State_Check(void)
     if (OVERALL_STATE != START)
         CrossLine_Detect();
     // ÆÂµÀ¼ì²â
-    if (OVERALL_STATE != SLOPE && OVERALL_STATE != CROSSLINE && OVERALL_STATE != START)
-        Slope_Detect();
+    //if (OVERALL_STATE != SLOPE && OVERALL_STATE != CROSSLINE && OVERALL_STATE != START)
+        //Slope_Detect();
 }
 
 void State_AimJudge(void)

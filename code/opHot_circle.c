@@ -118,7 +118,6 @@ void Circle_Check(void)
     case CIRCLE_LEFT_OUT:
         // ¸ú×Ù±ßÏßÑ¡Ôñ Ö»Ñ²ÓÒÏß
         Tracing_RightOnly(TRACE_NONE);
-        break;
         // ±àÂëÆ÷»ý·Ö³¬¹ýãÐÖµ£¬½áÊøCIRCLE×´Ì¬
         if (Encoder_sum_Motor2 >= CIRCLE_OUT2_ENCODER_THRE)
         {
@@ -227,7 +226,6 @@ void Circle_Check(void)
     case CIRCLE_RIGHT_OUT:
         // ¸ú×Ù±ßÏßÑ¡Ôñ Ö»Ñ²ÓÒÏß
         Tracing_LeftOnly(TRACE_NONE);
-        break;
         // ±àÂëÆ÷»ý·Ö³¬¹ýãÐÖµ£¬½áÊøCIRCLE×´Ì¬
         if (Encoder_sum_Motor1 >= CIRCLE_OUT2_ENCODER_THRE)
         {
