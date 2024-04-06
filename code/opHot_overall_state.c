@@ -6,7 +6,7 @@
  */
 #include "opHot_overall_state.h"
 
-OVERALL_STATE_enum OVERALL_STATE = COMMON_ROAD;
+OVERALL_STATE_enum OVERALL_STATE = START;
 
 /**
  * @brief 全局状态机检查
@@ -32,6 +32,9 @@ void State_Check(void)
     case SLOPE:
         Slope_Check();
         break;
+    case START:
+        Start_Check();
+        break;
     case TEST:
         Gyroscope_Begin(GYROSCOPE_GYRO_Z);
         TRACE_TYPE = TRACE_GYRO;
@@ -42,9 +45,10 @@ void State_Check(void)
     }
 
     // 斑马线检测
-    CrossLine_Detect();
+    if (OVERALL_STATE != START)
+        CrossLine_Detect();
     // 坡道检测
-    if (OVERALL_STATE != SLOPE && OVERALL_STATE != CROSSLINE)
+    if (OVERALL_STATE != SLOPE && OVERALL_STATE != CROSSLINE && OVERALL_STATE != START)
         Slope_Detect();
 }
 
@@ -65,5 +69,32 @@ void State_AimJudge(void)
             tracing_aim = TRACE_CLOSE_AIM;
         else
             tracing_aim = TRACE_COMMON_AIM;
+    }
+}
+
+void Start_Check(void)
+{
+    // 跟踪边线选择
+    if (Image_LeftLine_Lost == 0)
+        TRACE_TYPE = TRACE_LEFT_MIDLINE;
+    else if (Image_RightLine_Lost == 0)
+        TRACE_TYPE = TRACE_RIGHT_MIDLINE;
+    else
+        TRACE_TYPE = TRACE_NONE;
+
+    // 速度决策
+    Motor_target = MOTOR_START_SPEED;
+
+    // 预瞄点配置
+    State_AimJudge();
+    // 开始编码器积分
+    Encoder_Begin(ENCODER_MOTOR_1);
+    // 行驶固定距离，越过斑马线后退出
+    if (Encoder_sum_Motor1 >= START_ENCODER_THRE)
+    {
+        // 结束编码器积分并清零
+        Encoder_Clear(ENCODER_MOTOR_1);
+        Encoder_End(ENCODER_MOTOR_1);
+        OVERALL_STATE = COMMON_ROAD;
     }
 }

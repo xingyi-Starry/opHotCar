@@ -49,7 +49,4 @@ void CommonRoad_Check(void)
         OVERALL_STATE = CIRCLE;
         CIRCLE_STATE = CIRCLE_LEFT_BEGIN;
     }
-
-    // °ßÂíÏß¼ì²é
-    // CrossLine_Detect();
 }
