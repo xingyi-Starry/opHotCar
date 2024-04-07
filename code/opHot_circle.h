@@ -14,10 +14,10 @@
 #define CIRCLE_BEGIN_CORNER_EDGE_DIST (IMAGE_HEIGHT - 15)   // 状态机切换边界角点像素距离
 #define CIRCLE_RUNNING_CORNER_EDGE_DIST (IMAGE_HEIGHT - 20) // 状态机切换边界角点像素距离
 #define CIRCLE_IN_ENCODER_THRE (11000)                      // 退出CIRCLE_IN编码器阈值
-#define CIRCLE_RUNNING_ENCODER_THRE (100000)                // 退出CIRCLE_RUNNING编码器阈值
+#define CIRCLE_RUNNING_ENCODER_THRE (50000)                // 退出CIRCLE_RUNNING编码器阈值
 #define CIRCLE_OUT1_ENCODER_THRE (8500)                     // 退出CIRCLE_OUT1编码器阈值
 #define CIRCLE_OUT2_ENCODER_THRE (15000)                    // 退出CIRCLE_OUT2编码器阈值
-#define CIRCLE_RUNNING_GYRO_THRE (350)                      // 退出CIRCLE_RUNNING的陀螺仪阈值
+#define CIRCLE_RUNNING_GYRO_THRE (345)                      // 退出CIRCLE_RUNNING的陀螺仪阈值
 
 typedef enum
 {
