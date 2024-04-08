@@ -9,6 +9,7 @@
 #define CODE_XIAO_ENCODER_H_
 
 #include "../libraries/zf_common/zf_common_headfile.h"
+#include "opHotCar.h"
 
 //------------------------------通用宏------------------------------
 #define ENCODER_1_DIR               (TIM5_ENCODER)              //带方向编码器(电机1)
@@ -35,6 +36,7 @@ extern uint8 Encoder_readFinishStatus;
 
 extern int32 Encoder_sum_Motor1;                           //电机1积分
 extern int32 Encoder_sum_Motor2;                           //电机2积分
+extern int32 Encoder_sum_Straight;
 
 void Encoder_Init(void);
 void Encoder_SpeedRead(void);

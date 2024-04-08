@@ -314,3 +314,51 @@ code/opHot_encoder.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/see
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant.h :
 code/opHot_encoder.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h
 d:/opHotCar_Learning/opHotCar/libraries/zf_components/seekfree_assistant_interface.h :
+code/opHot_encoder.o :	../code/opHotCar.h
+../code/opHotCar.h :
+code/opHot_encoder.o :	d:/opHotCar_Learning/opHotCar/user/cpu0_main.h
+d:/opHotCar_Learning/opHotCar/user/cpu0_main.h :
+code/opHot_encoder.o :	d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h
+d:/opHotCar_Learning/opHotCar/libraries/infineon_libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h :
+code/opHot_encoder.o :	../code/zf_myFunction.h
+../code/zf_myFunction.h :
+code/opHot_encoder.o :	d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h
+d:/opHotCar_Learning/opHotCar/libraries/zf_common/zf_common_headfile.h :
+code/opHot_encoder.o :	../code/opHot_filter.h
+../code/opHot_filter.h :
+code/opHot_encoder.o :	../code/opHotCar.h
+../code/opHotCar.h :
+code/opHot_encoder.o :	../code/opHot_encoder.h
+../code/opHot_encoder.h :
+code/opHot_encoder.o :	../code/opHot_motor.h
+../code/opHot_motor.h :
+code/opHot_encoder.o :	../code/opHot_gyroscope.h
+../code/opHot_gyroscope.h :
+code/opHot_encoder.o :	../code/opHot_pid.h
+../code/opHot_pid.h :
+code/opHot_encoder.o :	../libraries/zf_common/zf_common_headfile.h
+../libraries/zf_common/zf_common_headfile.h :
+code/opHot_encoder.o :	../code/opHot_steer.h
+../code/opHot_steer.h :
+code/opHot_encoder.o :	../code/opHot_image_processing.h
+../code/opHot_image_processing.h :
+code/opHot_encoder.o :	../code/opHot_basic_function.h
+../code/opHot_basic_function.h :
+code/opHot_encoder.o :	../code/opHot_tracing.h
+../code/opHot_tracing.h :
+code/opHot_encoder.o :	../code/opHot_image_show.h
+../code/opHot_image_show.h :
+code/opHot_encoder.o :	../code/opHot_overall_state.h
+../code/opHot_overall_state.h :
+code/opHot_encoder.o :	../code/opHot_circle.h
+../code/opHot_circle.h :
+code/opHot_encoder.o :	../code/opHot_cross.h
+../code/opHot_cross.h :
+code/opHot_encoder.o :	../code/opHot_common_road.h
+../code/opHot_common_road.h :
+code/opHot_encoder.o :	../code/opHot_crossline.h
+../code/opHot_crossline.h :
+code/opHot_encoder.o :	../code/opHot_slope.h
+../code/opHot_slope.h :
+code/opHot_encoder.o :	../code/opHot_osci.h
+../code/opHot_osci.h :

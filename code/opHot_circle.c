@@ -113,6 +113,18 @@ void Circle_Check(void)
 
             CIRCLE_STATE = CIRCLE_LEFT_OUT;
         }
+        // 直道积分超过阈值，直接切至COMMON_ROAD
+        if (Encoder_sum_Straight >= CIRCLE_RUNNING_ENCODER_S_THRE)
+        {
+            // 结束并清零各积分
+            Encoder_Clear(ENCODER_MOTOR_2);
+            Encoder_End(ENCODER_MOTOR_2);
+            Gyroscope_Clear(GYROSCOPE_GYRO_Z);
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+
+            OVERALL_STATE = COMMON_ROAD;
+            CIRCLE_STATE = CIRCLE_NONE;
+        }
         break;
 
     case CIRCLE_LEFT_OUT:
@@ -220,6 +232,18 @@ void Circle_Check(void)
             Gyroscope_End(GYROSCOPE_GYRO_Z);
 
             CIRCLE_STATE = CIRCLE_RIGHT_OUT;
+        }
+        // 直道积分超过阈值，直接切至COMMON_ROAD
+        if (Encoder_sum_Straight >= CIRCLE_RUNNING_ENCODER_S_THRE)
+        {
+            // 结束并清零各积分
+            Encoder_Clear(ENCODER_MOTOR_1);
+            Encoder_End(ENCODER_MOTOR_1);
+            Gyroscope_Clear(GYROSCOPE_GYRO_Z);
+            Gyroscope_End(GYROSCOPE_GYRO_Z);
+
+            OVERALL_STATE = COMMON_ROAD;
+            CIRCLE_STATE = CIRCLE_NONE;
         }
         break;
 

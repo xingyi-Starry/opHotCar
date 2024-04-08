@@ -6,6 +6,7 @@
  */
 
 #include "opHot_encoder.h"
+#include "opHot_image_processing.h"
 
 
 
@@ -31,6 +32,7 @@ int32 Encoder_sum_Motor1 = 0;                           //电机1积分
 uint8 Encoder_sumStatus_Motor1 = 0;                     //电机1积分状态
 int32 Encoder_sum_Motor2 = 0;                           //电机2积分
 uint8 Encoder_sumStatus_Motor2 = 0;                     //电机2积分状态
+int32 Encoder_sum_Straight = 0;                         //直道积分
 //uint8 Encoder_sumStatus = 0;                          //记录本次中断是否积分
 
 /**
@@ -116,10 +118,14 @@ void Encoder_Count(void) {
     if (Encoder_readFinishStatus == 1) {
         if (Encoder_sumStatus_Motor1 == 1) {
             Encoder_sum_Motor1 += Encoder_1Data;
+            if (Image_isStraightLeft == true && Image_isStraightRight == true)
+                Encoder_sum_Straight += Encoder_1Data;
         }
 
         if (Encoder_sumStatus_Motor2 == 1) {
             Encoder_sum_Motor2 += Encoder_2Data;
+            if (Image_isStraightLeft == true && Image_isStraightRight == true)
+                Encoder_sum_Straight += Encoder_2Data;
         }
     }
 }
@@ -131,8 +137,10 @@ void Encoder_Count(void) {
 void Encoder_Clear(ENCODER_MOTOR_SELECT motorSelect) {
     if (motorSelect == ENCODER_MOTOR_1) {
         Encoder_sum_Motor1 = 0;
+        Encoder_sum_Straight = 0;
     }
     else if (motorSelect == ENCODER_MOTOR_2) {
         Encoder_sum_Motor2 = 0;
+        Encoder_sum_Straight = 0;
     }
 }
