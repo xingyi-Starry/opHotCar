@@ -92,7 +92,8 @@ int core0_main(void)
 
     //-----------定时中断初始化---------------
     pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集&电机PID
-    pit_ms_init(CCU60_CH1, 20);
+    //pit_ms_init(CCU60_CH1, 20); // 虚拟示波器
+    pit_ms_init(CCU61_CH0, 1000);
 
     // PID初始化
     Motor_PID_Init();
@@ -109,16 +110,15 @@ int core0_main(void)
         ;
     Image_Init();
     Init_flag = 1;
-    Motor_target = MOTOR_COMMON_SPEED;
 
     while (TRUE)
     {
         // 调参助手
         seekfree_assistant_data_analysis();
-        if (seekfree_assistant_parameter_update_flag[0]) // 跟踪中心
+        if (seekfree_assistant_parameter_update_flag[0]) // 目标前瞻
         {
             seekfree_assistant_parameter_update_flag[0] = 0;
-            trace_central = seekfree_assistant_parameter[0];
+            tracing_aim = seekfree_assistant_parameter[0];
         }
         if (seekfree_assistant_parameter_update_flag[1]) // 目标速度
         {
@@ -128,7 +128,7 @@ int core0_main(void)
         if (seekfree_assistant_parameter_update_flag[2]) // 跟踪系数
         {
             seekfree_assistant_parameter_update_flag[2] = 0;
-            trace_kde = seekfree_assistant_parameter[2];
+            trace_factor = seekfree_assistant_parameter[2];
         }
         if (seekfree_assistant_parameter_update_flag[3]) // motor_PID_P
         {
@@ -136,11 +136,22 @@ int core0_main(void)
             Motor1_SetPIDP(seekfree_assistant_parameter[3]);
             Motor2_SetPIDP(seekfree_assistant_parameter[3]);
         }
-        if (seekfree_assistant_parameter_update_flag[4]) // motor_PID_D
+        if (seekfree_assistant_parameter_update_flag[4]) // motor_PID_I
         {
             seekfree_assistant_parameter_update_flag[4] = 0;
-            Motor1_SetPIDD(seekfree_assistant_parameter[4]);
-            Motor2_SetPIDD(seekfree_assistant_parameter[4]);
+            Motor1_SetPIDI(seekfree_assistant_parameter[4]);
+            Motor2_SetPIDI(seekfree_assistant_parameter[4]);
+        }
+        if (seekfree_assistant_parameter_update_flag[5]) // motor_PID_D
+        {
+            seekfree_assistant_parameter_update_flag[5] = 0;
+            Motor1_SetPIDD(seekfree_assistant_parameter[5]);
+            Motor2_SetPIDD(seekfree_assistant_parameter[5]);
+        }
+        if (seekfree_assistant_parameter_update_flag[6]) // 巡线模式
+        {
+            seekfree_assistant_parameter_update_flag[6] = 0;
+            TRACE_TYPE = seekfree_assistant_parameter[6];
         }
 
         //  此处编写需要循环执行的代码
@@ -184,12 +195,12 @@ int core0_main(void)
 
         if (Image_show_NE == 1)
         {
-            // memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
             Image_ShowResampleLine(0, 0);
             // ips200_draw_line(64, 50, 124, 50, RGB565_PURPLE);
             //  Image_ShowArray(0, 0, 119, Image_rptsLefta, 90, RGB565_PURPLE);
-            // seekfree_assistant_camera_send();
+            seekfree_assistant_camera_send();
             Image_show_NE = 0;
         }
         ips200_show_float(0, 120, Acc_corrX, 3, 2);

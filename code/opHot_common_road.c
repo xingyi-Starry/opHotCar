@@ -9,12 +9,7 @@
 void CommonRoad_Check(void)
 {
     // 跟踪边线选择
-    if (Image_LeftLine_Lost == 0)
-        TRACE_TYPE = TRACE_LEFT_MIDLINE;
-    else if (Image_RightLine_Lost == 0)
-        TRACE_TYPE = TRACE_RIGHT_MIDLINE;
-    else
-        TRACE_TYPE = TRACE_NONE;
+    Tracing_LeftFirst(TRACE_NONE);
 
     // 速度决策
     if (Image_isStraightLeft == true && Image_isStraightRight == true)
@@ -26,16 +21,8 @@ void CommonRoad_Check(void)
     State_AimJudge();
 
     // 十字检查
-    if (Image_LptLeft_Found == true && Image_LptRight_Found == true && OVERALL_STATE == COMMON_ROAD)
-    {
-        // 角点二次检查，暂时搁置
-
-        OVERALL_STATE = CROSS;
-        CROSS_STATE = CROSS_ENTER;
-        Gyroscope_End(GYROSCOPE_GYRO_Z);
-        Gyroscope_Begin(GYROSCOPE_GYRO_Z);
-        Tracing_GetGyroTarget();
-    }
+    if (Cross_Detect())
+        return;
 
     // 右环岛检查
     if (Image_LptRight_Found == true && Image_LptLeft_Found == false && OVERALL_STATE == COMMON_ROAD)

@@ -100,7 +100,7 @@ void Motor1_SetPIDD(float setD)
 }
 
 // 设置积分限制
-void Motor1_SetPIDLimit(float pLimit)
+void Motor1_SetPIDSumLimit(float pLimit)
 {
     Motor1_PID.sumLimit = pLimit;
 }
@@ -133,7 +133,7 @@ void Motor_pidClear()
 }
 
 // 设置积分限制
-void Motor2_SetPIDLimit(float pLimit)
+void Motor2_SetPIDSumLimit(float pLimit)
 {
     Motor2_PID.sumLimit = pLimit;
 }

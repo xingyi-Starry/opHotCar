@@ -8,9 +8,34 @@
 
 CROSS_STATE_enum CROSS_STATE = CROSS_ENTER;
 
+/**
+ * @brief 十字检测
+ *
+ * @return bool 当检测到十字时返回true，否则返回false
+ */
+bool Cross_Detect(void)
+{
+    if (Image_LptLeft_Found == true && Image_LptRight_Found == true)
+    {
+        // 角点二次检查，暂时搁置
+
+        OVERALL_STATE = CROSS;
+        CROSS_STATE = CROSS_ENTER;
+        Gyroscope_Clear(GYROSCOPE_GYRO_Z);
+        Gyroscope_Begin(GYROSCOPE_GYRO_Z);
+        Tracing_GetGyroTarget();
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief 十字检查
+ *
+ */
 void Cross_Check(void)
 {
-    // 跟踪边线选择
+    // 跟踪边线决策
     Tracing_LeftFirst(TRACE_GYRO);
 
     // 速度决策
@@ -26,6 +51,7 @@ void Cross_Check(void)
         if (Image_rptsLefts[Image_LptLeft_rptsLefts_id][1] >= CROSS_ENTER_CORNER_EDGE_DIST || Image_rptsRights[Image_LptRight_rptsRights_id][1] >= CROSS_ENTER_CORNER_EDGE_DIST || (Image_LptLeft_Found == false && Image_LptRight_Found == false))
         {
             CROSS_STATE = CROSS_EXIT;
+            Encoder_Clear(ENCODER_MOTOR_1);
             Encoder_Begin(ENCODER_MOTOR_1); // 开始编码器积分，开环控制
         }
         break;
@@ -44,7 +70,7 @@ void Cross_Check(void)
         break;
     case CROSS_EXIT:
         // 巡前线
-        image_begin_y = 30;
+        //image_begin_y = 30;
         // 预瞄点配置
         tracing_aim = TRACE_CROSS_AIM;
         TRACE_TYPE = TRACE_GYRO;
@@ -53,7 +79,7 @@ void Cross_Check(void)
         if (Encoder_sum_Motor1 >= CROSS_EXIT_ENCODER_THRE)
         {
             // 恢复巡线起点
-            image_begin_y = IMAGE_HEIGHT - 20;
+            //image_begin_y = IMAGE_HEIGHT - 20;
             // 结束积分，清除积分数据
             Encoder_End(ENCODER_MOTOR_1);
             Encoder_Clear(ENCODER_MOTOR_1);

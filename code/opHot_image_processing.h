@@ -24,7 +24,21 @@
 #define INVERTED_TRACING_Y (70)     // 斜向巡线起始y坐标
 #define IMAGE_LINE_MAX_NUM (90)     // 图片边线像素点最大个数
 #define IMAGE_RESAMPLE_MAX_NUM (60) // 重采样边线像素点最大个数
-#define TURN_JUDGE_ANGLE (20)  // 弯道判断角度
+
+//------------------------------------------------------------
+// 角度相关
+#define TURN_JUDGE_ANGLE (20)          // 弯道判断角度
+#define CORNER_COS_DOWN_THRE (-0.4226) // 角点判断余弦阈值 cos115°
+#define CORNER_COS_UP_THRE (0.5736)    // 角点判断余弦阈值 cos55°
+#define STRAIGHT_COS_THRE (-0.9848)    // 直道判断余弦阈值 cos170°
+
+typedef enum
+{
+    NONE = 0x00,
+    LEFTTURN = 0x01,
+    RIGHTTURN = 0x02
+} TURNDIR_enum;
+
 //------------------------------------------------------------
 // 所有状态机
 extern uint8 Image_Process_Status;
@@ -90,7 +104,7 @@ extern uint8 Image_rptsRightanNum;  // 右边线点的个数
 // 左右变线跟踪相关
 // extern uint8 Image_rptsLeftc[IMAGE_RESAMPLE_MAX_NUM][2];  // 左边线跟踪得到的中线数据
 // extern uint8 Image_rptsRightc[IMAGE_RESAMPLE_MAX_NUM][2]; // 右边线跟踪得到的中线数据
-extern uint8 Image_MidLine[IMAGE_RESAMPLE_MAX_NUM][2]; // 中线数据
+extern uint8 Image_MidLine[IMAGE_RESAMPLE_MAX_NUM][2];   // 中线数据
 extern uint8 Image_RsMidLine[IMAGE_RESAMPLE_MAX_NUM][2]; // 等距采样后的中线数据
 // extern uint8 Image_rptsLeftcNum;                          // 左边线跟踪得到的中线的线长
 // extern uint8 Image_rptsRightcNum;                         // 右边线跟踪得到的中线的线长
@@ -114,8 +128,8 @@ extern bool Image_isStraightRight; // 右边线是否为直道
 // 弯道
 extern float Image_LeftTurnAngle;  // 左线角度，与(1, 0)向量的成角
 extern float Image_RightTurnAngle; // 右线角度，与(1, 0)向量的成角
-extern uint8 Image_LeftDir;
-extern uint8 Image_RightDir;
+extern TURNDIR_enum Image_LeftDir;
+extern TURNDIR_enum Image_RightDir;
 //------------------------------调试参数处理------------------------------
 // 用于调试的参数(为了作区分,这里的标头起始字母用小写处理, 同时使用下划线命名法)
 extern uint8 image_thre;             // 边线处理的初始阈值

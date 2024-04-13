@@ -142,20 +142,9 @@ bool Image_isStraightRight; // 右边线是否为直道
 // 弯道
 float Image_LeftTurnAngle = 0;  // 左线角度，与(1, 0)向量的成角
 float Image_RightTurnAngle = 0; // 右线角度，与(1, 0)向量的成角
-uint8 Image_LeftDir = 0;        // 左线方向，0为直道，1为左拐，2为右拐
-uint8 Image_RightDir = 0;       // 右线方向，0为直道，1为左拐，2为右拐
+TURNDIR_enum Image_LeftDir = 0;        // 左线方向，0为直道，1为左拐，2为右拐
+TURNDIR_enum Image_RightDir = 0;       // 右线方向，0为直道，1为左拐，2为右拐
 //------------------------------
-// 获取选中角点数据
-uint8 Image_angleCntLeft = 0;  // 记录当前选中的是第几个点 - 左边线
-uint8 Image_angleCntRight = 0; // 记录当前选中的是第几个点 - 右边线
-uint8 Image_lineSeclet = 0;    // 边线选择:0 - 左边线; 1 - 右边线
-uint8 Image_angleBlockLen = 3; // 显示区块的边线长度
-
-//------------------------------元素判断相关------------------------------
-bool Image_isGrage = 0;               // 检测是否是车库
-bool Image_isCircle = 0;              // 检测是否是环岛
-bool Image_LjudgeFinish = 0;          // L角点元素判断完成状态机
-uint16 Image_GrageJudge_Thre = 10000; // 车库判断的编码器积分距离
 
 //------------------------------透视变换映射表----------------------------
 uint8 map_x[120][188] = {
@@ -405,7 +394,7 @@ uint8 map_y[120][188] = {
 // 用于调试的参数(为了作区分,这里的标头起始字母用小写处理, 同时使用下划线命名法)
 uint8 image_thre = 120;                // 边线处理的初始阈值
 uint8 image_begin_x = IMAGE_WIDTH / 2; // 边线处理的起始x坐标偏离中心的距离
-uint8 image_begin_y = 100;             // 边线处理起始的y坐标
+uint8 image_begin_y = 90;             // 边线处理起始的y坐标
 uint8 image_block_size = 7;            // 区域二值化的区域边长
 uint8 image_block_clip_value = 4;      // 修正的经验参数(一般为2~5)
 
@@ -498,8 +487,6 @@ static void Image_FindLine_LeftHand_Adaptive(uint8 Image_iptsLeft[][2], uint8 *i
  * @param clip_value        二值化修正值(经验值,一般为2-5)
  * @param x                 边线(初始)x坐标
  * @param y                 边线(初始)y坐标
- *                          作用:1.防止边线过长数据溢出
- *                              2.边线较短的时候改变num,防止外部访问到"非法"数据
  * @return                  无
  * @example                 Image_FindLine_RightHand_Adaptive(image, image_block_size, image_block_clip_value, x2, y2);
  */
@@ -1135,7 +1122,7 @@ void Image_Process(uint8 *image)
         Image_show_NE = 1;
     }
     //----------------------------------------
-    // 对边线进行去畸变 + 逆透视变换
+    // 对边线进行逆透视变换
     for (uint8 i = 0; i < Image_iptsLeftNum; ++i)
     {
         Image_rptsLeft[i][0] = map_x[Image_iptsLeft[i][1]][Image_iptsLeft[i][0]];

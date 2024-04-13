@@ -23,6 +23,7 @@ typedef enum
 
 extern CROSS_STATE_enum CROSS_STATE;
 
+bool Cross_Detect(void);
 void Cross_Check(void);
 
 #endif /* CODE_OPHOT_CROSS_H_ */

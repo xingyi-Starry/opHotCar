@@ -19,21 +19,21 @@
 #define MOTOR_2_PWM             (ATOM0_CH1_P21_3)
 
 // PID参数
-#define MOTOR_PID_P             (160)
-#define MOTOR_PID_I             (0)
+#define MOTOR_PID_P             (100)
+#define MOTOR_PID_I             (0.5)
 #define MOTOR_PID_D             (-1)
-#define MOTOR_PID_SL            (5000)
+#define MOTOR_PID_SL            (2500)
 #define MOTOR_PID_UL            (4000)
 
 // 差速相关
 #define MOTOR_DIFSPEED_FACTOR   (0.2)   // 差速修正系数
-#define MOTOR_DIFSPEED_THRE     (80)    // 差速触发死区（舵机占空比err）
+#define MOTOR_DIFSPEED_THRE     (45)    // 差速触发死区（舵机占空比err）
 
 // 速度预设
 #define MOTOR_START_SPEED       (90)
-#define MOTOR_STRAIGHT_SPEED    (175)
+#define MOTOR_STRAIGHT_SPEED    (120)
 #define MOTOR_COMMON_SPEED      (90)
-#define MOTOR_CIRCLE_IN_SPEED   (70)
+#define MOTOR_CIRCLE_IN_SPEED   (80)
 
 
 typedef enum
@@ -55,12 +55,12 @@ void Motor2_PID_Set(float K_p_set, float K_i_set, float K_d_set, float pLimit, f
 void Motor1_SetPIDP(float setP);
 void Motor1_SetPIDI(float setI);
 void Motor1_SetPIDD(float setD);
-void Motor1_SetPIDLimit(float pLimit);
+void Motor1_SetPIDSumLimit(float pLimit);
 void Motor1_SetPIDCoLimit(float coLimt);
 void Motor2_SetPIDP(float setP);
 void Motor2_SetPIDI(float setI);
 void Motor2_SetPIDD(float setD);
-void Motor2_SetPIDLimit(float pLimit);
+void Motor2_SetPIDSumLimit(float pLimit);
 void Motor2_SetPIDCoLimit(float coLimt);
 void Motor_pidClear(void);
 void Motor_GetTarget(void);
