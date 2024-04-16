@@ -36,10 +36,8 @@ void State_Check(void)
         Start_Check();
         break;
     case TEST:
-        Gyroscope_Begin(GYROSCOPE_GYRO_Z);
-        TRACE_TYPE = TRACE_GYRO;
+        Tracing_RightOnly(TRACE_STATIC);
         break;
-
     default:
         break;
     }
@@ -52,6 +50,11 @@ void State_Check(void)
         //Slope_Detect();
 }
 
+/**
+ * @brief 预瞄点决策
+ * @note  巡内线过弯近预瞄，巡外线过弯或直道远预瞄
+ * 
+ */
 void State_AimJudge(void)
 {
     if (TRACE_TYPE == TRACE_LEFT_MIDLINE)

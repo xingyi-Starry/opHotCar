@@ -10,10 +10,10 @@
 float Err;
 float gyro_target = 0;
 const uint8 tracing_weigh[3] = {5, 3, 2};        // 目标计算权重
-TRACE_TYPE_enum TRACE_TYPE = TRACE_LEFT_MIDLINE; // 跟踪中线来源，由状态机决定
+TRACE_TYPE_enum TRACE_TYPE = TRACE_RIGHT_MIDLINE; // 跟踪中线来源，由状态机决定
 uint8 tracing_aim = TRACE_COMMON_AIM;            // 预瞄点在中线的位置
 uint8 trace_central = TRACE_CENTRAL;
-uint16 trace_kde = TRACE_KDE;
+uint16 trace_factor = TRACE_FACTOR_COMMON;
 uint8 length_of_car = LENGTH_OF_CAR;
 
 /**
@@ -29,9 +29,9 @@ void Tracing_GetTarget(void)
     if (TRACE_TYPE == TRACE_LEFT_MIDLINE || TRACE_TYPE == TRACE_RIGHT_MIDLINE)
     {
         // 图像加权误差
-        Err = (float)(Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][0] * tracing_weigh[0] + Image_MidLine[bf_clip(tracing_aim + 1, 0, Image_MidLineNum - 1)][0] * tracing_weigh[1] + Image_MidLine[bf_clip(tracing_aim + 2, 0, Image_MidLineNum - 1)][0] * tracing_weigh[2]) / 10 - trace_central;
+        Err = (float)(Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][0] * tracing_weigh[0] + (float)Image_MidLine[bf_clip(tracing_aim + 1, 0, Image_MidLineNum - 1)][0] * tracing_weigh[1] + (float)Image_MidLine[bf_clip(tracing_aim + 2, 0, Image_MidLineNum - 1)][0] * tracing_weigh[2]) / 10 - trace_central;
         // 误差对应目标占空比
-        Steer_target = STEER_MID - Err * trace_kde / (length_of_car + MT9V03X_H - Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][1]);
+        Steer_target = STEER_MID - Err * trace_factor / (length_of_car + MT9V03X_H - Image_MidLine[bf_clip(tracing_aim, 0, Image_MidLineNum - 1)][1]);
     }
     else if (TRACE_TYPE == TRACE_NONE)
         Steer_target = STEER_MID;
@@ -134,4 +134,21 @@ void Tracing_LeftOnly(TRACE_TYPE_enum TRACE_OTHER)
         TRACE_TYPE = TRACE_LEFT_MIDLINE;
     else
         TRACE_TYPE = TRACE_OTHER;
+}
+
+/**
+ * @brief 边线选择 优先外线
+ * 
+ * @param TRACE_OTHER 丢线情况选择
+ */
+void Tracing_OuterFirst(TRACE_TYPE_enum TRACE_OTHER)
+{
+    if (Image_LeftDir | Image_RightDir == TURNDIR_LEFT) // 使用或运算，我真天才吧 --linnuofan-2024/4/12
+        Tracing_RightFirst(TRACE_OTHER);
+
+    else if (Image_LeftDir | Image_RightDir == TURNDIR_RIGHT)
+        Tracing_LeftFirst(TRACE_OTHER);
+    
+    else
+        Tracing_LeftFirst(TRACE_OTHER); // 结果为0x00(直道)或0x03(?)时任选一边即可，此处根据我的习惯选左
 }

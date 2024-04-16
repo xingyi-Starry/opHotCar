@@ -92,7 +92,7 @@ int core0_main(void)
 
     //-----------定时中断初始化---------------
     pit_ms_init(CCU60_CH0, 5); // ccu60_ch0(cpu0) 传感器数据采集&电机PID
-    //pit_ms_init(CCU60_CH1, 20); // 虚拟示波器
+    pit_ms_init(CCU60_CH1, 20); // 虚拟示波器
     pit_ms_init(CCU61_CH0, 1000);
 
     // PID初始化
@@ -148,11 +148,11 @@ int core0_main(void)
             Motor1_SetPIDD(seekfree_assistant_parameter[5]);
             Motor2_SetPIDD(seekfree_assistant_parameter[5]);
         }
-        if (seekfree_assistant_parameter_update_flag[6]) // 巡线模式
-        {
-            seekfree_assistant_parameter_update_flag[6] = 0;
-            TRACE_TYPE = seekfree_assistant_parameter[6];
-        }
+//        if (seekfree_assistant_parameter_update_flag[6]) // 巡线模式
+//        {
+//            seekfree_assistant_parameter_update_flag[6] = 0;
+//            TRACE_TYPE = seekfree_assistant_parameter[6];
+//        }
 
         //  此处编写需要循环执行的代码
         /*
@@ -195,7 +195,7 @@ int core0_main(void)
 
         if (Image_show_NE == 1)
         {
-            //memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
+            memcpy(image_bak[0], mt9v03x_image[0], MT9V03X_IMAGE_SIZE);
             ips200_show_gray_image(0, 0, image_bak[0], MT9V03X_W, MT9V03X_H, MT9V03X_W, MT9V03X_H, 0);
             Image_ShowResampleLine(0, 0);
             // ips200_draw_line(64, 50, 124, 50, RGB565_PURPLE);

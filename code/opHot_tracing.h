@@ -12,10 +12,11 @@
 #include "opHotCar.h"
 
 #define TRACE_CENTRAL (88)    // 跟踪中心
-#define TRACE_KDE (510)       // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
+#define TRACE_FACTOR_COMMON (510)       // 跟踪系数——占空比/误差，由实际情况决定，理论上控制方向的调参重点
+#define TRACE_FACTOR_CIRCLE (415) // 圆环内弯跟踪系数
 #define LENGTH_OF_CAR (27)    // 车身长度
 #define TRACE_COMMON_AIM (27) // 标准预瞄点
-#define TRACE_CLOSE_AIM (5)   // 近预瞄点
+#define TRACE_CLOSE_AIM (7)   // 近预瞄点
 #define TRACE_CROSS_AIM (3)   // 十字预瞄点
 
 typedef enum
@@ -32,7 +33,7 @@ extern float gyro_target;
 extern TRACE_TYPE_enum TRACE_TYPE;
 extern uint8 tracing_aim; // 预瞄点在中线的位置
 extern uint8 trace_central;
-extern uint16 trace_kde;
+extern uint16 trace_factor;
 extern uint8 length_of_car;
 
 void Tracing_GetTarget(void);
@@ -42,5 +43,6 @@ void Tracing_LeftFirst(TRACE_TYPE_enum TRACE_OTHER);
 void Tracing_RightFirst(TRACE_TYPE_enum TRACE_OTHER);
 void Tracing_LeftOnly(TRACE_TYPE_enum TRACE_OTHER);
 void Tracing_RightOnly(TRACE_TYPE_enum TRACE_OTHER);
+void Tracing_OuterFirst(TRACE_TYPE_enum TRACE_OTHER);
 
 #endif /* CODE_OPHOT_TRACING_H_ */

@@ -36,7 +36,7 @@ bool Cross_Detect(void)
 void Cross_Check(void)
 {
     // 跟踪边线决策
-    Tracing_LeftFirst(TRACE_GYRO);
+    Tracing_OuterFirst(TRACE_GYRO);
 
     // 速度决策
     Motor_target = MOTOR_COMMON_SPEED;

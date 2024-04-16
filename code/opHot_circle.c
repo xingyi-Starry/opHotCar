@@ -17,13 +17,8 @@ void Circle_Check(void)
     switch (CIRCLE_STATE)
     {
     case CIRCLE_LEFT_BEGIN:
-        // 跟踪边线选择 优先右线
-        if (Image_RightLine_Lost == 0)
-            TRACE_TYPE = TRACE_RIGHT_MIDLINE;
-        else if (Image_LeftLine_Lost == 0)
-            TRACE_TYPE = TRACE_LEFT_MIDLINE;
-        else
-            TRACE_TYPE = TRACE_NONE;
+        // 跟踪边线选择 优先外线
+        Tracing_OuterFirst(TRACE_NONE);
         // 速度决策
         Motor_target = MOTOR_COMMON_SPEED;
         // 如果检测到第二个角点，切换到十字
@@ -127,8 +122,8 @@ void Circle_Check(void)
         break;
 
     case CIRCLE_RIGHT_BEGIN:
-        // 跟踪边线选择 优先左线
-        Tracing_RightFirst(TRACE_NONE);
+        // 跟踪边线选择 优先外线
+        Tracing_OuterFirst(TRACE_NONE);
         // 速度决策
         Motor_target = MOTOR_COMMON_SPEED;
         // 如果检测到第二个角点，切换到十字

@@ -34,9 +34,9 @@
 
 typedef enum
 {
-    NONE = 0x00,
-    LEFTTURN = 0x01,
-    RIGHTTURN = 0x02
+    TURNDIR_NONE = 0x00,
+    TURNDIR_LEFT = 0x01,
+    TURNDIR_RIGHT = 0x02
 } TURNDIR_enum;
 
 //------------------------------------------------------------

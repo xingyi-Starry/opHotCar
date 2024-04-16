@@ -19,21 +19,22 @@
 #define MOTOR_2_PWM             (ATOM0_CH1_P21_3)
 
 // PID参数
-#define MOTOR_PID_P             (100)
+#define MOTOR_PID_P             (125)
 #define MOTOR_PID_I             (0.5)
 #define MOTOR_PID_D             (-1)
 #define MOTOR_PID_SL            (2500)
 #define MOTOR_PID_UL            (4000)
 
 // 差速相关
-#define MOTOR_DIFSPEED_FACTOR   (0.2)   // 差速修正系数
+#define MOTOR_DIFSPEED_FACTOR   (0.25)   // 差速修正系数
 #define MOTOR_DIFSPEED_THRE     (45)    // 差速触发死区（舵机占空比err）
 
 // 速度预设
-#define MOTOR_START_SPEED       (90)
-#define MOTOR_STRAIGHT_SPEED    (120)
-#define MOTOR_COMMON_SPEED      (90)
-#define MOTOR_CIRCLE_IN_SPEED   (80)
+#define MOTOR_START_SPEED           (95)
+#define MOTOR_STRAIGHT_SPEED        (175)
+#define MOTOR_COMMON_SPEED          (95)
+#define MOTOR_CIRCLE_IN_SPEED       (85)
+#define MOTOR_CIRCLE_RUNNING_SPEED  (95)
 
 
 typedef enum

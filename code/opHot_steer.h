@@ -22,7 +22,7 @@
 //---------PID²ÎÊý----------------
 #define STEER_PID_P             (1)
 #define STEER_PID_I             (0)
-#define STEER_PID_D             (0)
+#define STEER_PID_D             (-0.4)
 #define STEER_PID_SL            (5000)
 #define STEER_PID_UL            (2500)
 

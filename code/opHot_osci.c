@@ -26,7 +26,7 @@ void Osci_Init(void)
 void Osci_Send(void)
 {
     osci_data.data[0] = Encoder_1Data;
-    osci_data.data[1] = Encoder_2Data;
+    osci_data.data[1] = Steer_current - 2000;
     osci_data.data[2] = Motor_target;
     osci_data.data[3] = OVERALL_STATE * 50;
     seekfree_assistant_oscilloscope_send(&osci_data);

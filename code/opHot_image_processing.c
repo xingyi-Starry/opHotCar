@@ -140,10 +140,10 @@ bool Image_isStraightLeft;  // 左边线是否为直道
 bool Image_isStraightRight; // 右边线是否为直道
 //------------------------------
 // 弯道
-float Image_LeftTurnAngle = 0;  // 左线角度，与(1, 0)向量的成角
-float Image_RightTurnAngle = 0; // 右线角度，与(1, 0)向量的成角
-TURNDIR_enum Image_LeftDir = 0;        // 左线方向，0为直道，1为左拐，2为右拐
-TURNDIR_enum Image_RightDir = 0;       // 右线方向，0为直道，1为左拐，2为右拐
+float Image_LeftTurnAngle = 0;   // 左线角度，与(1, 0)向量的成角
+float Image_RightTurnAngle = 0;  // 右线角度，与(1, 0)向量的成角
+TURNDIR_enum Image_LeftDir = 0;  // 左线方向，0为直道，1为左拐，2为右拐
+TURNDIR_enum Image_RightDir = 0; // 右线方向，0为直道，1为左拐，2为右拐
 //------------------------------
 
 //------------------------------透视变换映射表----------------------------
@@ -394,7 +394,7 @@ uint8 map_y[120][188] = {
 // 用于调试的参数(为了作区分,这里的标头起始字母用小写处理, 同时使用下划线命名法)
 uint8 image_thre = 120;                // 边线处理的初始阈值
 uint8 image_begin_x = IMAGE_WIDTH / 2; // 边线处理的起始x坐标偏离中心的距离
-uint8 image_begin_y = 90;             // 边线处理起始的y坐标
+uint8 image_begin_y = 90;              // 边线处理起始的y坐标
 uint8 image_block_size = 7;            // 区域二值化的区域边长
 uint8 image_block_clip_value = 4;      // 修正的经验参数(一般为2~5)
 
@@ -701,8 +701,8 @@ void Image_FindCorners(void)
         if (Image_rptsLeftan[i] == 0)
             continue;
         // 当检测到有角度的点然后去判断
-        //uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
-        //uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
+        // uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
+        // uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsLeftsNum - 1);
         float conf = fabs(Image_rptsLefta[i]);
 
         // L角点判断
@@ -712,7 +712,7 @@ void Image_FindCorners(void)
             Image_LptLeft_Found = true;
         }
         // 长直道判断
-        if (conf > 15.0 && i < 0.8 / Image_sampleDist)
+        if (conf > 15.0 && i < 0.9 / Image_sampleDist)
         {
             Image_isStraightLeft = false;
         }
@@ -728,8 +728,8 @@ void Image_FindCorners(void)
         if (Image_rptsRightan[i] == 0.0)
             continue;
         // 当检测到有角度的点然后去判断
-        //uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
-        //uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
+        // uint8 im1 = (uint8)bf_clip(i - (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
+        // uint8 ip1 = (uint8)bf_clip(i + (uint8)round(Image_angleDist / Image_sampleDist), 0, Image_rptsRightsNum - 1);
         float conf = fabs(Image_rptsRighta[i]);
 
         // L角点判断
@@ -739,7 +739,7 @@ void Image_FindCorners(void)
             Image_LptRight_Found = true;
         }
         // 长直道判断
-        if (conf > 15.0 && i < 0.8 / Image_sampleDist)
+        if (conf > 15.0 && i < 0.9 / Image_sampleDist)
         {
             Image_isStraightRight = false;
         }
@@ -752,17 +752,27 @@ void Image_FindCorners(void)
 
 /**
  * @brief 获取边线终点到起点的向量与(1, 0)的夹角
- * 
+ *
  */
 void Image_GetTurnAngle(void)
 {
-    float dx = (float)(Image_rptsLefts[0][0] - Image_rptsLefts[Image_rptsLeftsNum - 1][0]);
-    float dy = (float)(Image_rptsLefts[0][1] - Image_rptsLefts[Image_rptsLeftsNum - 1][1]);
-    Image_LeftTurnAngle = atan2f(dy, dx) * 180 / 3.1416;
-
-    dx = (float)(Image_rptsRights[0][0] - Image_rptsRights[Image_rptsRightsNum - 1][0]);
-    dy = (float)(Image_rptsRights[0][1] - Image_rptsRights[Image_rptsRightsNum - 1][1]);
-    Image_RightTurnAngle = atan2f(dy, dx) * 180 / 3.1416;
+    if (Image_LeftLine_Lost == 0)
+    {
+        float dx = (float)(Image_rptsLefts[0][0] - Image_rptsLefts[Image_rptsLeftsNum - 1][0]);
+        float dy = (float)(Image_rptsLefts[0][1] - Image_rptsLefts[Image_rptsLeftsNum - 1][1]);
+        Image_LeftTurnAngle = atan2f(dy, dx) * 180 / 3.1416;
+    }
+    else
+        Image_LeftTurnAngle = 90;
+    
+    if (Image_RightLine_Lost == 0)
+    {
+        float dx = (float)(Image_rptsRights[0][0] - Image_rptsRights[Image_rptsRightsNum - 1][0]);
+        float dy = (float)(Image_rptsRights[0][1] - Image_rptsRights[Image_rptsRightsNum - 1][1]);
+        Image_RightTurnAngle = atan2f(dy, dx) * 180 / 3.1416;
+    }
+    else
+        Image_RightTurnAngle = 90;
 }
 
 /**
@@ -775,14 +785,14 @@ void Image_DirJudge(void)
         Image_LeftDir = 1;
     else if (Image_LeftTurnAngle >= 90 + TURN_JUDGE_ANGLE)
         Image_LeftDir = 2;
-    else 
+    else
         Image_LeftDir = 0;
 
     if (Image_RightTurnAngle <= 90 - TURN_JUDGE_ANGLE)
         Image_RightDir = 1;
     else if (Image_RightTurnAngle >= 90 + TURN_JUDGE_ANGLE)
         Image_RightDir = 2;
-    else 
+    else
         Image_RightDir = 0;
 }
 
@@ -1195,6 +1205,10 @@ void Image_Process(uint8 *image)
     Image_ResamplePoints(Image_rptsLeftb, Image_rptsLeftbNum, Image_rptsLefts, &Image_rptsLeftsNum, Image_sampleDist * Image_pixelPreMeter);
     Image_rptsRightsNum = sizeof(Image_rptsRights) / sizeof(Image_rptsRights[0]);
     Image_ResamplePoints(Image_rptsRightb, Image_rptsRightbNum, Image_rptsRights, &Image_rptsRightsNum, Image_sampleDist * Image_pixelPreMeter);
+
+    //----------------------------------------
+    // 边线处理结束，开始中线提取和元素判断
+    //----------------------------------------
 
     // 判断边线是否丢失
     if (Image_rptsLeftsNum <= 6)
